@@ -350,6 +350,8 @@
     .pdf-tabs button.active { background: var(--gradient); color: #fff; }
     .pdf-actions { display: flex; flex-wrap: wrap; gap: .6rem; }
     .pdf-desc { color: var(--text-muted); font-size: .92rem; margin: 0; }
+    .pdf-share { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; font-size: .88rem; color: var(--text-muted); }
+    .pdf-share code { font-family: var(--mono); font-size: .82rem; padding: .3rem .6rem; border-radius: 8px; background: var(--surface); border: 1px solid var(--border); color: var(--text); word-break: break-all; }
     .pdf-pages { display: grid; gap: 1.2rem; justify-items: center; }
     .pdf-pages a { display: block; width: min(760px, 100%); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); background: #fff; transition: transform .25s; }
     .pdf-pages a:hover { transform: translateY(-3px); }
@@ -539,10 +541,12 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></svg>
                 Download PDF
               </a>
+              <button type="button" class="btn btn-ghost" id="pdfCopy">🔗 Copy link</button>
               <a class="btn btn-ghost" id="pdfOpen" href="resume/Rushil_Barve_Resume.pdf" target="_blank" rel="noopener">Open full size ↗</a>
             </div>
           </div>
           <p class="pdf-desc" id="pdfDesc"></p>
+          <div class="pdf-share">Share this resume: <code id="pdfLink"></code></div>
           <div class="pdf-pages" id="pdfPages"></div>
         </div>
         <details class="plain reveal">
@@ -1001,23 +1005,37 @@
   });
   // ===== PDF resume viewer =====
   const PDF_VERSIONS = [
-    { id: "general", label: "Resume", file: "resume/Rushil_Barve_Resume.pdf", pages: ["resume/general-1.jpg"], desc: "One page: projects, hackathons, Waterloo teams and leadership." },
-    { id: "coop", label: "Co-op", file: "resume/Rushil_Barve_Coop_Resume.pdf", pages: ["resume/coop-1.jpg"], desc: "One page: projects, full leadership history and certifications." },
-    { id: "hack", label: "Hackathon", file: "resume/Rushil_Barve_Hackathon_Resume.pdf", pages: ["resume/hackathon-1.jpg"], desc: "One page: project-first, with hackathon results." },
-    { id: "full", label: "Full CV", file: "resume/Rushil_Barve_Full_CV.pdf", pages: ["resume/full-cv-1.jpg", "resume/full-cv-2.jpg"], desc: "Two pages: everything, including every certificate and award." }
+    { id: "general", slug: "general", label: "Resume", file: "resume/Rushil_Barve_Resume.pdf", pages: ["resume/general-1.jpg"], desc: "One page: projects, hackathons, Waterloo teams and leadership." },
+    { id: "coop", slug: "coop", label: "Co-op", file: "resume/Rushil_Barve_Coop_Resume.pdf", pages: ["resume/coop-1.jpg"], desc: "One page: projects, full leadership history and certifications." },
+    { id: "hack", slug: "hackathon", label: "Hackathon", file: "resume/Rushil_Barve_Hackathon_Resume.pdf", pages: ["resume/hackathon-1.jpg"], desc: "One page: project-first, with hackathon results." },
+    { id: "full", slug: "full-cv", label: "Full CV", file: "resume/Rushil_Barve_Full_CV.pdf", pages: ["resume/full-cv-1.jpg", "resume/full-cv-2.jpg"], desc: "Two pages: everything, including every certificate and award." }
   ];
   (function () {
-    const tabs = $("#pdfTabs"), pages = $("#pdfPages"), desc = $("#pdfDesc"), dl = $("#pdfDownload"), open = $("#pdfOpen");
+    const tabs = $("#pdfTabs"), pages = $("#pdfPages"), desc = $("#pdfDesc"), dl = $("#pdfDownload"), open = $("#pdfOpen"), linkEl = $("#pdfLink"), copyBtn = $("#pdfCopy");
+    let current = 0;
+    const shareUrl = v => new URL("resume/" + v.slug + "/", document.baseURI).href;
     tabs.innerHTML = PDF_VERSIONS.map((v, i) => `<button role="tab" data-i="${i}" class="${i ? "" : "active"}">${esc(v.label)}</button>`).join("");
     function show(i) {
       const v = PDF_VERSIONS[i];
       $$("button", tabs).forEach((b, j) => b.classList.toggle("active", j === i));
+      current = i;
       desc.textContent = v.desc;
+      linkEl.textContent = shareUrl(v);
       dl.href = v.file; dl.setAttribute("download", v.file.split("/").pop()); open.href = v.file;
       pages.innerHTML = v.pages.map((src, n) => `<a href="${esc(v.file)}" target="_blank" rel="noopener" aria-label="Open the ${esc(v.label)} PDF"><img src="${esc(src)}" alt="${esc(v.label)} resume, page ${n + 1}" loading="lazy"></a>`).join("");
     }
     tabs.addEventListener("click", e => { const b = e.target.closest("button[data-i]"); if (b) show(+b.dataset.i); });
-    show(0);
+    copyBtn.addEventListener("click", async () => {
+      const url = shareUrl(PDF_VERSIONS[current]);
+      try { await navigator.clipboard.writeText(url); }
+      catch { const r = document.createRange(); r.selectNodeContents(linkEl); const s = getSelection(); s.removeAllRanges(); s.addRange(r); document.execCommand("copy"); }
+      copyBtn.textContent = "✓ Link copied";
+      setTimeout(() => { copyBtn.textContent = "🔗 Copy link"; }, 1800);
+    });
+    // Deep links: index.html#resume-coop opens the Co-op tab
+    const fromHash = PDF_VERSIONS.findIndex(v => location.hash === "#resume-" + v.slug);
+    show(fromHash >= 0 ? fromHash : 0);
+    if (fromHash >= 0) setTimeout(() => $("#resume").scrollIntoView(), 50);
   })();
 
     // ===== Photo lightbox for experience galleries =====
