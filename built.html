@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Maintenance mode (see site-config.js). Skipped on localhost so you can keep editing. -->
+  <script src="site-config.js"></script>
+  <script>
+    (function () {
+      var c = window.SITE_CONFIG || {};
+      var local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname) || location.protocol === "file:";
+      if (c.maintenance && !local) location.replace("maintenance.html");
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>What I've Built — Rushil Barve</title>
+  <meta name="description" content="Everything Rushil Barve has built: web apps, tools and hackathon projects." />
+  <meta name="theme-color" content="#f8fafc" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* Design tokens (same as index.html) */
+    :root {
+      --bg: #0f172a; --bg-alt: #111c33; --surface: #1e293b; --surface-2: #273449; --border: #334155;
+      --text: #e2e8f0; --text-muted: #94a3b8; --accent-1: #3b82f6; --accent-2: #8b5cf6;
+      --gradient: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      --radius: 14px; --shadow: 0 10px 30px rgba(0,0,0,.35); --nav-h: 68px;
+      --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+    }
+    [data-theme="light"] {
+      --bg: #f8fafc; --bg-alt: #eef2f7; --surface: #ffffff; --surface-2: #f1f5f9; --border: #dbe3ee;
+      --text: #0f172a; --text-muted: #526074; --shadow: 0 10px 30px rgba(15,23,42,.08);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: var(--nav-h); }
+    body { margin: 0; font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.65; -webkit-font-smoothing: antialiased; transition: background .3s, color .3s; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; }
+    ul { margin: 0; padding: 0; list-style: none; }
+    h1, h2, h3 { line-height: 1.2; margin: 0; }
+    p { margin: 0 0 1rem; }
+    svg { display: block; }
+    :focus-visible { outline: 2px solid var(--accent-1); outline-offset: 3px; border-radius: 6px; }
+    .container { width: min(1000px, 100% - 2.5rem); margin-inline: auto; }
+    .gradient-text { background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+    /* Nav */
+    .nav { position: fixed; inset: 0 0 auto 0; height: var(--nav-h); z-index: 100; display: flex; align-items: center;
+      background: color-mix(in srgb, var(--bg) 80%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); }
+    .nav .container { display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-weight: 700; }
+    .nav-actions { display: flex; align-items: center; gap: .6rem; }
+    .icon-btn { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 10px; background: var(--surface); border: 1px solid var(--border); color: var(--text); transition: border-color .2s; }
+    .icon-btn:hover { border-color: var(--accent-1); }
+    .icon-btn svg { width: 20px; height: 20px; }
+    .theme-toggle .moon { display: none; }
+    [data-theme="light"] .theme-toggle .sun { display: none; }
+    [data-theme="light"] .theme-toggle .moon { display: block; }
+
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .8rem 1.4rem; border-radius: 10px; border: 1px solid transparent; font-weight: 600; font-size: .95rem; transition: transform .2s, box-shadow .2s, border-color .2s, background .2s; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--gradient); color: #fff; box-shadow: 0 8px 22px rgba(99,102,241,.35); }
+    .btn-ghost { background: transparent; border-color: var(--border); color: var(--text); }
+    .btn-ghost:hover { border-color: var(--accent-1); background: var(--surface); }
+    .btn-sm { padding: .5rem .9rem; font-size: .85rem; border-radius: 8px; }
+
+    /* Header */
+    .page-head { padding: calc(var(--nav-h) + 4rem) 0 2rem; position: relative; overflow: hidden; }
+    .page-head::before { content: ""; position: absolute; width: 480px; height: 480px; border-radius: 50%; filter: blur(110px); opacity: .2; background: var(--accent-2); top: -160px; right: -120px; pointer-events: none; }
+    .eyebrow { font-family: var(--mono); font-size: .85rem; color: var(--accent-1); letter-spacing: .08em; text-transform: uppercase; }
+    .page-head h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); font-weight: 800; letter-spacing: -.02em; margin: .5rem 0 1rem; }
+    .page-head p { color: var(--text-muted); max-width: 640px; font-size: 1.1rem; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 2rem; }
+    .stat { text-align: center; }
+    .stat .num { font-size: 2rem; font-weight: 800; }
+    .stat .lbl { color: var(--text-muted); font-size: .85rem; }
+
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.6rem; transition: border-color .25s, box-shadow .25s; }
+    .card:hover { border-color: color-mix(in srgb, var(--accent-1) 60%, var(--border)); box-shadow: var(--shadow); }
+    .chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .chip { padding: .25rem .7rem; font-size: .8rem; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); color: var(--text-muted); font-family: var(--mono); }
+
+    section.block { padding: 3rem 0; }
+    .section-title { font-size: clamp(1.5rem, 3.5vw, 2rem); font-weight: 800; margin-bottom: 1.8rem; }
+    .section-title::after { content: ""; display: block; width: 56px; height: 4px; margin-top: .7rem; border-radius: 4px; background: var(--gradient); }
+
+    /* Build cards */
+    .builds { display: grid; gap: 1.6rem; }
+    .build { position: relative; overflow: hidden; }
+    .build::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--gradient); }
+    .build-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem; align-items: baseline; margin-bottom: .6rem; }
+    .build .kind { font-family: var(--mono); font-size: .75rem; color: var(--accent-2); text-transform: uppercase; letter-spacing: .08em; }
+    .build h3 { font-size: 1.5rem; }
+    .build .lead { color: var(--text-muted); }
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.2rem 0; }
+    .cols h4 { margin: 0 0 .5rem; font-family: var(--mono); font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent-1); }
+    .cols ul { list-style: disc; padding-left: 1.1rem; color: var(--text-muted); font-size: .95rem; }
+    .cols li { margin-bottom: .35rem; }
+    .cols li::marker { color: var(--accent-2); }
+    .build-links { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.2rem; }
+    @media (max-width: 680px) { .cols { grid-template-columns: 1fr; gap: 0; } }
+
+    /* Hackathons */
+    .hack-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+    .hack { padding: 1.1rem 1.2rem; }
+    .hack .yr { font-family: var(--mono); font-size: .78rem; color: var(--text-muted); }
+    .hack h3 { font-size: 1.02rem; margin: .2rem 0; }
+    .hack .meta { font-size: .85rem; color: var(--text-muted); }
+    .win { color: #fbbf24; font-weight: 600; }
+
+    footer { border-top: 1px solid var(--border); margin-top: 3rem; padding: 2rem 0; color: var(--text-muted); font-size: .88rem; }
+    footer .container { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; }
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+    /* ===== Project gallery + lightbox ===== */
+    .gal-h { font-family: var(--mono); font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent-1); margin: 1.4rem 0 .6rem; }
+    .gal { display: grid; gap: .7rem; }
+    .gal.two { grid-template-columns: 1fr 1fr; }
+    .gal.three { grid-template-columns: repeat(3, 1fr); }
+    .gal button { padding: 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--surface-2); cursor: zoom-in; position: relative; display: block; }
+    .gal img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; display: block; transition: transform .35s; }
+    .gal button:hover img { transform: scale(1.04); }
+    .gal .cap { position: absolute; inset: auto 0 0 0; padding: 1.6rem .7rem .5rem; font-size: .74rem; line-height: 1.3; color: #fff; text-align: left; background: linear-gradient(transparent, rgba(0,0,0,.72)); }
+    .gal.two img { aspect-ratio: 2 / 1; object-position: left top; }
+    @media (max-width: 680px) { .gal.two { grid-template-columns: 1fr; } .gal.three { grid-template-columns: 1fr 1fr; } }
+    .lb { position: fixed; inset: 0; z-index: 300; display: none; align-items: center; justify-content: center; flex-direction: column; gap: .8rem; background: rgba(8, 12, 24, .92); padding: 1rem; }
+    .lb.open { display: flex; }
+    .lb img { max-width: min(1200px, 94vw); max-height: 78vh; border-radius: 10px; box-shadow: 0 20px 60px rgba(0,0,0,.6); }
+    .lb p { color: #e2e8f0; font-size: .95rem; margin: 0; text-align: center; max-width: 760px; }
+    .lb .lb-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(255,255,255,.3); background: rgba(255,255,255,.1); color: #fff; font-size: 1.4rem; cursor: pointer; }
+    .lb .prev { left: 14px; } .lb .next { right: 14px; }
+    .lb .close { top: 18px; right: 18px; transform: none; }
+    .lb .count { color: #94a3b8; font-size: .8rem; }
+
+    /* ===== Source-code request modal ===== */
+    .rq-dialog { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text); padding: 0; width: min(480px, calc(100% - 2rem)); box-shadow: 0 30px 80px rgba(0,0,0,.5); }
+    .rq-dialog::backdrop { background: rgba(0,0,0,.6); backdrop-filter: blur(3px); }
+    .rq-form { display: grid; gap: .9rem; padding: 1.6rem; }
+    .rq-form h3 { font-size: 1.25rem; margin: 0; }
+    .rq-form .rq-sub { color: var(--text-muted); font-size: .92rem; margin: 0; }
+    .rq-form label { display: block; font-size: .82rem; font-weight: 600; margin-bottom: .3rem; }
+    .rq-form input, .rq-form textarea { width: 100%; padding: .7rem .9rem; border-radius: 10px; background: var(--bg); color: var(--text); border: 1px solid var(--border); font: inherit; }
+    .rq-form textarea { min-height: 90px; resize: vertical; }
+    .rq-form input:focus, .rq-form textarea:focus { outline: none; border-color: var(--accent-1); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-1) 25%, transparent); }
+    .rq-form .rq-invalid { border-color: #ef4444; }
+    .rq-actions { display: flex; gap: .6rem; justify-content: flex-end; flex-wrap: wrap; }
+    .rq-note { font-size: .85rem; padding: .7rem .9rem; border-radius: 10px; background: color-mix(in srgb, #22c55e 14%, transparent); border: 1px solid #22c55e; color: #22c55e; display: none; }
+    .rq-note.show { display: block; }
+    .rq-proj { color: var(--accent-1); font-weight: 600; }
+  </style>
+</head>
+
+<body>
+  <header class="nav">
+    <div class="container">
+      <a href="index.html" class="logo" aria-label="Back to portfolio">← Rushil Barve</a>
+      <div class="nav-actions">
+        <a class="btn btn-ghost btn-sm" href="index.html#contact">Contact</a>
+        </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-head">
+      <div class="container">
+        <div class="eyebrow">// portfolio / built</div>
+        <h1>What I've <span class="gradient-text">built</span></h1>
+        <p>Web apps, tools and hackathon projects — what each one does, why I made it, and how it's put together.</p>
+        <div class="stats">
+          <div class="card stat"><div class="num gradient-text">4</div><div class="lbl">Projects shipped</div></div>
+          <div class="card stat"><div class="num gradient-text">8</div><div class="lbl">Hackathons</div></div>
+          <div class="card stat"><div class="num gradient-text">5</div><div class="lbl">Hackathon wins</div></div>
+          <div class="card stat"><div class="num gradient-text">3</div><div class="lbl">Languages across projects</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="container">
+        <h2 class="section-title">Projects</h2>
+        <div class="builds">
+
+          <article class="card build reveal" id="circuitguard">
+            <div class="build-top"><span class="kind">AI · Hackathon Winner</span><span class="chip">Python</span></div>
+            <h3>CircuitGuard</h3>
+            <p class="lead">A real-time safety system for Formula 1 that cuts the delay in race-control decisions. Winner of the Ampere "AI for Motor Safety" prize at FormulaTech Hacks 2026, built with a team of four.</p>
+            <div class="cols">
+              <div>
+                <h4>What it does</h4>
+                <ul>
+                  <li>Reads live driver telemetry to spot crashes and stopped cars at or near the racing line</li>
+                  <li>Judges severity and suggests the right call (safety car, VSC, red flag) from the 2026 FIA sporting regulations</li>
+                  <li>Alerts following drivers almost immediately</li>
+                  <li>Scores spectator and driver risk per track section to support fairer, section-based insurance premiums</li>
+                </ul>
+              </div>
+              <div>
+                <h4>How it's built</h4>
+                <ul>
+                  <li>Python/FastAPI backend on the OpenF1 API, with NumPy and Pandas</li>
+                  <li>Bayesian Monte Carlo insurance-pricing model and a real-time telemetry anomaly detector</li>
+                  <li>sentence-transformers + FAISS semantic search over the FIA regulations; faster-whisper for radio transcription</li>
+                  <li>Next.js/React frontend with react-three-fiber for a 3D track view</li>
+                </ul>
+              </div>
+            </div>
+            <div id="cgGallery"></div>
+            <div class="chips"><span class="chip">Python</span><span class="chip">FastAPI</span><span class="chip">React</span><span class="chip">Three.js</span><span class="chip">FAISS</span><span class="chip">OpenF1 API</span></div>
+            <div class="build-links"><a class="btn btn-primary btn-sm" href="https://devpost.com/software/fia-assist" target="_blank" rel="noopener">View on Devpost ↗</a><button class="btn btn-ghost btn-sm" data-request="CircuitGuard">🔒 Request source code</button></div>
+          </article>
+
+          <article class="card build reveal">
+            <div class="build-top"><span class="kind">Web App · Model UN</span><span class="chip">TypeScript</span></div>
+            <h3>MUN Chair Toolkit</h3>
+            <p class="lead">A local-first committee-management app for Model UN chairs and vice-chairs, replacing paper roll calls and hand-counted votes.</p>
+            <div class="cols">
+              <div>
+                <h4>What it does</h4>
+                <ul>
+                  <li>Committee and agenda setup</li>
+                  <li>Single or bulk delegation entry (one country per line)</li>
+                  <li>Roll call with Present, Present and Voting, and Absent</li>
+                  <li>Automatic quorum, simple-majority and two-thirds calculations</li>
+                </ul>
+              </div>
+              <div>
+                <h4>How it's built</h4>
+                <ul>
+                  <li>Rules kept in framework-free functions (<code>src/lib/rules.ts</code>) with automated tests, separate from the UI</li>
+                  <li>GitHub Actions workflow runs checks</li>
+                  <li>All data stored in-browser with IndexedDB, so it works offline with no account or backend</li>
+                </ul>
+              </div>
+            </div>
+            <div class="chips"><span class="chip">React</span><span class="chip">Vite</span><span class="chip">Tailwind CSS</span><span class="chip">Zustand</span><span class="chip">Dexie (IndexedDB)</span></div>
+            <div class="build-links"><button class="btn btn-primary btn-sm" data-request="MUN Chair Toolkit">🔒 Request source code</button></div>
+          </article>
+
+          <article class="card build reveal">
+            <div class="build-top"><span class="kind">Self-hosted · Finance</span><span class="chip">Python</span></div>
+            <h3>Track Nector</h3>
+            <p class="lead">A lightweight personal finance tracker for card balances and daily spending, designed so your financial data never leaves your hands.</p>
+            <div class="cols">
+              <div>
+                <h4>What it does</h4>
+                <ul>
+                  <li>Tracks card balances and daily spending</li>
+                  <li>Shows available funds and expense history at a glance</li>
+                </ul>
+              </div>
+              <div>
+                <h4>How it's built</h4>
+                <ul>
+                  <li>Manual entry by design: no bank account linking, to keep data private</li>
+                  <li>Account logic written in Python (<code>bank_account.py</code>)</li>
+                  <li>Render deployment config included; 11 commits</li>
+                </ul>
+              </div>
+            </div>
+            <div class="chips"><span class="chip">Python</span><span class="chip">HTML</span><span class="chip">JSON</span><span class="chip">Render</span></div>
+            <div class="build-links"><button class="btn btn-primary btn-sm" data-request="Track Nector">🔒 Request source code</button></div>
+          </article>
+
+          <article class="card build reveal">
+            <div class="build-top"><span class="kind">Front-End · Website</span><span class="chip">JavaScript</span></div>
+            <h3>Corso Website</h3>
+            <p class="lead">A responsive marketing site for a training-courses and workshops business.</p>
+            <div class="cols">
+              <div>
+                <h4>What it does</h4>
+                <ul>
+                  <li>Sticky navbar that changes style on scroll</li>
+                  <li>Image carousel</li>
+                  <li>Registration and email-subscribe forms</li>
+                </ul>
+              </div>
+              <div>
+                <h4>How it's built</h4>
+                <ul>
+                  <li>Bootstrap layout, fully responsive</li>
+                  <li>Styles compiled from Sass using npm scripts for build and watch</li>
+                </ul>
+              </div>
+            </div>
+            <div class="chips"><span class="chip">HTML</span><span class="chip">Bootstrap</span><span class="chip">Sass</span><span class="chip">JavaScript</span></div>
+            <div class="build-links"><button class="btn btn-primary btn-sm" data-request="Corso Website">🔒 Request source code</button></div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="container">
+        <h2 class="section-title">Hackathons</h2>
+        <div class="hack-grid" id="hackGrid"></div>
+        <p style="margin-top:1.2rem;color:var(--text-muted);font-size:.9rem">More on <a href="https://devpost.com/Rsk0110" target="_blank" rel="noopener" style="color:var(--accent-1)">Devpost ↗</a></p>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="container" style="text-align:center">
+        <h2 class="section-title" style="display:inline-block">Want to build something together?</h2>
+        <div class="build-links" style="justify-content:center">
+          <a class="btn btn-primary" href="index.html#contact">Get in touch</a>
+          <a class="btn btn-ghost" href="https://github.com/Rsk0110" target="_blank" rel="noopener">All repos on GitHub ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© <span id="year"></span> Rushil Barve</span>
+      <span><a href="index.html">Portfolio</a> · <a href="https://github.com/Rsk0110" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/rushil0110/" target="_blank" rel="noopener">LinkedIn</a></span>
+    </div>
+  </footer>
+
+  <!-- Source-code request modal: source is shared only after the visitor emails a request -->
+  <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="lb-btn close" id="lbClose" aria-label="Close">✕</button>
+    <button class="lb-btn prev" id="lbPrev" aria-label="Previous image">‹</button>
+    <img id="lbImg" alt="" />
+    <p id="lbCap"></p><span class="count" id="lbCount"></span>
+    <button class="lb-btn next" id="lbNext" aria-label="Next image">›</button>
+  </div>
+
+  <dialog class="rq-dialog" id="rqDialog" aria-labelledby="rqTitle">
+    <form class="rq-form" id="rqForm" method="dialog" novalidate>
+      <h3 id="rqTitle">Request source code</h3>
+      <p class="rq-sub">Source for <span class="rq-proj" id="rqProj"></span> is private. Send me a quick email and I'll share access.</p>
+      <div><label for="rqName">Your name</label><input id="rqName" autocomplete="name" required /></div>
+      <div><label for="rqEmail">Your email</label><input id="rqEmail" type="email" autocomplete="email" required /></div>
+      <div><label for="rqWhy">Why do you want to see it? <span style="font-weight:400;color:var(--text-muted)">(optional)</span></label><textarea id="rqWhy" placeholder="e.g. I'm a recruiter at… / I'd like to review the architecture."></textarea></div>
+      <div class="rq-note" id="rqNote" role="status">Your email app should have opened with the request ready to send. If not, write to <a href="mailto:s2rkv0110@gmail.com" style="text-decoration:underline">s2rkv0110@gmail.com</a>.</div>
+      <div class="rq-actions">
+        <button type="button" class="btn btn-ghost btn-sm" id="rqCancel">Close</button>
+        <button type="submit" class="btn btn-primary btn-sm">Email request</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script>
+    // Hackathon list — edit here
+    const HACKS = [
+      { name: "FormulaTech Hacks", yr: "2026", meta: "University of Waterloo", win: true },
+      { name: "RevenueCat Shipaton", yr: "2026", meta: "Online" },
+      { name: "OpenCV AI Competition", yr: "2026", meta: "Powered by AWS" },
+      { name: "Nebius x NVIDIA Global AI Hackathon", yr: "2026", meta: "Online" },
+      { name: "IBM BOB 2.0 Hackathon", yr: "2026", meta: "Online" },
+      { name: "DPS MIS Doha Hackathon", yr: "2025", meta: "Qatar" },
+      { name: "Birla School Hackathon", yr: "2024", meta: "Qatar" },
+      { name: "CMU Qatar Hackathon", yr: "2023", meta: "Qatar" }
+    ];
+    const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    document.getElementById("hackGrid").innerHTML = HACKS.map(h => `
+      <div class="card hack reveal"><div class="yr">${esc(h.yr)}</div><h3>${esc(h.name)}</h3>
+      <div class="meta">${esc(h.meta)}${h.win ? ' · <span class="win">★ Winner</span>' : ""}</div></div>`).join("");
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Theme (shares the "theme" key with index.html)
+    const root = document.documentElement;
+    const store = { get(k) { try { return localStorage.getItem(k); } catch { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch {} } };
+    const setTheme = t => { root.setAttribute("data-theme", t); document.querySelector('meta[name="theme-color"]').content = t === "dark" ? "#0f172a" : "#f8fafc"; store.set("theme", t); };
+    setTheme("light");   // light mode only
+
+    // Scroll reveal
+    const io = new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); o.unobserve(e.target); } }), { threshold: .1 });
+    document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+    // ===== CircuitGuard gallery + lightbox =====
+    (function () {
+      var D = "images/circuitguard/";
+      var GROUPS = [
+        { title: "The product", cls: "two", items: [
+          { f: "cg-product-monza.jpg", c: "Race control view: replaying a real incident at Autodromo Nazionale Monza" },
+          { f: "cg-product-montreal.jpg", c: "Insurance view: incident hotspots around Circuit Gilles Villeneuve" } ] },
+        { title: "At FormulaTech Hacks 2026", cls: "three", items: [
+          { f: "cg-01-winners-slide.jpg", c: "Winners announcement for the Ampere track: AI for Motorsport Safety" },
+          { f: "cg-02-demo-gilles-villeneuve.jpg", c: "Live demo: Circuit Gilles Villeneuve" },
+          { f: "cg-03-demo-monza.jpg", c: "Live demo: Autodromo Nazionale Monza" },
+          { f: "cg-04-presenting.jpg", c: "Presenting the demo" },
+          { f: "cg-05-building.jpg", c: "Building during the hackathon" },
+          { f: "cg-06-team-working.jpg", c: "The team at work" },
+          { f: "cg-07-f1-trivia.jpg", c: "Formula 1 trivia on the venue screens" } ] }
+      ];
+      var all = [], host = document.getElementById("cgGallery"), html = "";
+      GROUPS.forEach(function (g) {
+        html += '<div class="gal-h">' + g.title + '</div><div class="gal ' + g.cls + '">';
+        g.items.forEach(function (it) {
+          var i = all.push(it) - 1;
+          html += '<button type="button" data-i="' + i + '" aria-label="Enlarge: ' + it.c.replace(/"/g, "") + '"><img loading="lazy" src="' + D + it.f + '" alt="' + it.c.replace(/"/g, "") + '"><span class="cap">' + it.c + '</span></button>';
+        });
+        html += "</div>";
+      });
+      host.innerHTML = html;
+      var lb = document.getElementById("lb"), img = document.getElementById("lbImg"), cap = document.getElementById("lbCap"), cnt = document.getElementById("lbCount"), cur = 0;
+      function show(i) { cur = (i + all.length) % all.length; img.src = D + all[cur].f; img.alt = all[cur].c; cap.textContent = all[cur].c; cnt.textContent = (cur + 1) + " / " + all.length; }
+      function open(i) { show(i); lb.classList.add("open"); document.body.style.overflow = "hidden"; }
+      function close() { lb.classList.remove("open"); document.body.style.overflow = ""; }
+      host.addEventListener("click", function (e) { var b = e.target.closest("button[data-i]"); if (b) open(+b.dataset.i); });
+      document.getElementById("lbClose").onclick = close;
+      document.getElementById("lbPrev").onclick = function () { show(cur - 1); };
+      document.getElementById("lbNext").onclick = function () { show(cur + 1); };
+      lb.addEventListener("click", function (e) { if (e.target === lb) close(); });
+      document.addEventListener("keydown", function (e) {
+        if (!lb.classList.contains("open")) return;
+        if (e.key === "Escape") close(); else if (e.key === "ArrowLeft") show(cur - 1); else if (e.key === "ArrowRight") show(cur + 1);
+      });
+    })();
+
+    // ===== Source-code request flow =====
+    // Buttons with data-request="<Project name>" open the dialog; submitting opens a pre-filled
+    // email to the owner. Source links are intentionally NOT in this page.
+    (function () {
+      const OWNER_EMAIL = "s2rkv0110@gmail.com";
+      // Paste your Formspree URL here (e.g. "https://formspree.io/f/xxxxxxx") to receive requests as
+      // emails in your inbox. Leave empty to fall back to the visitor's email app (mailto).
+      const REQUEST_ENDPOINT = "";
+      const dlg = document.getElementById("rqDialog"), form = document.getElementById("rqForm");
+      const proj = document.getElementById("rqProj"), note = document.getElementById("rqNote");
+      let current = "";
+      document.addEventListener("click", e => {
+        const b = e.target.closest("[data-request]"); if (!b) return;
+        current = b.dataset.request; proj.textContent = current; note.classList.remove("show");
+        if (dlg.showModal) dlg.showModal(); else dlg.setAttribute("open", "");
+        document.getElementById("rqName").focus();
+      });
+      document.getElementById("rqCancel").addEventListener("click", () => dlg.close());
+      dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });   // click on backdrop
+      form.addEventListener("submit", async e => {
+        e.preventDefault();
+        const name = document.getElementById("rqName"), email = document.getElementById("rqEmail"), why = document.getElementById("rqWhy");
+        const okName = name.value.trim().length > 1, okEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
+        name.classList.toggle("rq-invalid", !okName); email.classList.toggle("rq-invalid", !okEmail);
+        if (!okName || !okEmail) return;
+
+        const data = { project: current, name: name.value.trim(), email: email.value.trim(), reason: why.value.trim() || "(not given)" };
+        const subject = `Source code request: ${data.project}`;
+        const submit = form.querySelector('[type="submit"]'); submit.disabled = true;
+        try {
+          if (REQUEST_ENDPOINT) {
+            // Delivered straight to the owner's inbox (Formspree: _subject sets the email subject,
+            // _replyto lets the owner hit "Reply" to answer the visitor directly).
+            const res = await fetch(REQUEST_ENDPOINT, {
+              method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({ _subject: subject, _replyto: data.email, ...data })
+            });
+            if (!res.ok) throw new Error("failed");
+            note.textContent = `Request for "${data.project}" sent. I'll reply to ${data.email} soon.`;
+            form.reset();
+          } else {
+            // No endpoint configured: fall back to the visitor's own email app.
+            const body = `Hi Rushil,\n\nI'd like to view the source code for the project below.\n\nProject: ${data.project}\nName: ${data.name}\nEmail: ${data.email}\nReason: ${data.reason}\n\nThanks!`;
+            location.href = `mailto:${OWNER_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            note.textContent = `Your email app should have opened with the request for "${data.project}" ready to send. If not, write to ${OWNER_EMAIL}.`;
+          }
+          note.classList.add("show");
+        } catch {
+          note.textContent = `Couldn't send the request. Please email ${OWNER_EMAIL} and mention "${data.project}".`;
+          note.classList.add("show");
+        } finally { submit.disabled = false; }
+      });
+    })();
+  </script>
+</body>
+</html>

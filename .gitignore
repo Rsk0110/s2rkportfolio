@@ -1,0 +1,8 @@
+# Editable resume sources: private, never publish
+resumes/
+
+# Local tooling
+.claude/
+*.tmp
+Thumbs.db
+desktop.ini
