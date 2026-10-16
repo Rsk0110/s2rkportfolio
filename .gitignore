@@ -6,3 +6,6 @@ resumes/
 *.tmp
 Thumbs.db
 desktop.ini
+
+# Local memory for the automatic portfolio sync
+tools/portfolio-sync-state.json

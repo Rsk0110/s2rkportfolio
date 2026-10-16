@@ -49,9 +49,18 @@ def file_url(path):
     return "file:///" + os.path.abspath(path).replace("\\", "/")
 
 
-def run(exe, *args):
-    subprocess.run([exe, "--headless=new", "--disable-gpu", "--no-pdf-header-footer",
-                    "--virtual-time-budget=20000", *args], capture_output=True, timeout=180)
+def run(exe, *args, out=None):
+    # A throwaway profile keeps headless runs independent of any open browser window.
+    profile = tempfile.mkdtemp(prefix="resume-browser-")
+    try:
+        for _ in range(3):
+            subprocess.run([exe, "--headless=new", "--disable-gpu", "--no-pdf-header-footer", "--no-first-run",
+                            f"--user-data-dir={profile}", "--virtual-time-budget=20000", *args],
+                           capture_output=True, timeout=180)
+            if out is None or os.path.exists(out):
+                return
+    finally:
+        shutil.rmtree(profile, ignore_errors=True)
 
 
 def main():
@@ -67,7 +76,7 @@ def main():
 
             # 1. PDF
             pdf = os.path.join(tmp, name + ".pdf")
-            run(exe, f"--print-to-pdf={pdf}", file_url(src))
+            run(exe, f"--print-to-pdf={pdf}", file_url(src), out=pdf)
             if not os.path.exists(pdf):
                 sys.exit(f"Failed to create the PDF for {name}.")
             shutil.copy(pdf, os.path.join(SITE, name + ".pdf"))
@@ -81,7 +90,7 @@ def main():
                 f.write(html)
             png = os.path.join(tmp, name + ".png")
             run(exe, "--hide-scrollbars", "--force-device-scale-factor=2",
-                f"--window-size=794,{1123 * pages}", f"--screenshot={png}", file_url(page_html))
+                f"--window-size=794,{1123 * pages}", f"--screenshot={png}", file_url(page_html), out=png)
             im = Image.open(png).convert("RGB")
             w, h = im.size
             for i in range(pages):

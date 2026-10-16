@@ -719,9 +719,18 @@
     { title: "CircuitGuard", kind: "AI · Hackathon", cat: "AI", award: "Winner · Ampere, AI for Motor Safety",
       desc: "Real-time Formula 1 safety system built at FormulaTech Hacks 2026. Analyses live driver telemetry to detect crashes and stopped cars on the racing line, recommends the FIA response (safety car, VSC or red flag) under the 2026 sporting regulations and alerts following drivers. Also models per-sector spectator risk and insurance premiums.",
       tags: ["Python", "FastAPI", "React", "Three.js", "FAISS", "OpenF1"], img: "images/circuitguard/cg-product-monza.jpg", devpost: "https://devpost.com/software/fia-assist" },
+    { title: "Whisper Chain", kind: "Game · Godot", cat: "Games",
+      desc: "Puzzle game about passing a message through a village of gossips: each villager garbles it (reverse, swap, double, drop a word) and you pick a route so the distortions cancel. It is function composition in disguise. A graph solver checks all 10 levels and powers live hints; ~3,000 lines of GDScript with ~1,500 test assertions and CI.",
+      tags: ["Godot 4", "GDScript", "Graph search", "Unit testing", "GitHub Actions"], img: "images/whisper-chain/wc-gameplay.jpg", link: "built.html#whisper-chain" },
     { title: "MUN Chair Toolkit", kind: "Web App", cat: "Web",
       desc: "Local-first app for Model UN chairs: committee and agenda setup, bulk delegation entry, roll call, and automated quorum, simple-majority and two-thirds calculations. Rules live in framework-free, tested functions; runs offline via IndexedDB with no account or backend.",
-      tags: ["TypeScript", "React", "Vite", "Tailwind CSS", "Zustand", "Dexie"] },
+      tags: ["TypeScript", "React", "Vite", "Tailwind CSS", "Zustand", "Dexie"], live: "https://rsk0110.github.io/MUN-Community-toolkit/" },
+    { title: "Door Occupancy Counter", kind: "Prototype · In progress", cat: "Python",
+      desc: "Counts people going in and out of a building's doors from two-beam sensor events, so the building always knows how many people are inside. Live dashboard, SQLite event log, automatic daily Excel reports, and a sensor simulator with edge cases (turning back, tailgating, held doors) so it is testable before any hardware.",
+      tags: ["Python", "SQLite", "JavaScript", "Unit testing"] },
+    { title: "Continental Smash", kind: "Game Jam", cat: "Games", award: "UW Game Jam Fall 2026",
+      desc: "Local two-player game for the UW Game Jam (theme: Drift): drifting continents ram each other to raise mountains and shove the rival into an ocean trench. Custom shaders for the planet, ocean, terrain and clouds, a narrated cinematic intro and particle impact effects.",
+      tags: ["Godot 4", "GDScript", "GLSL shaders"] },
     { title: "Track Nector", kind: "Python App", cat: "Python",
       desc: "Self-hosted personal finance tracker for card balances and daily spending, built around manual entry so no bank account is linked and financial data stays private. Deployed with Render.",
       tags: ["Python", "HTML", "JSON", "Render"] },
@@ -761,8 +770,8 @@
   ];
 
   const SKILLS = [
-    { cat: "Languages", ico: "</>", items: ["Python", "JavaScript", "TypeScript", "C", "Racket", "HTML/CSS"] },
-    { cat: "Web Frameworks", ico: "{ }", items: ["React", "Vite", "Tailwind CSS", "Bootstrap", "Zustand"] },
+    { cat: "Languages", ico: "</>", items: ["Python", "JavaScript", "TypeScript", "GDScript", "C", "SQL", "Racket", "HTML/CSS"] },
+    { cat: "Frameworks & Engines", ico: "{ }", items: ["React", "Vite", "Tailwind CSS", "FastAPI", "Godot 4", "Bootstrap", "Zustand"] },
     { cat: "Tools & Platforms", ico: ">_", items: ["Git & GitHub", "GitHub Actions", "IndexedDB (Dexie)", "Sass", "npm", "Render"] },
     { cat: "Core Concepts", ico: "∑", items: ["Algorithms", "Data Structures", "Computational Math", "Offline-first apps", "Testing", "Public Speaking", "Team Leadership"] }
   ];
@@ -798,12 +807,13 @@
   $("#filters").innerHTML = cats.map((c, i) => `<button class="filter-btn${i ? "" : " active"}" data-cat="${esc(c)}">${esc(c)}</button>`).join("");
   $("#projectGrid").innerHTML = PROJECTS.map(p => `
     <article class="card project reveal" data-cat="${esc(p.cat)}">
-      ${p.img ? `<a class="cover" href="built.html#circuitguard" aria-label="See photos and screenshots of ${esc(p.title)}"><img loading="lazy" src="${esc(p.img)}" alt="${esc(p.title)} screenshot"></a>` : ""}
+      ${p.img ? `<a class="cover" href="${esc(p.link || "built.html#circuitguard")}" aria-label="See photos and screenshots of ${esc(p.title)}"><img loading="lazy" src="${esc(p.img)}" alt="${esc(p.title)} screenshot"></a>` : ""}
       <div class="tag-row"><span class="kind">${esc(p.kind)}</span>${p.award ? `<span class="award">★ ${esc(p.award)}</span>` : ""}</div>
       <h3>${esc(p.title)}</h3>
       <p>${esc(p.desc)}</p>
       <div class="chips">${p.tags.map(t => `<span class="chip">${esc(t)}</span>`).join("")}</div>
       <div class="project-links">
+        ${p.link ? `<a class="btn btn-primary btn-sm" href="${esc(p.link)}">Details & screenshots</a>` : ""}
         ${p.devpost ? `<a class="btn btn-primary btn-sm" href="${esc(p.devpost)}" target="_blank" rel="noopener">Devpost ↗</a>` : ""}
         ${p.live ? `<a class="btn btn-primary btn-sm" href="${esc(p.live)}" target="_blank" rel="noopener">Live Demo ↗</a>` : ""}
         <button class="btn btn-ghost btn-sm" data-request="${esc(p.title)}">🔒 Request source</button>

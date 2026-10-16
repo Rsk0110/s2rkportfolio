@@ -137,6 +137,7 @@
     .lb .prev { left: 14px; } .lb .next { right: 14px; }
     .lb .close { top: 18px; right: 18px; transform: none; }
     .lb .count { color: #94a3b8; font-size: .8rem; }
+    .lb.solo .prev, .lb.solo .next { display: none; }
 
     /* ===== Source-code request modal ===== */
     .rq-dialog { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text); padding: 0; width: min(480px, calc(100% - 2rem)); box-shadow: 0 30px 80px rgba(0,0,0,.5); }
@@ -173,10 +174,10 @@
         <h1>What I've <span class="gradient-text">built</span></h1>
         <p>Web apps, tools and hackathon projects — what each one does, why I made it, and how it's put together.</p>
         <div class="stats">
-          <div class="card stat"><div class="num gradient-text">4</div><div class="lbl">Projects shipped</div></div>
+          <div class="card stat"><div class="num gradient-text">7</div><div class="lbl">Projects built</div></div>
           <div class="card stat"><div class="num gradient-text">8</div><div class="lbl">Hackathons</div></div>
           <div class="card stat"><div class="num gradient-text">5</div><div class="lbl">Hackathon wins</div></div>
-          <div class="card stat"><div class="num gradient-text">3</div><div class="lbl">Languages across projects</div></div>
+          <div class="card stat"><div class="num gradient-text">2</div><div class="lbl">Games shipped</div></div>
         </div>
       </div>
     </section>
@@ -215,6 +216,87 @@
             <div class="build-links"><a class="btn btn-primary btn-sm" href="https://devpost.com/software/fia-assist" target="_blank" rel="noopener">View on Devpost ↗</a><button class="btn btn-ghost btn-sm" data-request="CircuitGuard">🔒 Request source code</button></div>
           </article>
 
+          <article class="card build reveal" id="whisper-chain">
+            <div class="build-top"><span class="kind">Game · Godot</span><span class="chip">GDScript</span></div>
+            <h3>Whisper Chain</h3>
+            <p class="lead">A puzzle game about passing a message through a village of gossips. Every villager garbles it in their own way, and you choose a route so the distortions cancel out and the castle hears it exactly right.</p>
+            <div class="cols">
+              <div>
+                <h4>What it does</h4>
+                <ul>
+                  <li>10 hand-designed levels: route-finding first, then rewriting the message by working backwards from the castle</li>
+                  <li>Teaches function composition by play: some villagers undo themselves, others only undo each other, and order matters</li>
+                  <li>Three stars per level, live hints, multiple solutions to discover, saved progress</li>
+                  <li>Every villager has a synthesized voice; all art is drawn in code</li>
+                </ul>
+              </div>
+              <div>
+                <h4>How it's built</h4>
+                <ul>
+                  <li>~3,000 lines of GDScript; pure game logic in <code>core/</code>, separate from the UI</li>
+                  <li>Graph solver (DFS over simple paths) finds every correct route, sets par and drives the hints</li>
+                  <li>~1,500 test assertions, including randomized property tests for the algebra the puzzles rely on</li>
+                  <li>GitHub Actions CI runs the tests and builds web and Windows exports</li>
+                </ul>
+              </div>
+            </div>
+            <div class="gal-h">Screenshots</div>
+            <div class="gal two" id="wcGallery"></div>
+            <div class="chips" style="margin-top:1rem"><span class="chip">Godot 4</span><span class="chip">GDScript</span><span class="chip">Graph search</span><span class="chip">Property testing</span><span class="chip">GitHub Actions</span></div>
+            <div class="build-links"><button class="btn btn-primary btn-sm" data-request="Whisper Chain">🔒 Request source code</button></div>
+          </article>
+
+          <article class="card build reveal" id="occupancy-counter">
+            <div class="build-top"><span class="kind">Prototype · In progress</span><span class="chip">Python</span></div>
+            <h3>Door Occupancy Counter</h3>
+            <p class="lead">Counts people going in and out of a building's doors so it always knows how many people are inside, with nobody having to log anything by hand.</p>
+            <div class="cols">
+              <div>
+                <h4>What it does</h4>
+                <ul>
+                  <li>Live headcount plus ins and outs per door</li>
+                  <li>Live dashboard with an event log and controls for tricky cases</li>
+                  <li>Daily Excel reports (summary, hourly, events) saved automatically, optionally to a shared folder</li>
+                </ul>
+              </div>
+              <div>
+                <h4>How it's built</h4>
+                <ul>
+                  <li>Direction comes from which of two beams breaks first, with handling for turning back, tailgating and held doors</li>
+                  <li>Python with no external libraries: SQLite event log, a small web server and a hand-written Excel writer</li>
+                  <li>A sensor simulator stands in for hardware, so the whole system is tested before any sensors are installed</li>
+                </ul>
+              </div>
+            </div>
+            <div class="chips"><span class="chip">Python</span><span class="chip">SQLite</span><span class="chip">JavaScript</span><span class="chip">Unit testing</span></div>
+            <div class="build-links"><button class="btn btn-primary btn-sm" data-request="Door Occupancy Counter">🔒 Request source code</button></div>
+          </article>
+
+          <article class="card build reveal" id="continental-smash">
+            <div class="build-top"><span class="kind">Game Jam · UW Game Jam Fall 2026</span><span class="chip">Godot</span></div>
+            <h3>Continental Smash</h3>
+            <p class="lead">A local two-player game made for the UW Game Jam (theme: Drift). Two continents drift across the ocean: ram your rival to raise mountains, then shove them into the ocean trench.</p>
+            <div class="cols">
+              <div>
+                <h4>What it does</h4>
+                <ul>
+                  <li>Two players on one keyboard or gamepads, with dashes, rounds and a volcano power-up</li>
+                  <li>Narrated cinematic intro: Pangaea splits apart before the match begins</li>
+                </ul>
+              </div>
+              <div>
+                <h4>How it's built</h4>
+                <ul>
+                  <li>Custom shaders for the starfield, planet, ocean, terrain, clouds and shockwaves</li>
+                  <li>Particle impact effects, screen shake and hit-stop; every rule and effect is tunable from the Godot Inspector</li>
+                </ul>
+              </div>
+            </div>
+            <div class="chips"><span class="chip">Godot 4</span><span class="chip">GDScript</span><span class="chip">GLSL shaders</span></div>
+            <div class="build-links"><button class="btn btn-primary btn-sm" data-request="Continental Smash">🔒 Request source code</button></div>
+          </article>
+
+
           <article class="card build reveal">
             <div class="build-top"><span class="kind">Web App · Model UN</span><span class="chip">TypeScript</span></div>
             <h3>MUN Chair Toolkit</h3>
@@ -239,7 +321,7 @@
               </div>
             </div>
             <div class="chips"><span class="chip">React</span><span class="chip">Vite</span><span class="chip">Tailwind CSS</span><span class="chip">Zustand</span><span class="chip">Dexie (IndexedDB)</span></div>
-            <div class="build-links"><button class="btn btn-primary btn-sm" data-request="MUN Chair Toolkit">🔒 Request source code</button></div>
+            <div class="build-links"><a class="btn btn-primary btn-sm" href="https://rsk0110.github.io/MUN-Community-toolkit/" target="_blank" rel="noopener">Try the live app ↗</a><button class="btn btn-ghost btn-sm" data-request="MUN Chair Toolkit">🔒 Request source code</button></div>
           </article>
 
           <article class="card build reveal">
@@ -374,6 +456,25 @@
     // Scroll reveal
     const io = new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); o.unobserve(e.target); } }), { threshold: .1 });
     document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+    // ===== Whisper Chain screenshots (reuse the lightbox) =====
+    (function () {
+      var D = "images/whisper-chain/", items = [
+        { f: "wc-demo.gif", c: "A message passing through two bards, an echo and a mumbler" },
+        { f: "wc-gameplay.jpg", c: "Building a route through the village" },
+        { f: "wc-title.jpg", c: "Title screen" },
+        { f: "wc-levels.jpg", c: "Level select with stars" },
+        { f: "wc-new-villager.jpg", c: "Introducing a new villager" },
+        { f: "wc-results.jpg", c: "Results card" } ];
+      var host = document.getElementById("wcGallery");
+      host.innerHTML = items.map(function (it, i) { return '<button type="button" data-wc="' + i + '" aria-label="Enlarge: ' + it.c + '"><img loading="lazy" src="' + D + it.f + '" alt="' + it.c + '"><span class="cap">' + it.c + '</span></button>'; }).join("");
+      var lb = document.getElementById("lb"), img = document.getElementById("lbImg"), cap = document.getElementById("lbCap"), cnt = document.getElementById("lbCount");
+      host.addEventListener("click", function (e) {
+        var b = e.target.closest("button[data-wc]"); if (!b) return;
+        var i = +b.dataset.wc; img.src = D + items[i].f; img.alt = items[i].c; cap.textContent = items[i].c; cnt.textContent = "";
+        lb.classList.add("open", "solo"); document.body.style.overflow = "hidden";
+      });
+    })();
+
     // ===== CircuitGuard gallery + lightbox =====
     (function () {
       var D = "images/circuitguard/";
@@ -402,7 +503,7 @@
       host.innerHTML = html;
       var lb = document.getElementById("lb"), img = document.getElementById("lbImg"), cap = document.getElementById("lbCap"), cnt = document.getElementById("lbCount"), cur = 0;
       function show(i) { cur = (i + all.length) % all.length; img.src = D + all[cur].f; img.alt = all[cur].c; cap.textContent = all[cur].c; cnt.textContent = (cur + 1) + " / " + all.length; }
-      function open(i) { show(i); lb.classList.add("open"); document.body.style.overflow = "hidden"; }
+      function open(i) { show(i); lb.classList.remove("solo"); lb.classList.add("open"); document.body.style.overflow = "hidden"; }
       function close() { lb.classList.remove("open"); document.body.style.overflow = ""; }
       host.addEventListener("click", function (e) { var b = e.target.closest("button[data-i]"); if (b) open(+b.dataset.i); });
       document.getElementById("lbClose").onclick = close;
@@ -411,6 +512,7 @@
       lb.addEventListener("click", function (e) { if (e.target === lb) close(); });
       document.addEventListener("keydown", function (e) {
         if (!lb.classList.contains("open")) return;
+        if (lb.classList.contains("solo") && e.key !== "Escape") return;
         if (e.key === "Escape") close(); else if (e.key === "ArrowLeft") show(cur - 1); else if (e.key === "ArrowRight") show(cur + 1);
       });
     })();
