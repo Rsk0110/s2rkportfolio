@@ -170,6 +170,7 @@ PROJECTS = [
     dict(key='corso', title='Corso Website', stack='HTML · Bootstrap · Sass · JavaScript',
          sub='First web project, from a web design course', bullets=[
             'Responsive site for courses and workshops: sticky navbar that changes on scroll, image carousel, registration and email-subscribe forms.',
+            'Later cleaned up the course design myself: working forms with validation, accessibility fixes, ~70% smaller images; live at rsk0110.github.io/webproject.',
             'Compiled styles from Sass with npm scripts for build and watch.']),
 ]
 
