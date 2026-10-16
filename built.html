@@ -138,6 +138,7 @@
     .lb .close { top: 18px; right: 18px; transform: none; }
     .lb .count { color: #94a3b8; font-size: .8rem; }
     .lb.solo .prev, .lb.solo .next { display: none; }
+    [data-gallery] { margin-bottom: 1rem; }
 
     /* ===== Source-code request modal ===== */
     .rq-dialog { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text); padding: 0; width: min(480px, calc(100% - 2rem)); box-shadow: 0 30px 80px rgba(0,0,0,.5); }
@@ -211,7 +212,7 @@
                 </ul>
               </div>
             </div>
-            <div id="cgGallery"></div>
+            <div id="cgGallery" data-gallery="circuitguard"></div>
             <div class="chips"><span class="chip">Python</span><span class="chip">FastAPI</span><span class="chip">React</span><span class="chip">Three.js</span><span class="chip">FAISS</span><span class="chip">OpenF1 API</span></div>
             <div class="build-links"><a class="btn btn-primary btn-sm" href="https://devpost.com/software/fia-assist" target="_blank" rel="noopener">View on Devpost ↗</a><button class="btn btn-ghost btn-sm" data-request="CircuitGuard">🔒 Request source code</button></div>
           </article>
@@ -240,8 +241,7 @@
                 </ul>
               </div>
             </div>
-            <div class="gal-h">Screenshots</div>
-            <div class="gal two" id="wcGallery"></div>
+            <div id="wcGallery" data-gallery="whisper"></div>
             <div class="chips" style="margin-top:1rem"><span class="chip">Godot 4</span><span class="chip">GDScript</span><span class="chip">Graph search</span><span class="chip">Property testing</span><span class="chip">GitHub Actions</span></div>
             <div class="build-links"><button class="btn btn-primary btn-sm" data-request="Whisper Chain">🔒 Request source code</button></div>
           </article>
@@ -268,6 +268,7 @@
                 </ul>
               </div>
             </div>
+            <div data-gallery="occupancy-counter"></div>
             <div class="chips"><span class="chip">Python</span><span class="chip">SQLite</span><span class="chip">JavaScript</span><span class="chip">Unit testing</span></div>
             <div class="build-links"><button class="btn btn-primary btn-sm" data-request="Door Occupancy Counter">🔒 Request source code</button></div>
           </article>
@@ -292,12 +293,13 @@
                 </ul>
               </div>
             </div>
+            <div data-gallery="continental-smash"></div>
             <div class="chips"><span class="chip">Godot 4</span><span class="chip">GDScript</span><span class="chip">GLSL shaders</span></div>
             <div class="build-links"><button class="btn btn-primary btn-sm" data-request="Continental Smash">🔒 Request source code</button></div>
           </article>
 
 
-          <article class="card build reveal">
+          <article class="card build reveal" id="mun-toolkit">
             <div class="build-top"><span class="kind">Web App · Model UN</span><span class="chip">TypeScript</span></div>
             <h3>MUN Chair Toolkit</h3>
             <p class="lead">A local-first committee-management app for Model UN chairs and vice-chairs, replacing paper roll calls and hand-counted votes.</p>
@@ -320,11 +322,12 @@
                 </ul>
               </div>
             </div>
+            <div data-gallery="mun-toolkit"></div>
             <div class="chips"><span class="chip">React</span><span class="chip">Vite</span><span class="chip">Tailwind CSS</span><span class="chip">Zustand</span><span class="chip">Dexie (IndexedDB)</span></div>
             <div class="build-links"><a class="btn btn-primary btn-sm" href="https://rsk0110.github.io/MUN-Community-toolkit/" target="_blank" rel="noopener">Try the live app ↗</a><button class="btn btn-ghost btn-sm" data-request="MUN Chair Toolkit">🔒 Request source code</button></div>
           </article>
 
-          <article class="card build reveal">
+          <article class="card build reveal" id="track-nector">
             <div class="build-top"><span class="kind">Self-hosted · Finance</span><span class="chip">Python</span></div>
             <h3>Track Nector</h3>
             <p class="lead">A lightweight personal finance tracker for card balances and daily spending, designed so your financial data never leaves your hands.</p>
@@ -345,11 +348,12 @@
                 </ul>
               </div>
             </div>
+            <div data-gallery="track-nector"></div>
             <div class="chips"><span class="chip">Python</span><span class="chip">HTML</span><span class="chip">JSON</span><span class="chip">Render</span></div>
             <div class="build-links"><button class="btn btn-primary btn-sm" data-request="Track Nector">🔒 Request source code</button></div>
           </article>
 
-          <article class="card build reveal">
+          <article class="card build reveal" id="corso">
             <div class="build-top"><span class="kind">Front-End · Website</span><span class="chip">JavaScript</span></div>
             <h3>Corso Website</h3>
             <p class="lead">A responsive marketing site for a training-courses and workshops business.</p>
@@ -370,6 +374,7 @@
                 </ul>
               </div>
             </div>
+            <div data-gallery="corso"></div>
             <div class="chips"><span class="chip">HTML</span><span class="chip">Bootstrap</span><span class="chip">Sass</span><span class="chip">JavaScript</span></div>
             <div class="build-links"><button class="btn btn-primary btn-sm" data-request="Corso Website">🔒 Request source code</button></div>
           </article>
@@ -456,63 +461,251 @@
     // Scroll reveal
     const io = new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); o.unobserve(e.target); } }), { threshold: .1 });
     document.querySelectorAll(".reveal").forEach(el => io.observe(el));
-    // ===== Whisper Chain screenshots (reuse the lightbox) =====
+    // ===== Project galleries + shared lightbox =====
+    // Each <div data-gallery="key"> is filled from GALLERIES[key]. To add photos to a project,
+    // put the files in images/<folder>/ and add them to its entry here.
+    const GALLERIES = {
+ "circuitguard": [
+  {
+   "title": "The product",
+   "cls": "two",
+   "dir": "images/circuitguard/",
+   "items": [
+    {
+     "f": "cg-product-monza.jpg",
+     "c": "Race control view: replaying a real incident at Autodromo Nazionale Monza"
+    },
+    {
+     "f": "cg-product-montreal.jpg",
+     "c": "Insurance view: incident hotspots around Circuit Gilles Villeneuve"
+    }
+   ]
+  },
+  {
+   "title": "At FormulaTech Hacks 2026",
+   "cls": "three",
+   "dir": "images/circuitguard/",
+   "items": [
+    {
+     "f": "cg-01-winners-slide.jpg",
+     "c": "Winners announcement for the Ampere track: AI for Motorsport Safety"
+    },
+    {
+     "f": "cg-02-demo-gilles-villeneuve.jpg",
+     "c": "Live demo: Circuit Gilles Villeneuve"
+    },
+    {
+     "f": "cg-03-demo-monza.jpg",
+     "c": "Live demo: Autodromo Nazionale Monza"
+    },
+    {
+     "f": "cg-04-presenting.jpg",
+     "c": "Presenting the demo"
+    },
+    {
+     "f": "cg-05-building.jpg",
+     "c": "Building during the hackathon"
+    },
+    {
+     "f": "cg-06-team-working.jpg",
+     "c": "The team at work"
+    },
+    {
+     "f": "cg-07-f1-trivia.jpg",
+     "c": "Formula 1 trivia on the venue screens"
+    }
+   ]
+  }
+ ],
+ "whisper": [
+  {
+   "title": "Screenshots",
+   "cls": "three",
+   "dir": "images/whisper-chain/",
+   "items": [
+    {
+     "f": "wc-demo.gif",
+     "c": "A message passing through two bards, an echo and a mumbler"
+    },
+    {
+     "f": "wc-gameplay.jpg",
+     "c": "Building a route through the village"
+    },
+    {
+     "f": "wc-title.jpg",
+     "c": "Title screen"
+    },
+    {
+     "f": "wc-levels.jpg",
+     "c": "Level select with stars"
+    },
+    {
+     "f": "wc-new-villager.jpg",
+     "c": "Introducing a new villager"
+    },
+    {
+     "f": "wc-results.jpg",
+     "c": "Results card"
+    }
+   ]
+  }
+ ],
+ "occupancy-counter": [
+  {
+   "title": "Screenshots",
+   "cls": "three",
+   "dir": "images/occupancy-counter/",
+   "items": [
+    {
+     "f": "occ-dashboard.jpg",
+     "c": "Live dashboard: people inside, ins and outs per door, and the event log (simulated sensors)"
+    },
+    {
+     "f": "occ-edge-cases.jpg",
+     "c": "Edge cases from the controls: a person who turns back is logged and rejected, not counted"
+    },
+    {
+     "f": "occ-mobile.jpg",
+     "c": "The dashboard on a phone"
+    }
+   ]
+  }
+ ],
+ "continental-smash": [
+  {
+   "title": "Screenshots",
+   "cls": "three",
+   "dir": "images/continental-smash/",
+   "items": [
+    {
+     "f": "smash-impact.jpg",
+     "c": "SMASH! Two continents collide and raise mountains"
+    },
+    {
+     "f": "smash-title.jpg",
+     "c": "Title screen"
+    },
+    {
+     "f": "smash-mountains.jpg",
+     "c": "Mid-round: mountain counts and dash meters on each side"
+    },
+    {
+     "f": "smash-intro-pangaea.jpg",
+     "c": "Narrated intro: the golden age of Pangaea"
+    },
+    {
+     "f": "smash-intro-rift.jpg",
+     "c": "Narrated intro: the rift opens"
+    }
+   ]
+  }
+ ],
+ "mun-toolkit": [
+  {
+   "title": "Screenshots",
+   "cls": "two",
+   "dir": "images/mun-toolkit/",
+   "items": [
+    {
+     "f": "mun-roll-call.jpg",
+     "c": "A Security Council session: roll call counts, quorum and voting thresholds update live"
+    },
+    {
+     "f": "mun-full.jpg",
+     "c": "The whole workspace: committee details, roster and roll call"
+    },
+    {
+     "f": "mun-start.jpg",
+     "c": "Starting a new committee"
+    },
+    {
+     "f": "mun-mobile.jpg",
+     "c": "Works on phones, so chairs can run it from the dais"
+    }
+   ]
+  }
+ ],
+ "track-nector": [
+  {
+   "title": "Screenshots",
+   "cls": "three",
+   "dir": "images/track-nector/",
+   "items": [
+    {
+     "f": "tn-spending.jpg",
+     "c": "Spending history with totals by category (demo account, made-up data)"
+    },
+    {
+     "f": "tn-history.jpg",
+     "c": "Full transaction ledger with running balance"
+    },
+    {
+     "f": "tn-locked.jpg",
+     "c": "Balances stay hidden until the account is unlocked with its password"
+    }
+   ]
+  }
+ ],
+ "corso": [
+  {
+   "title": "Screenshots",
+   "cls": "two",
+   "dir": "images/corso/",
+   "items": [
+    {
+     "f": "corso-hero.jpg",
+     "c": "Landing page"
+    },
+    {
+     "f": "corso-features.jpg",
+     "c": "Feature section"
+    },
+    {
+     "f": "corso-subscribe.jpg",
+     "c": "Cards and the email-subscribe form"
+    },
+    {
+     "f": "corso-mobile.jpg",
+     "c": "Responsive layout on a phone"
+    }
+   ]
+  }
+ ]
+};
     (function () {
-      var D = "images/whisper-chain/", items = [
-        { f: "wc-demo.gif", c: "A message passing through two bards, an echo and a mumbler" },
-        { f: "wc-gameplay.jpg", c: "Building a route through the village" },
-        { f: "wc-title.jpg", c: "Title screen" },
-        { f: "wc-levels.jpg", c: "Level select with stars" },
-        { f: "wc-new-villager.jpg", c: "Introducing a new villager" },
-        { f: "wc-results.jpg", c: "Results card" } ];
-      var host = document.getElementById("wcGallery");
-      host.innerHTML = items.map(function (it, i) { return '<button type="button" data-wc="' + i + '" aria-label="Enlarge: ' + it.c + '"><img loading="lazy" src="' + D + it.f + '" alt="' + it.c + '"><span class="cap">' + it.c + '</span></button>'; }).join("");
       var lb = document.getElementById("lb"), img = document.getElementById("lbImg"), cap = document.getElementById("lbCap"), cnt = document.getElementById("lbCount");
-      host.addEventListener("click", function (e) {
-        var b = e.target.closest("button[data-wc]"); if (!b) return;
-        var i = +b.dataset.wc; img.src = D + items[i].f; img.alt = items[i].c; cap.textContent = items[i].c; cnt.textContent = "";
-        lb.classList.add("open", "solo"); document.body.style.overflow = "hidden";
-      });
-    })();
-
-    // ===== CircuitGuard gallery + lightbox =====
-    (function () {
-      var D = "images/circuitguard/";
-      var GROUPS = [
-        { title: "The product", cls: "two", items: [
-          { f: "cg-product-monza.jpg", c: "Race control view: replaying a real incident at Autodromo Nazionale Monza" },
-          { f: "cg-product-montreal.jpg", c: "Insurance view: incident hotspots around Circuit Gilles Villeneuve" } ] },
-        { title: "At FormulaTech Hacks 2026", cls: "three", items: [
-          { f: "cg-01-winners-slide.jpg", c: "Winners announcement for the Ampere track: AI for Motorsport Safety" },
-          { f: "cg-02-demo-gilles-villeneuve.jpg", c: "Live demo: Circuit Gilles Villeneuve" },
-          { f: "cg-03-demo-monza.jpg", c: "Live demo: Autodromo Nazionale Monza" },
-          { f: "cg-04-presenting.jpg", c: "Presenting the demo" },
-          { f: "cg-05-building.jpg", c: "Building during the hackathon" },
-          { f: "cg-06-team-working.jpg", c: "The team at work" },
-          { f: "cg-07-f1-trivia.jpg", c: "Formula 1 trivia on the venue screens" } ] }
-      ];
-      var all = [], host = document.getElementById("cgGallery"), html = "";
-      GROUPS.forEach(function (g) {
-        html += '<div class="gal-h">' + g.title + '</div><div class="gal ' + g.cls + '">';
-        g.items.forEach(function (it) {
-          var i = all.push(it) - 1;
-          html += '<button type="button" data-i="' + i + '" aria-label="Enlarge: ' + it.c.replace(/"/g, "") + '"><img loading="lazy" src="' + D + it.f + '" alt="' + it.c.replace(/"/g, "") + '"><span class="cap">' + it.c + '</span></button>';
+      var list = [], cur = 0;
+      var att = function (s) { return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;"); };
+      document.querySelectorAll("[data-gallery]").forEach(function (host) {
+        var groups = GALLERIES[host.dataset.gallery]; if (!groups) return;
+        var flat = [], html = "";
+        groups.forEach(function (g) {
+          html += '<div class="gal-h">' + g.title + '</div><div class="gal ' + g.cls + '">';
+          g.items.forEach(function (it) {
+            var i = flat.push({ src: g.dir + it.f, c: it.c }) - 1;
+            html += '<button type="button" data-i="' + i + '" aria-label="Enlarge: ' + att(it.c) + '"><img loading="lazy" src="' + g.dir + it.f + '" alt="' + att(it.c) + '"><span class="cap">' + att(it.c) + '</span></button>';
+          });
+          html += "</div>";
         });
-        html += "</div>";
+        host.innerHTML = html;
+        host.addEventListener("click", function (e) {
+          var b = e.target.closest("button[data-i]"); if (!b) return;
+          list = flat; show(+b.dataset.i); lb.classList.add("open"); document.body.style.overflow = "hidden";
+        });
       });
-      host.innerHTML = html;
-      var lb = document.getElementById("lb"), img = document.getElementById("lbImg"), cap = document.getElementById("lbCap"), cnt = document.getElementById("lbCount"), cur = 0;
-      function show(i) { cur = (i + all.length) % all.length; img.src = D + all[cur].f; img.alt = all[cur].c; cap.textContent = all[cur].c; cnt.textContent = (cur + 1) + " / " + all.length; }
-      function open(i) { show(i); lb.classList.remove("solo"); lb.classList.add("open"); document.body.style.overflow = "hidden"; }
+      function show(i) {
+        cur = (i + list.length) % list.length;
+        img.src = list[cur].src; img.alt = list[cur].c; cap.textContent = list[cur].c;
+        cnt.textContent = (cur + 1) + " / " + list.length;
+        lb.classList.toggle("solo", list.length < 2);
+      }
       function close() { lb.classList.remove("open"); document.body.style.overflow = ""; }
-      host.addEventListener("click", function (e) { var b = e.target.closest("button[data-i]"); if (b) open(+b.dataset.i); });
       document.getElementById("lbClose").onclick = close;
       document.getElementById("lbPrev").onclick = function () { show(cur - 1); };
       document.getElementById("lbNext").onclick = function () { show(cur + 1); };
       lb.addEventListener("click", function (e) { if (e.target === lb) close(); });
       document.addEventListener("keydown", function (e) {
         if (!lb.classList.contains("open")) return;
-        if (lb.classList.contains("solo") && e.key !== "Escape") return;
         if (e.key === "Escape") close(); else if (e.key === "ArrowLeft") show(cur - 1); else if (e.key === "ArrowRight") show(cur + 1);
       });
     })();

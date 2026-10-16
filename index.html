@@ -718,25 +718,25 @@
   const PROJECTS = [
     { title: "CircuitGuard", kind: "AI · Hackathon", cat: "AI", award: "Winner · Ampere, AI for Motor Safety",
       desc: "Real-time Formula 1 safety system built at FormulaTech Hacks 2026. Analyses live driver telemetry to detect crashes and stopped cars on the racing line, recommends the FIA response (safety car, VSC or red flag) under the 2026 sporting regulations and alerts following drivers. Also models per-sector spectator risk and insurance premiums.",
-      tags: ["Python", "FastAPI", "React", "Three.js", "FAISS", "OpenF1"], img: "images/circuitguard/cg-product-monza.jpg", devpost: "https://devpost.com/software/fia-assist" },
+      tags: ["Python", "FastAPI", "React", "Three.js", "FAISS", "OpenF1"], link: "built.html#circuitguard", img: "images/circuitguard/cg-product-monza.jpg", devpost: "https://devpost.com/software/fia-assist" },
     { title: "Whisper Chain", kind: "Game · Godot", cat: "Games",
       desc: "Puzzle game about passing a message through a village of gossips: each villager garbles it (reverse, swap, double, drop a word) and you pick a route so the distortions cancel. It is function composition in disguise. A graph solver checks all 10 levels and powers live hints; ~3,000 lines of GDScript with ~1,500 test assertions and CI.",
       tags: ["Godot 4", "GDScript", "Graph search", "Unit testing", "GitHub Actions"], img: "images/whisper-chain/wc-gameplay.jpg", link: "built.html#whisper-chain" },
     { title: "MUN Chair Toolkit", kind: "Web App", cat: "Web",
       desc: "Local-first app for Model UN chairs: committee and agenda setup, bulk delegation entry, roll call, and automated quorum, simple-majority and two-thirds calculations. Rules live in framework-free, tested functions; runs offline via IndexedDB with no account or backend.",
-      tags: ["TypeScript", "React", "Vite", "Tailwind CSS", "Zustand", "Dexie"], live: "https://rsk0110.github.io/MUN-Community-toolkit/" },
+      tags: ["TypeScript", "React", "Vite", "Tailwind CSS", "Zustand", "Dexie"], img: "images/mun-toolkit/mun-roll-call.jpg", link: "built.html#mun-toolkit", live: "https://rsk0110.github.io/MUN-Community-toolkit/" },
     { title: "Door Occupancy Counter", kind: "Prototype · In progress", cat: "Python",
       desc: "Counts people going in and out of a building's doors from two-beam sensor events, so the building always knows how many people are inside. Live dashboard, SQLite event log, automatic daily Excel reports, and a sensor simulator with edge cases (turning back, tailgating, held doors) so it is testable before any hardware.",
-      tags: ["Python", "SQLite", "JavaScript", "Unit testing"] },
+      tags: ["Python", "SQLite", "JavaScript", "Unit testing"], img: "images/occupancy-counter/occ-dashboard.jpg", link: "built.html#occupancy-counter" },
     { title: "Continental Smash", kind: "Game Jam", cat: "Games", award: "UW Game Jam Fall 2026",
       desc: "Local two-player game for the UW Game Jam (theme: Drift): drifting continents ram each other to raise mountains and shove the rival into an ocean trench. Custom shaders for the planet, ocean, terrain and clouds, a narrated cinematic intro and particle impact effects.",
-      tags: ["Godot 4", "GDScript", "GLSL shaders"] },
+      tags: ["Godot 4", "GDScript", "GLSL shaders"], img: "images/continental-smash/smash-impact.jpg", link: "built.html#continental-smash" },
     { title: "Track Nector", kind: "Python App", cat: "Python",
       desc: "Self-hosted personal finance tracker for card balances and daily spending, built around manual entry so no bank account is linked and financial data stays private. Deployed with Render.",
-      tags: ["Python", "HTML", "JSON", "Render"] },
+      tags: ["Python", "HTML", "JSON", "Render"], img: "images/track-nector/tn-spending.jpg", link: "built.html#track-nector" },
     { title: "Corso Website", kind: "Front-End", cat: "Web",
       desc: "Responsive site for training courses and workshops with a sticky navbar that changes on scroll, an image carousel, and registration and email-subscribe forms. Styles compiled from Sass via npm scripts.",
-      tags: ["HTML", "Bootstrap", "Sass", "JavaScript"] }
+      tags: ["HTML", "Bootstrap", "Sass", "JavaScript"], img: "images/corso/corso-hero.jpg", link: "built.html#corso" }
   ];
 
   const EXPERIENCE = [
@@ -807,7 +807,7 @@
   $("#filters").innerHTML = cats.map((c, i) => `<button class="filter-btn${i ? "" : " active"}" data-cat="${esc(c)}">${esc(c)}</button>`).join("");
   $("#projectGrid").innerHTML = PROJECTS.map(p => `
     <article class="card project reveal" data-cat="${esc(p.cat)}">
-      ${p.img ? `<a class="cover" href="${esc(p.link || "built.html#circuitguard")}" aria-label="See photos and screenshots of ${esc(p.title)}"><img loading="lazy" src="${esc(p.img)}" alt="${esc(p.title)} screenshot"></a>` : ""}
+      ${p.img ? `<a class="cover" href="${esc(p.link)}" aria-label="See photos and screenshots of ${esc(p.title)}"><img loading="lazy" src="${esc(p.img)}" alt="${esc(p.title)} screenshot"></a>` : ""}
       <div class="tag-row"><span class="kind">${esc(p.kind)}</span>${p.award ? `<span class="award">★ ${esc(p.award)}</span>` : ""}</div>
       <h3>${esc(p.title)}</h3>
       <p>${esc(p.desc)}</p>
