@@ -168,7 +168,7 @@ PROJECTS = [
             'Chose self-hosting and manual input deliberately to keep financial data private.',
             'Wrote the account logic in Python (bank_account.py) and added Render deployment config.']),
     dict(key='corso', title='Corso Website', stack='HTML · Bootstrap · Sass · JavaScript',
-         sub='Responsive training-courses site', bullets=[
+         sub='First web project, from a web design course', bullets=[
             'Responsive site for courses and workshops: sticky navbar that changes on scroll, image carousel, registration and email-subscribe forms.',
             'Compiled styles from Sass with npm scripts for build and watch.']),
 ]
