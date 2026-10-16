@@ -288,6 +288,7 @@
     .resume-doc h4 { text-transform: uppercase; letter-spacing: .08em; font-size: .78rem; color: #1d4ed8; border-bottom: 1.5px solid #e5e7eb; padding-bottom: .25rem; margin: 1.2rem 0 .6rem; }
     .resume-doc .row { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-weight: 600; }
     .resume-doc .row span:last-child { font-weight: 400; color: #4b5563; font-size: .85rem; }
+    .resume-doc .row a { color: #1d4ed8; text-decoration: underline; }
     .resume-doc ul { list-style: disc; padding-left: 1.2rem; margin: .25rem 0 .6rem; color: #374151; }
     .resume-doc .sub { color: #4b5563; font-style: italic; }
     .resume-pane[hidden] { display: none; }
@@ -608,8 +609,8 @@
               <ul><li>Local-first committee-management app for Model UN chairs: delegation entry, roll call, automated quorum, simple-majority and two-thirds calculations.</li><li>Rules kept in framework-free, tested functions; GitHub Actions checks; works offline via IndexedDB.</li></ul>
               <div class="row"><span>Track Nector — Python · HTML · JSON · Render</span><span>Source on request</span></div>
               <ul><li>Self-hosted personal finance tracker using manual entry, so financial data stays private.</li></ul>
-              <div class="row"><span>Corso Website — HTML · Bootstrap · Sass · JavaScript</span><span>Source on request</span></div>
-              <ul><li>Responsive training-courses site with sticky navbar, carousel and registration forms; Sass build via npm scripts.</li></ul>
+              <div class="row"><span>Corso Website — HTML · Bootstrap · Sass · JavaScript</span><span><a href="https://github.com/Rsk0110/webproject" target="_blank" rel="noopener">Source on GitHub</a></span></div>
+              <ul><li>Responsive training-courses site with sticky navbar, carousel and registration forms; Sass build via npm scripts.</li><li>Later cleaned up: working forms with validation, accessibility fixes, ~70% smaller images; live on GitHub Pages.</li></ul>
               <h4>Hackathons</h4>
               <ul><li>FormulaTech Hacks 2026 (Waterloo, Winner) · RevenueCat Shipaton 2026 · OpenCV AI Competition (AWS) 2026 · Nebius x NVIDIA Global AI Hackathon 2026 · IBM BOB 2.0 2026 · DPS MIS Doha 2025 · Birla School 2024 · CMU Qatar 2023</li></ul>
             </section>
@@ -735,8 +736,8 @@
       desc: "Self-hosted personal finance tracker for card balances and daily spending, built around manual entry so no bank account is linked and financial data stays private. Deployed with Render.",
       tags: ["Python", "HTML", "JSON", "Render"], img: "images/track-nector/tn-spending.jpg", link: "built.html#track-nector" },
     { title: "Corso Website", kind: "First web project", cat: "Web",
-      desc: "My first website, built while learning web design in a course with my teacher. A responsive site for training courses and workshops with a sticky navbar that changes on scroll, an image carousel, and registration and email-subscribe forms. Styles compiled from Sass via npm scripts.",
-      tags: ["HTML", "Bootstrap", "Sass", "JavaScript"], img: "images/corso/corso-hero.jpg", link: "built.html#corso" }
+      desc: "My first website, built while learning web design in a course with my teacher. A responsive site for training courses and workshops with a sticky navbar that changes on scroll, an image carousel, and registration and email-subscribe forms. Styles compiled from Sass via npm scripts. The design and content came from the course; I later came back to clean it up: working forms with validation, accessibility fixes and ~70% smaller images.",
+      tags: ["HTML", "Bootstrap", "Sass", "JavaScript"], img: "images/corso/corso-hero.jpg", link: "built.html#corso", live: "https://rsk0110.github.io/webproject/", source: "https://github.com/Rsk0110/webproject" }
   ];
 
   const EXPERIENCE = [
@@ -816,7 +817,7 @@
         ${p.link ? `<a class="btn btn-primary btn-sm" href="${esc(p.link)}">Details & screenshots</a>` : ""}
         ${p.devpost ? `<a class="btn btn-primary btn-sm" href="${esc(p.devpost)}" target="_blank" rel="noopener">Devpost ↗</a>` : ""}
         ${p.live ? `<a class="btn btn-primary btn-sm" href="${esc(p.live)}" target="_blank" rel="noopener">Live Demo ↗</a>` : ""}
-        <button class="btn btn-ghost btn-sm" data-request="${esc(p.title)}">🔒 Request source</button>
+        ${p.source ? `<a class="btn btn-ghost btn-sm" href="${esc(p.source)}" target="_blank" rel="noopener">Source ↗</a>` : `<button class="btn btn-ghost btn-sm" data-request="${esc(p.title)}">🔒 Request source</button>`}
       </div>
     </article>`).join("");
   $("#filters").addEventListener("click", e => {
