@@ -4,7 +4,7 @@ rem then publishes them. The share links stay the same and show the new versions
 cd /d "%~dp0"
 echo Rebuilding resumes...
 python tools\update_resumes.py || exit /b 1
-git add resume
+git add resume index.html
 git commit -m "Update resumes"
 git push
 echo.

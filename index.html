@@ -951,12 +951,14 @@
     $$(".resume-pane", doc).forEach(p => p.hidden = tab !== "all" && p.dataset.pane !== tab);
   }));
 
+  // Bumped by tools/update_resumes.py on every rebuild so browsers fetch the new files instead of a cached copy.
+  const RESUME_VERSION = "20261017-124422";
   // "Download PDF": clone the resume into the print-only container and open the print dialog;
   // choose "Save as PDF". To serve a pre-made file instead, set RESUME_FILE to e.g. "resume.pdf".
-  const RESUME_FILE = "resume/Rushil_Barve_Resume.pdf";
+  const RESUME_FILE = "resume/Rushil_Barve_Resume.pdf?v=" + RESUME_VERSION;
   $$("[data-download-resume]").forEach(btn => btn.addEventListener("click", () => {
     if (RESUME_FILE) {
-      const a = Object.assign(document.createElement("a"), { href: RESUME_FILE, download: RESUME_FILE.split("/").pop() });
+      const a = Object.assign(document.createElement("a"), { href: RESUME_FILE, download: "Rushil_Barve_Resume.pdf" });
       document.body.appendChild(a); a.click(); a.remove(); return;
     }
     const clone = doc.cloneNode(true);
@@ -1034,8 +1036,9 @@
       current = i;
       desc.textContent = v.desc;
       linkEl.textContent = shareUrl(v);
-      dl.href = v.file; dl.setAttribute("download", v.file.split("/").pop()); open.href = v.file;
-      pages.innerHTML = v.pages.map((src, n) => `<a href="${esc(v.file)}" target="_blank" rel="noopener" aria-label="Open the ${esc(v.label)} PDF"><img src="${esc(src)}" alt="${esc(v.label)} resume, page ${n + 1}" loading="lazy"></a>`).join("");
+      const fileV = v.file + "?v=" + RESUME_VERSION;
+      dl.href = fileV; dl.setAttribute("download", v.file.split("/").pop()); open.href = fileV;
+      pages.innerHTML = v.pages.map((src, n) => `<a href="${esc(fileV)}" target="_blank" rel="noopener" aria-label="Open the ${esc(v.label)} PDF"><img src="${esc(src + "?v=" + RESUME_VERSION)}" alt="${esc(v.label)} resume, page ${n + 1}" loading="lazy"></a>`).join("");
     }
     tabs.addEventListener("click", e => { const b = e.target.closest("button[data-i]"); if (b) show(+b.dataset.i); });
     copyBtn.addEventListener("click", async () => {

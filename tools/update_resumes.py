@@ -100,6 +100,20 @@ def main():
             print(f"  updated {name} ({pages} page{'s' if pages > 1 else ''})")
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
+    bump_version()
+
+
+def bump_version():
+    """Stamps a new RESUME_VERSION into index.html so visitors' browsers load the new files."""
+    import re, time
+    index = os.path.join(SITE, "..", "index.html")
+    with open(index, encoding="utf-8") as f:
+        html = f.read()
+    html, n = re.subn(r'const RESUME_VERSION = "[^"]*";', f'const RESUME_VERSION = "{time.strftime("%Y%m%d-%H%M%S")}";', html)
+    if n:
+        with open(index, "w", encoding="utf-8") as f:
+            f.write(html)
+        print("  website now points at the new versions")
 
 
 if __name__ == "__main__":
