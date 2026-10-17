@@ -174,17 +174,16 @@ PROJECTS = [
             'Compiled styles from Sass with npm scripts for build and watch.']),
 ]
 
-RESUME_PROJECTS = {
-    'general':   (['circuitguard', 'whisper', 'mun'], 2),
-    'coop':      (['circuitguard', 'whisper', 'mun'], 2),
-    'hackathon': (['circuitguard', 'whisper', 'smash', 'mun'], 2),
-    'full':      (['circuitguard', 'whisper', 'mun', 'occupancy', 'smash', 'tracknector', 'corso'], 2),
+RESUME_PROJECTS = {   # project key -> number of bullets shown
+    'general':   {'circuitguard': 3, 'whisper': 3, 'mun': 3, 'occupancy': 2},
+    'coop':      {'circuitguard': 3, 'whisper': 3, 'mun': 3, 'occupancy': 2},
+    'hackathon': {'circuitguard': 3, 'whisper': 3, 'smash': 2, 'mun': 2, 'occupancy': 2},
+    'full':      {'circuitguard': 3, 'whisper': 3, 'mun': 3, 'occupancy': 3, 'smash': 2, 'tracknector': 2, 'corso': 2},
 }
 
 def projects(which):
-    keys, n = RESUME_PROJECTS[which]
     by = {p['key']: p for p in PROJECTS}
-    body = ''.join(item(by[k]['title'], by[k]['stack'], by[k]['sub'], by[k]['bullets'][:n]) for k in keys)
+    body = ''.join(item(by[k]['title'], by[k]['stack'], by[k]['sub'], by[k]['bullets'][:n]) for k, n in RESUME_PROJECTS[which].items())
     return sec('Projects', body +
         '<div class="note">Source code available <a href="mailto:' + EMAIL + '?subject=Source%20code%20request" style="color:#263654;font-weight:700">on request</a> · more projects at rsk0110.github.io/s2rkportfolio</div>')
 
@@ -197,6 +196,11 @@ def hackathons(title='Hackathons'):
 WATERLOO = sec('Waterloo Teams', item('WARG — Waterloo Aerial Robotics Group', '2026', 'Autonomy team · Embedded Flight Software team') +
     item('UW Orbital · UW Game Dev', '2026', 'Student satellite design team · built beginner-level games') +
     '<div class="note">Member: Computer Science Club, UW Data Science Club</div>')
+
+WATERLOO_SIDE = h2('Waterloo Teams') + ul([
+    'WARG (Waterloo Aerial Robotics): Autonomy and Embedded Flight Software teams',
+    'UW Orbital: student satellite design team',
+    'UW Game Dev · Computer Science Club · UW Data Science Club'])
 
 def leadership(full=False, n=None):
     base = [
@@ -298,29 +302,29 @@ TAG_MAIN = 'Computer Science & Computational Mathematics · University of Waterl
 # ---- 1. general resume ----
 about_main = 'First-year Waterloo student who builds practical, privacy-minded software, competes in hackathons and olympiads, and leads teams. Looking for Winter/Spring co-op.'
 resume = doc('Rushil Barve — Resume', [page(
-    header(TAG_MAIN) + side([h2('About Me'), para(about_main), CONTACT, SKILLS, ACH_SHORT]) +
-    main(f'{EDU}{projects("general")}{leadership(n=5)}{hackathons()}{WATERLOO}', 'p1', 1.0))])
+    header(TAG_MAIN) + side([h2('About Me'), para(about_main), CONTACT, SKILLS, ACH_SHORT, WATERLOO_SIDE]) +
+    main(f'{EDU}{projects("general")}{leadership(n=4)}{hackathons()}', 'p1', 1.0))])
 
 # ---- 2. co-op resume ----
 about_coop = 'CS & Computational Mathematics student seeking a Winter/Spring co-op. I ship full-stack projects, lead teams and events, and communicate clearly under pressure.'
 coop = doc('Rushil Barve — Co-op Resume', [page(
-    header(TAG_MAIN) + side([h2('About Me'), para(about_coop), CONTACT, SKILLS, ACH_SHORT, CERTS]) +
-    main(f'{EDU}{projects("coop")}{leadership(n=6)}{hackathons()}{WATERLOO}', 'p1', 1.0))])
+    header(TAG_MAIN) + side([h2('About Me'), para(about_coop), CONTACT, SKILLS, ACH_SHORT, WATERLOO_SIDE]) +
+    main(f'{EDU}{projects("coop")}{leadership(n=4)}{hackathons()}', 'p1', 1.0))])
 
 # ---- 3. hackathon resume ----
 about_hack = 'Olympiad-level problem solver who builds fast, pitches clearly and leads teams under pressure. Eight hackathons from high school in Qatar to Waterloo.'
 hack_side = h2('Strengths') + ul(['Rapid prototyping & shipping', 'Public speaking and pitching', 'Team management', 'Event logistics', 'Marketing and branding'])
 hack = doc('Rushil Barve — Hackathon Resume', [page(
-    header('Hackathon Builder · CS & Computational Mathematics @ UWaterloo') + side([h2('About Me'), para(about_hack), CONTACT, SKILLS, hack_side, ACH_SHORT]) +
-    main(f'{projects("hackathon")}{hackathons()}{leadership(n=4)}{EDU}{WATERLOO}', 'p1', 1.0))])
+    header('Hackathon Builder · CS & Computational Mathematics @ UWaterloo') + side([h2('About Me'), para(about_hack), CONTACT, SKILLS, ACH_SHORT, WATERLOO_SIDE]) +
+    main(f'{projects("hackathon")}{hackathons()}{leadership(n=3)}{EDU}', 'p1', 1.0))])
 
 # ---- 4. full CV (2 pages) ----
 about_full = 'Computer science student at the University of Waterloo with a record in informatics olympiads, Model UN and student leadership. Experienced in leading teams, running events, training peers and public speaking, with a growing focus on building technology that has real impact.'
 interests = h2('Interests') + ul(['Basketball: house captain, national-level CBSE Clusters player', 'Kickboxing (Feb 2026 – present)', 'Swimming, chess, dance, visual art'])
 vol = sec('Volunteering', item('Student Volunteer, CMU-Qatar MindCraft Workshop', 'Nov 2024', '', ['Assisted students with robotics and technology activities.']) +
           item('Student Volunteer, Embassy of India International Day of Yoga', 'Jun 2024'))
-p1 = page(header(TAG_MAIN) + side([h2('About Me'), para(about_full), CONTACT, SKILLS]) +
-          main(f'{EDU}{projects("full")}{hackathons()}{WATERLOO}', 'p1', 1.0))
+p1 = page(header(TAG_MAIN) + side([h2('About Me'), para(about_full), CONTACT, SKILLS, WATERLOO_SIDE]) +
+          main(f'{EDU}{projects("full")}{hackathons()}', 'p1', 1.0))
 p2 = page(side([CERTS, ACH_FULL, interests], 'p2') + main(f'{leadership(True)}{vol}{certificates()}', 'p2', 1.0))
 fullcv = doc('Rushil Barve — Full CV', [p1, p2])
 
