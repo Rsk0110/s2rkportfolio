@@ -26,16 +26,16 @@ body { font-family: 'Lato', Arial, sans-serif; color: var(--ink); -webkit-print-
 @media screen { .page { margin: 16px auto; box-shadow: 0 4px 24px rgba(0,0,0,.4); } }
 
 /* header decoration */
-.blob { position: absolute; right: 0; top: 0; width: 396px; height: 236px; background: var(--navy); border-bottom-left-radius: 130px; }
-.photo { position: absolute; right: 44px; top: 30px; width: 266px; height: 266px; border-radius: 70px; object-fit: cover; object-position: 50% 6%; border: 4px solid #fff; background: #fff; box-shadow: 0 6px 18px rgba(20,30,50,.25); }
-.name { position: absolute; left: 42px; top: 30px; font-family: 'Josefin Sans', sans-serif; color: var(--navy); line-height: .98; }
-.name .first { font-size: 54px; font-weight: 300; letter-spacing: 1px; }
-.name .last { font-size: 64px; font-weight: 700; letter-spacing: 1px; }
-.tag { position: absolute; left: 42px; top: 156px; width: 330px; font-family: 'Josefin Sans', sans-serif; font-weight: 700; font-size: 13.5px; letter-spacing: 1.3px; line-height: 1.35; color: #0d1320; }
+.blob { position: absolute; right: 0; top: 0; width: 300px; height: 170px; background: var(--navy); border-bottom-left-radius: 96px; }
+.photo { position: absolute; right: 40px; top: 24px; width: 188px; height: 188px; border-radius: 52px; object-fit: cover; object-position: 50% 6%; border: 4px solid #fff; background: #fff; box-shadow: 0 6px 18px rgba(20,30,50,.25); }
+.name { position: absolute; left: 42px; top: 26px; font-family: 'Josefin Sans', sans-serif; color: var(--navy); line-height: .98; }
+.name .first { font-size: 46px; font-weight: 300; letter-spacing: 1px; }
+.name .last { font-size: 56px; font-weight: 700; letter-spacing: 1px; }
+.tag { position: absolute; left: 42px; top: 138px; width: 420px; font-family: 'Josefin Sans', sans-serif; font-weight: 700; font-size: 13.5px; letter-spacing: 1.3px; line-height: 1.35; color: #0d1320; }
 
 /* left navy panel */
 .side { position: absolute; left: 0; width: 262px; background: var(--navy); color: #fff; padding: 26px 22px 20px 30px; border-top-right-radius: 105px; }
-.side.p1 { top: 246px; bottom: 0; }
+.side.p1 { top: 200px; bottom: 0; }
 .side.p2 { top: 0; bottom: 0; border-top-right-radius: 0; border-bottom-right-radius: 105px; padding-top: 40px; }
 .side h2 { font-family: 'Josefin Sans', sans-serif; font-weight: 700; font-size: 21px; letter-spacing: 1px; margin: 14px 0 6px; }
 .side h2:first-child { margin-top: 18px; }
@@ -48,7 +48,7 @@ body { font-family: 'Lato', Arial, sans-serif; color: var(--ink); -webkit-print-
 
 /* right column */
 .main { position: absolute; left: 288px; right: 0; padding-right: 32px; }
-.main.p1 { top: 308px; }
+.main.p1 { top: 226px; }
 .main.p2 { top: 40px; }
 .sh { margin: 0 calc(-32px / var(--z, 1)) 8px 0; border: 2px solid var(--line); border-right: none; border-radius: 36px 0 0 36px; padding: 2px 18px; font-family: 'Josefin Sans', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: 1.6px; color: var(--navy); text-transform: uppercase; line-height: 1.35; }
 .sec { margin-bottom: 13px; }
@@ -198,7 +198,7 @@ WATERLOO = sec('Waterloo Teams', item('WARG — Waterloo Aerial Robotics Group',
     item('UW Orbital · UW Game Dev', '2026', 'Student satellite design team · built beginner-level games') +
     '<div class="note">Member: Computer Science Club, UW Data Science Club</div>')
 
-def leadership(full=False):
+def leadership(full=False, n=None):
     base = [
         ('Director of MUN & Electoral and Democratic Club', 'May 2025 – Jun 2026', 'DPS-Modern Indian School, Doha',
          ["Led and managed the school's MUN program: organized conferences, trained delegates, promoted diplomacy and public speaking."]),
@@ -221,7 +221,7 @@ def leadership(full=False):
         ('Content Contributor, AetherMUN · Brand Ambassador, Luminos Foundation', 'May – Aug 2025', '', []),
         ('Education Mentor, DPS-Modern Indian School', 'May 2024 – Jan 2025', '', ['Mentored a junior student while in Grade 11.']),
     ]
-    items = base + (extra if full else [])
+    items = (base + (extra if full else []))[:n]
     return sec('Leadership & Experience', ''.join(item(t, d, s, b) for t, d, s, b in items))
 
 def compact_leadership():
@@ -299,20 +299,20 @@ TAG_MAIN = 'Computer Science & Computational Mathematics · University of Waterl
 about_main = 'First-year Waterloo student who builds practical, privacy-minded software, competes in hackathons and olympiads, and leads teams. Looking for Winter/Spring co-op.'
 resume = doc('Rushil Barve — Resume', [page(
     header(TAG_MAIN) + side([h2('About Me'), para(about_main), CONTACT, SKILLS, ACH_SHORT]) +
-    main(f'{EDU}{projects("general")}{hackathons()}{WATERLOO}{compact_leadership()}', 'p1', 1.0))])
+    main(f'{EDU}{projects("general")}{leadership(n=5)}{hackathons()}{WATERLOO}', 'p1', 1.0))])
 
 # ---- 2. co-op resume ----
 about_coop = 'CS & Computational Mathematics student seeking a Winter/Spring co-op. I ship full-stack projects, lead teams and events, and communicate clearly under pressure.'
 coop = doc('Rushil Barve — Co-op Resume', [page(
     header(TAG_MAIN) + side([h2('About Me'), para(about_coop), CONTACT, SKILLS, ACH_SHORT, CERTS]) +
-    main(f'{EDU}{projects("coop")}{leadership()}{WATERLOO}', 'p1', 1.0))])
+    main(f'{EDU}{projects("coop")}{leadership(n=6)}{hackathons()}{WATERLOO}', 'p1', 1.0))])
 
 # ---- 3. hackathon resume ----
 about_hack = 'Olympiad-level problem solver who builds fast, pitches clearly and leads teams under pressure. Eight hackathons from high school in Qatar to Waterloo.'
 hack_side = h2('Strengths') + ul(['Rapid prototyping & shipping', 'Public speaking and pitching', 'Team management', 'Event logistics', 'Marketing and branding'])
 hack = doc('Rushil Barve — Hackathon Resume', [page(
     header('Hackathon Builder · CS & Computational Mathematics @ UWaterloo') + side([h2('About Me'), para(about_hack), CONTACT, SKILLS, hack_side, ACH_SHORT]) +
-    main(f'{projects("hackathon")}{hackathons()}{WATERLOO}{compact_leadership()}', 'p1', 1.0))])
+    main(f'{projects("hackathon")}{hackathons()}{leadership(n=4)}{EDU}{WATERLOO}', 'p1', 1.0))])
 
 # ---- 4. full CV (2 pages) ----
 about_full = 'Computer science student at the University of Waterloo with a record in informatics olympiads, Model UN and student leadership. Experienced in leading teams, running events, training peers and public speaking, with a growing focus on building technology that has real impact.'
