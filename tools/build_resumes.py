@@ -153,11 +153,12 @@ PROJECTS = [
             'Automated quorum, simple-majority and two-thirds calculations, so chairs no longer count votes by hand.',
             'Kept rules in framework-free functions (src/lib/rules.ts) with automated tests; deployed to GitHub Pages.',
             'Stores everything in the browser with IndexedDB, so it works offline with no account or backend.']),
-    dict(key='occupancy', title='Door Occupancy Counter (in progress)', stack='Python · SQLite · JavaScript',
+    dict(key='occupancy', title='Door Occupancy Counter (in progress)', stack='Python · SQLite · JavaScript · TensorFlow.js',
          sub='Prototype: live building occupancy from door sensors', bullets=[
             'Counts people entering and leaving each door from two-beam sensor events (direction from beam order), keeping a live headcount with no manual logging.',
             'Live web dashboard, SQLite event log and automatic daily Excel reports (summary, hourly and event sheets) written with no external libraries.',
-            'Sensor simulator covering edge cases (turning back, tailgating, held doors) and unit tests, so the system is testable before any hardware.']),
+            'Sensor simulator covering edge cases (turning back, tailgating, held doors) and unit tests, so the system is testable before any hardware.',
+            'Phone camera sensor joined by QR code: in-browser person detection (TensorFlow.js) counts line crossings and sends only in/out, never video; links secured by an access key.']),
     dict(key='smash', title='Continental Smash', stack='Godot 4 · GDScript · GLSL shaders',
          sub='UW Game Jam Fall 2026 entry (theme: Drift)', bullets=[
             'Local two-player game where drifting continents ram each other to raise mountains and shove the rival into an ocean trench.',

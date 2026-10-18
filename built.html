@@ -257,6 +257,7 @@
                   <li>Live headcount plus ins and outs per door</li>
                   <li>Live dashboard with an event log and controls for tricky cases</li>
                   <li>Daily Excel reports (summary, hourly, events) saved automatically, optionally to a shared folder</li>
+                  <li>Any phone can become a door sensor: scan a QR code, point the camera at the doorway, and crossings show up on the dashboard</li>
                 </ul>
               </div>
               <div>
@@ -265,11 +266,13 @@
                   <li>Direction comes from which of two beams breaks first, with handling for turning back, tailgating and held doors</li>
                   <li>Python with no external libraries: SQLite event log, a small web server and a hand-written Excel writer</li>
                   <li>A sensor simulator stands in for hardware, so the whole system is tested before any sensors are installed</li>
+                  <li>Camera sensor runs person detection in the browser (TensorFlow.js COCO-SSD) and tracks people across an adjustable line; video never leaves the phone, only "in"/"out" is sent</li>
+                  <li>Links are protected by a secret access key; devices connect over the same Wi-Fi or through a Cloudflare tunnel</li>
                 </ul>
               </div>
             </div>
             <div data-gallery="occupancy-counter"></div>
-            <div class="chips"><span class="chip">Python</span><span class="chip">SQLite</span><span class="chip">JavaScript</span><span class="chip">Unit testing</span></div>
+            <div class="chips"><span class="chip">Python</span><span class="chip">SQLite</span><span class="chip">JavaScript</span><span class="chip">TensorFlow.js</span><span class="chip">Unit testing</span></div>
             <div class="build-links"><button class="btn btn-primary btn-sm" data-request="Door Occupancy Counter">🔒 Request source code</button></div>
           </article>
 
@@ -580,6 +583,21 @@
     {
      "f": "occ-mobile.jpg",
      "c": "The dashboard on a phone"
+    }
+   ]
+  },
+  {
+   "title": "Phone as a door sensor",
+   "cls": "two",
+   "dir": "images/occupancy-counter/",
+   "items": [
+    {
+     "f": "occ-connect-device.jpg",
+     "c": "Connect a device: a link and QR code turn any phone into a door sensor or a live display"
+    },
+    {
+     "f": "occ-camera-sensor.jpg",
+     "c": "Camera sensor page with the adjustable in/out line (shown here on a browser test feed)"
     }
    ]
   }

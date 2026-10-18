@@ -727,8 +727,8 @@
       desc: "Local-first app for Model UN chairs: committee and agenda setup, bulk delegation entry, roll call, and automated quorum, simple-majority and two-thirds calculations. Rules live in framework-free, tested functions; runs offline via IndexedDB with no account or backend.",
       tags: ["TypeScript", "React", "Vite", "Tailwind CSS", "Zustand", "Dexie"], img: "images/mun-toolkit/mun-roll-call.jpg", link: "built.html#mun-toolkit", live: "https://rsk0110.github.io/MUN-Community-toolkit/" },
     { title: "Door Occupancy Counter", kind: "Prototype · In progress", cat: "Python",
-      desc: "Counts people going in and out of a building's doors from two-beam sensor events, so the building always knows how many people are inside. Live dashboard, SQLite event log, automatic daily Excel reports, and a sensor simulator with edge cases (turning back, tailgating, held doors) so it is testable before any hardware.",
-      tags: ["Python", "SQLite", "JavaScript", "Unit testing"], img: "images/occupancy-counter/occ-dashboard.jpg", link: "built.html#occupancy-counter" },
+      desc: "Counts people going in and out of a building's doors from two-beam sensor events, so the building always knows how many people are inside. Live dashboard, SQLite event log, automatic daily Excel reports, and a sensor simulator with edge cases (turning back, tailgating, held doors). Any phone can act as a door sensor via a QR link: in-browser person detection counts line crossings and sends only in/out, never video.",
+      tags: ["Python", "SQLite", "JavaScript", "TensorFlow.js", "Unit testing"], img: "images/occupancy-counter/occ-dashboard.jpg", link: "built.html#occupancy-counter" },
     { title: "Continental Smash", kind: "Game Jam", cat: "Games", award: "UW Game Jam Fall 2026",
       desc: "Local two-player game for the UW Game Jam (theme: Drift): drifting continents ram each other to raise mountains and shove the rival into an ocean trench. Custom shaders for the planet, ocean, terrain and clouds, a narrated cinematic intro and particle impact effects.",
       tags: ["Godot 4", "GDScript", "GLSL shaders"], img: "images/continental-smash/smash-impact.jpg", link: "built.html#continental-smash" },
@@ -772,7 +772,7 @@
 
   const SKILLS = [
     { cat: "Languages", ico: "</>", items: ["Python", "JavaScript", "TypeScript", "GDScript", "C", "SQL", "Racket", "HTML/CSS"] },
-    { cat: "Frameworks & Engines", ico: "{ }", items: ["React", "Vite", "Tailwind CSS", "FastAPI", "Godot 4", "Bootstrap", "Zustand"] },
+    { cat: "Frameworks & Engines", ico: "{ }", items: ["React", "Vite", "Tailwind CSS", "FastAPI", "Godot 4", "Bootstrap", "Zustand", "TensorFlow.js"] },
     { cat: "Tools & Platforms", ico: ">_", items: ["Git & GitHub", "GitHub Actions", "IndexedDB (Dexie)", "Sass", "npm", "Render"] },
     { cat: "Core Concepts", ico: "∑", items: ["Algorithms", "Data Structures", "Computational Math", "Offline-first apps", "Testing", "Public Speaking", "Team Leadership"] }
   ];
@@ -952,7 +952,7 @@
   }));
 
   // Bumped by tools/update_resumes.py on every rebuild so browsers fetch the new files instead of a cached copy.
-  const RESUME_VERSION = "20261017-124422";
+  const RESUME_VERSION = "20261018-130217";
   // "Download PDF": clone the resume into the print-only container and open the print dialog;
   // choose "Save as PDF". To serve a pre-made file instead, set RESUME_FILE to e.g. "resume.pdf".
   const RESUME_FILE = "resume/Rushil_Barve_Resume.pdf?v=" + RESUME_VERSION;
