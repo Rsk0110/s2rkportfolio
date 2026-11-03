@@ -952,7 +952,7 @@
   }));
 
   // Bumped by tools/update_resumes.py on every rebuild so browsers fetch the new files instead of a cached copy.
-  const RESUME_VERSION = "20261018-130217";
+  const RESUME_VERSION = "20261102-202155";
   // "Download PDF": clone the resume into the print-only container and open the print dialog;
   // choose "Save as PDF". To serve a pre-made file instead, set RESUME_FILE to e.g. "resume.pdf".
   const RESUME_FILE = "resume/Rushil_Barve_Resume.pdf?v=" + RESUME_VERSION;
@@ -1020,10 +1020,11 @@
   });
   // ===== PDF resume viewer =====
   const PDF_VERSIONS = [
-    { id: "general", slug: "general", label: "Resume", file: "resume/Rushil_Barve_Resume.pdf", pages: ["resume/general-1.jpg"], desc: "One page: projects, hackathons, Waterloo teams and leadership." },
-    { id: "coop", slug: "coop", label: "Co-op", file: "resume/Rushil_Barve_Coop_Resume.pdf", pages: ["resume/coop-1.jpg"], desc: "One page: projects, full leadership history and certifications." },
-    { id: "hack", slug: "hackathon", label: "Hackathon", file: "resume/Rushil_Barve_Hackathon_Resume.pdf", pages: ["resume/hackathon-1.jpg"], desc: "One page: project-first, with hackathon results." },
-    { id: "full", slug: "full-cv", label: "Full CV", file: "resume/Rushil_Barve_Full_CV.pdf", pages: ["resume/full-cv-1.jpg", "resume/full-cv-2.jpg"], desc: "Two pages: everything, including every certificate and award." }
+    { id: "general", slug: "general", label: "Resume", file: "resume/Rushil_Barve_Resume.pdf", pages: ["resume/general-1.jpg"], desc: "One page in Jake’s template: projects, experience and leadership, hackathons and skills." },
+    { id: "coop", slug: "coop", label: "Co-op", file: "resume/Rushil_Barve_Coop_Resume.pdf", pages: ["resume/coop-1.jpg"], desc: "One page in Jake’s template, tuned for co-op applications: projects, experience, skills and certifications." },
+    { id: "hack", slug: "hackathon", label: "Hackathon", file: "resume/Rushil_Barve_Hackathon_Resume.pdf", pages: ["resume/hackathon-1.jpg"], desc: "One page in Jake’s template: project-first, with hackathon results." },
+    { id: "full", slug: "full-cv", label: "Full CV", file: "resume/Rushil_Barve_Full_CV.pdf", pages: ["resume/full-cv-1.jpg", "resume/full-cv-2.jpg"], desc: "Two pages in Jake’s template: every project, role and award." },
+    { id: "designed", slug: "designed", label: "Designed CV", file: "resume/Rushil_Barve_Designed_CV.pdf", pages: ["resume/designed-1.jpg", "resume/designed-2.jpg"], desc: "The full CV in a designed, photo layout, for networking and in-person events. For applications, use the versions above." }
   ];
   (function () {
     const tabs = $("#pdfTabs"), pages = $("#pdfPages"), desc = $("#pdfDesc"), dl = $("#pdfDownload"), open = $("#pdfOpen"), linkEl = $("#pdfLink"), copyBtn = $("#pdfCopy");

@@ -1,4 +1,6 @@
-﻿"""Generates the Canva-style resumes (HTML) for Rushil Barve.
+﻿"""Shared resume content + the Canva-style designed CV (HTML) for Rushil Barve.
+
+The main resumes are built in Jake's format by build_jakes.py from the data in this file.
 
 This file is the source of truth for resume CONTENT: edit the data below
 (PROJECTS, RESUME_PROJECTS, HACKS, leadership(), CERT_GROUPS ...) and run
@@ -96,26 +98,30 @@ CONTACT = h2('Contact') + rows([
     ('GitHub', link('https://github.com/Rsk0110', 'github.com/Rsk0110')),
     ('Devpost', link('https://devpost.com/Rsk0110', 'devpost.com/Rsk0110')),
     ('Location', 'Waterloo, Ontario')])
-SKILLS = h2('Skills') + rows([
+SKILL_ROWS = [
     ('Languages', 'Python, JavaScript, TypeScript, GDScript, C, SQL, HTML, CSS'),
     ('Frameworks', 'React, Vite, Tailwind CSS, FastAPI, Godot 4, Zustand'),
-    ('Tools', 'Git, GitHub Actions, SQLite, IndexedDB, Render')])
-CERTS = h2('Certifications') + ul([
+    ('Tools', 'Git, GitHub Actions, SQLite, IndexedDB, Render')]
+SKILLS = h2('Skills') + rows(SKILL_ROWS)
+CERT_LIST = [
     'Python Essentials 2 · HTML Essentials · Computer Hardware Basics',
-    'Accenture Nordics – Software Engineering Job Simulation', 'Bloomberg – Client Service Job Simulation'])
-ACH_SHORT = h2('Achievements') + ul([
+    'Accenture Nordics – Software Engineering Job Simulation', 'Bloomberg – Client Service Job Simulation']
+CERTS = h2('Certifications') + ul(CERT_LIST)
+ACH_SHORT_LIST = [
     'Gold Medal of Distinction, International Informatics Olympiad (2023-24); Bronze (2024-25)',
     'Gold Medal of Distinction, National Science Olympiad',
     'Six Best Delegate awards across 8+ national and international MUN conferences',
-    'Basketball, CBSE Qatar Clusters: Gold (2025-26), Bronze (2023-24, 2024-25)'])
-ACH_FULL = h2('Honors & Awards') + ul([
+    'Basketball, CBSE Qatar Clusters: Gold (2025-26), Bronze (2023-24, 2024-25)']
+ACH_SHORT = h2('Achievements') + ul(ACH_SHORT_LIST)
+ACH_FULL_LIST = [
     'Gold Medal of Distinction, International Informatics Olympiad (2023-24); Bronze Medal of Distinction (2024-25)',
     'Gold Medal of Distinction, National Science Olympiad',
     'Special Achievement Certificate, International Olympiad of English Language (2024-25)',
     'Best Delegate, UN Commission on Crime Prevention and Criminal Justice, Monarch MUN (2024-25)',
     'Honorary Mention, SDG 13, DPS-Modern Indian School MUN (2024-25)',
     'Six Best Delegate awards and one Honorable Mention across 8+ conferences',
-    'Basketball, CBSE Qatar Clusters: Gold (2025-26); Bronze (2023-24, 2024-25); national-level athlete'])
+    'Basketball, CBSE Qatar Clusters: Gold (2025-26); Bronze (2023-24, 2024-25); national-level athlete']
+ACH_FULL = h2('Honors & Awards') + ul(ACH_FULL_LIST)
 
 def sh(t): return f'<div class="sh">{e(t)}</div>'
 def sec(title, body): return f'<div class="sec">{sh(title)}{body}</div>'
@@ -135,40 +141,40 @@ EDU = sec('Education',
 # The page layout shrinks text automatically so one-page resumes stay one page.
 # ---------------------------------------------------------------------------
 PROJECTS = [
-    dict(key='circuitguard', title='CircuitGuard', stack='Python · FastAPI · React · Three.js',
+    dict(key='circuitguard', date='Sep 2026', title='CircuitGuard', stack='Python · FastAPI · React · Three.js',
          sub='Winner, Ampere – AI for Motor Safety · FormulaTech Hacks 2026', bullets=[
             'Real-time Formula 1 safety system: analyses live driver telemetry to detect crashes and stopped cars on the racing line and recommends the FIA response (safety car, VSC, red flag) under the 2026 sporting regulations.',
             'Models per-sector spectator risk with a Bayesian Monte Carlo insurance-pricing model, so premiums can reflect each track section instead of a blanket rate.',
             'Python/FastAPI backend on the OpenF1 API, FAISS semantic search over FIA regulations, faster-whisper radio transcription, Next.js/React 3D track view.',
             'Built with a team of four at FormulaTech Hacks 2026 (University of Waterloo).']),
-    dict(key='whisper', title='Whisper Chain', stack='Godot 4 · GDScript',
+    dict(key='whisper', date='Oct 2026', title='Whisper Chain', stack='Godot 4 · GDScript',
          sub='Puzzle game built on function composition', bullets=[
             'Puzzle game where each villager garbles a message (reverse, swap, double, drop a word); players route the message so the distortions cancel, discovering inverses and non-commutativity.',
             'Graph solver (DFS over simple paths) finds every correct route, sets par and powers live hints; used to design and validate all 10 levels.',
             '~3,000 lines of GDScript with UI-free game logic, ~1,500 test assertions including randomized property tests, and GitHub Actions CI building web and Windows exports.',
             'All art and audio generated in code: vector portraits and per-character synthesized voices.']),
-    dict(key='mun', title='MUN Chair Toolkit', stack='TypeScript · React · Vite · Tailwind · Zustand · Dexie',
+    dict(key='mun', date='Sep 2026', title='MUN Chair Toolkit', stack='TypeScript · React · Vite · Tailwind · Zustand · Dexie',
          sub='Local-first web app for Model UN chairs · live on GitHub Pages', bullets=[
             'Committee-management app for Model UN chairs: committee and agenda setup, bulk delegation entry, and roll call with Present, Present and Voting, and Absent states.',
             'Automated quorum, simple-majority and two-thirds calculations, so chairs no longer count votes by hand.',
             'Kept rules in framework-free functions (src/lib/rules.ts) with automated tests; deployed to GitHub Pages.',
             'Stores everything in the browser with IndexedDB, so it works offline with no account or backend.']),
-    dict(key='occupancy', title='Door Occupancy Counter (in progress)', stack='Python · SQLite · JavaScript · TensorFlow.js',
+    dict(key='occupancy', date='Oct 2026 – Present', title='Door Occupancy Counter (in progress)', stack='Python · SQLite · JavaScript · TensorFlow.js',
          sub='Prototype: live building occupancy from door sensors', bullets=[
             'Counts people entering and leaving each door from two-beam sensor events (direction from beam order), keeping a live headcount with no manual logging.',
             'Live web dashboard, SQLite event log and automatic daily Excel reports (summary, hourly and event sheets) written with no external libraries.',
             'Sensor simulator covering edge cases (turning back, tailgating, held doors) and unit tests, so the system is testable before any hardware.',
             'Phone camera sensor joined by QR code: in-browser person detection (TensorFlow.js) counts line crossings and sends only in/out, never video; links secured by an access key.']),
-    dict(key='smash', title='Continental Smash', stack='Godot 4 · GDScript · GLSL shaders',
+    dict(key='smash', date='Oct 2026', title='Continental Smash', stack='Godot 4 · GDScript · GLSL shaders',
          sub='UW Game Jam Fall 2026 entry (theme: Drift)', bullets=[
             'Local two-player game where drifting continents ram each other to raise mountains and shove the rival into an ocean trench.',
             'Custom shaders for the planet, ocean, terrain and clouds, a narrated cinematic intro, particle impact effects and an Inspector-tunable ruleset.']),
-    dict(key='tracknector', title='Track Nector', stack='Python · HTML · JSON · Render',
+    dict(key='tracknector', date='Sep 2026', title='Track Nector', stack='Python · HTML · JSON · Render',
          sub='Self-hosted personal finance tracker', bullets=[
             'Lightweight tracker for card balances and daily spending built around manual entry, with no bank account linking.',
             'Chose self-hosting and manual input deliberately to keep financial data private.',
             'Wrote the account logic in Python (bank_account.py) and added Render deployment config.']),
-    dict(key='corso', title='Corso Website', stack='HTML · Bootstrap · Sass · JavaScript',
+    dict(key='corso', date='Aug – Oct 2026', title='Corso Website', stack='HTML · Bootstrap · Sass · JavaScript',
          sub='First web project, from a web design course', bullets=[
             'Responsive site for courses and workshops: sticky navbar that changes on scroll, image carousel, registration and email-subscribe forms.',
             'Later cleaned up the course design myself: working forms with validation, accessibility fixes, ~70% smaller images; live at rsk0110.github.io/webproject.',
@@ -203,30 +209,31 @@ WATERLOO_SIDE = h2('Waterloo Teams') + ul([
     'UW Orbital: student satellite design team',
     'UW Game Dev · Computer Science Club · UW Data Science Club'])
 
+LEADERSHIP_BASE = [
+    ('Director of MUN & Electoral and Democratic Club', 'May 2025 – Jun 2026', 'DPS-Modern Indian School, Doha',
+     ["Led and managed the school's MUN program: organized conferences, trained delegates, promoted diplomacy and public speaking."]),
+    ('Head of Marketing, TEDxYouth@DPSMIS', 'Sep – Dec 2025', '',
+     ['Led branding, social media and promotion for a TEDx-licensed youth event, working across curation, design, operations and technical teams.']),
+    ('Head of Operations, DPSDQ MUN', 'Jun – Oct 2025', '',
+     ['Ran logistics and delegate services for the 25th-anniversary edition, coordinating with the Secretariat.']),
+    ('Team Leader, Qatar Children\u2019s Science Congress', 'Dec 2024 – Mar 2025', '',
+     ['Led an original student research project from experimental design to data analysis and expert-panel presentation.']),
+    ('Co-Founder, HuAr (Humanities.Arts)', 'Feb 2024 – Mar 2025', '',
+     ['Co-founded a student organization guiding students on humanities and arts paths; organized conferences and speaker sessions.']),
+    ('Head of Outreach & Logistics, Q-SOMA', 'Jun 2025 – Jun 2026', 'Qatar Society of Medical Aspirants',
+     ['Led outreach and logistics and supported event management for the society.']),
+    ('MUN Trainer & Head Chair', 'May 2024 – May 2026', 'DPS-MIS · Catalyst MUN · Global MUN Network',
+     ['Trained delegates in research, procedure and resolution drafting; Head Chair of Historical Security Council (Catalyst MUN) and WHO (Global MUN Network).']),
+]
+LEADERSHIP_EXTRA = [
+    ('Event Manager, New Gen Network', 'Aug – Nov 2025', '', []),
+    ('Event Coordinator, SFI Football Cup', 'May 2025', '', ['Coordinated logistics and operations for a charity football cup.']),
+    ('Content Contributor, AetherMUN · Brand Ambassador, Luminos Foundation', 'May – Aug 2025', '', []),
+    ('Education Mentor, DPS-Modern Indian School', 'May 2024 – Jan 2025', '', ['Mentored a junior student while in Grade 11.']),
+]
+
 def leadership(full=False, n=None):
-    base = [
-        ('Director of MUN & Electoral and Democratic Club', 'May 2025 – Jun 2026', 'DPS-Modern Indian School, Doha',
-         ["Led and managed the school's MUN program: organized conferences, trained delegates, promoted diplomacy and public speaking."]),
-        ('Head of Marketing, TEDxYouth@DPSMIS', 'Sep – Dec 2025', '',
-         ['Led branding, social media and promotion for a TEDx-licensed youth event, working across curation, design, operations and technical teams.']),
-        ('Head of Operations, DPSDQ MUN', 'Jun – Oct 2025', '',
-         ['Ran logistics and delegate services for the 25th-anniversary edition, coordinating with the Secretariat.']),
-        ('Team Leader, Qatar Children\u2019s Science Congress', 'Dec 2024 – Mar 2025', '',
-         ['Led an original student research project from experimental design to data analysis and expert-panel presentation.']),
-        ('Co-Founder, HuAr (Humanities.Arts)', 'Feb 2024 – Mar 2025', '',
-         ['Co-founded a student organization guiding students on humanities and arts paths; organized conferences and speaker sessions.']),
-        ('Head of Outreach & Logistics, Q-SOMA', 'Jun 2025 – Jun 2026', 'Qatar Society of Medical Aspirants',
-         ['Led outreach and logistics and supported event management for the society.']),
-        ('MUN Trainer & Head Chair', 'May 2024 – May 2026', 'DPS-MIS · Catalyst MUN · Global MUN Network',
-         ['Trained delegates in research, procedure and resolution drafting; Head Chair of Historical Security Council (Catalyst MUN) and WHO (Global MUN Network).']),
-    ]
-    extra = [
-        ('Event Manager, New Gen Network', 'Aug – Nov 2025', '', []),
-        ('Event Coordinator, SFI Football Cup', 'May 2025', '', ['Coordinated logistics and operations for a charity football cup.']),
-        ('Content Contributor, AetherMUN · Brand Ambassador, Luminos Foundation', 'May – Aug 2025', '', []),
-        ('Education Mentor, DPS-Modern Indian School', 'May 2024 – Jan 2025', '', ['Mentored a junior student while in Grade 11.']),
-    ]
-    items = (base + (extra if full else []))[:n]
+    items = (LEADERSHIP_BASE + (LEADERSHIP_EXTRA if full else []))[:n]
     return sec('Leadership & Experience', ''.join(item(t, d, s, b) for t, d, s, b in items))
 
 def compact_leadership():
@@ -329,8 +336,14 @@ p1 = page(header(TAG_MAIN) + side([h2('About Me'), para(about_full), CONTACT, SK
 p2 = page(side([CERTS, ACH_FULL, interests], 'p2') + main(f'{leadership(True)}{vol}{certificates()}', 'p2', 1.0))
 fullcv = doc('Rushil Barve — Full CV', [p1, p2])
 
-for name, content in [('Rushil_Barve_Resume', resume), ('Rushil_Barve_Coop_Resume', coop), ('Rushil_Barve_Hackathon_Resume', hack), ('Rushil_Barve_Full_CV', fullcv)]:
-    open(os.path.join(OUT, name + '.html'), 'w', encoding='utf-8').write(content)
-    if os.path.isdir(EDITABLE):
-        shutil.copy(os.path.join(OUT, name + '.html'), os.path.join(EDITABLE, name + '.html'))
-print('built resumes ->', OUT)
+def write_all():
+    # Only the photo/design CV is published from this layout; the main resumes use Jake's format (build_jakes.py).
+    for name, content in [('Rushil_Barve_Designed_CV', fullcv)]:
+        open(os.path.join(OUT, name + '.html'), 'w', encoding='utf-8').write(content)
+        if os.path.isdir(EDITABLE):
+            shutil.copy(os.path.join(OUT, name + '.html'), os.path.join(EDITABLE, name + '.html'))
+    print('built designed CV ->', OUT)
+
+
+if __name__ == '__main__':
+    write_all()

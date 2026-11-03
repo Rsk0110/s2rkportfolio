@@ -23,11 +23,14 @@ LOCAL_PDFS = os.path.join(HOME, "Documents", "Rsk", "Resumes", "Canva-style")
 SITE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "resume")
 
 # file name -> (preview slug, page count)
+# file name -> (preview slug, expected page count). The first four are Jake's format (build_jakes.py),
+# the last is the photo/design CV (build_resumes.py).
 RESUMES = {
     "Rushil_Barve_Resume": ("general", 1),
     "Rushil_Barve_Coop_Resume": ("coop", 1),
     "Rushil_Barve_Hackathon_Resume": ("hackathon", 1),
     "Rushil_Barve_Full_CV": ("full-cv", 2),
+    "Rushil_Barve_Designed_CV": ("designed", 2),
 }
 BROWSERS = [
     r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
@@ -80,23 +83,26 @@ def main():
             if not os.path.exists(pdf):
                 sys.exit(f"Failed to create the PDF for {name}.")
             shutil.copy(pdf, os.path.join(SITE, name + ".pdf"))
-            shutil.copy(pdf, os.path.join(LOCAL_PDFS, name + ".pdf"))
+            local = LOCAL_PDFS if "Designed" in name else os.path.join(os.path.dirname(LOCAL_PDFS), "Jakes")
+            os.makedirs(local, exist_ok=True)
+            shutil.copy(pdf, os.path.join(local, name + ".pdf"))
 
-            # 2. Preview images for the website
-            page_html = os.path.join(tmp, name + ".html")
-            with open(src, encoding="utf-8") as f:
-                html = f.read().replace("</head>", HIDE_TOOLBAR + "</head>", 1)
-            with open(page_html, "w", encoding="utf-8") as f:
-                f.write(html)
-            png = os.path.join(tmp, name + ".png")
-            run(exe, "--hide-scrollbars", "--force-device-scale-factor=2",
-                f"--window-size=794,{1123 * pages}", f"--screenshot={png}", file_url(page_html), out=png)
-            im = Image.open(png).convert("RGB")
-            w, h = im.size
-            for i in range(pages):
-                crop = im.crop((0, i * h // pages, w, (i + 1) * h // pages))
-                crop.thumbnail((1200, 1700), Image.LANCZOS)
-                crop.save(os.path.join(SITE, f"{slug}-{i + 1}.jpg"), "JPEG", quality=86, optimize=True, progressive=True)
+            # 2. Preview images for the website, rendered from the PDF itself
+            import pymupdf
+            doc = pymupdf.open(pdf)
+            if len(doc) != pages:
+                print(f"  WARNING: {name} has {len(doc)} pages (expected {pages})")
+            for old in os.listdir(SITE):
+                if old.startswith(slug + "-") and old.endswith(".jpg"):
+                    os.remove(os.path.join(SITE, old))
+            for i, pg in enumerate(doc):
+                png = os.path.join(tmp, f"{name}-{i}.png")
+                pg.get_pixmap(dpi=150).save(png)
+                im = Image.open(png).convert("RGB")
+                im.thumbnail((1200, 1700), Image.LANCZOS)
+                im.save(os.path.join(SITE, f"{slug}-{i + 1}.jpg"), "JPEG", quality=86, optimize=True, progressive=True)
+            pages = len(doc)
+            doc.close()
             print(f"  updated {name} ({pages} page{'s' if pages > 1 else ''})")
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
