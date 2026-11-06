@@ -81,7 +81,7 @@ VERSIONS = {
     'Rushil_Barve_Hackathon_Resume': dict(title='Hackathon Resume', exp=2, exp_bullets=1, awards='hack', certs=False, extra=False,
         projects={'circuitguard': 3, 'whisper': 2, 'smash': 2, 'mun': 1, 'occupancy': 1}),
     'Rushil_Barve_Full_CV': dict(title='Full CV', exp=None, exp_bullets=None, awards='full', certs=True, extra=True, pages=2,
-        projects={'circuitguard': 3, 'whisper': 3, 'mun': 3, 'occupancy': 3, 'smash': 2, 'tracknector': 2, 'corso': 2}),
+        projects={'circuitguard': 3, 'whisper': 3, 'mun': 3, 'paypilot': 2, 'occupancy': 3, 'smash': 2, 'tracknector': 2, 'corso': 2}),
 }
 
 

@@ -175,7 +175,7 @@
         <h1>What I've <span class="gradient-text">built</span></h1>
         <p>Web apps, tools and hackathon projects — what each one does, why I made it, and how it's put together.</p>
         <div class="stats">
-          <div class="card stat"><div class="num gradient-text">7</div><div class="lbl">Projects built</div></div>
+          <div class="card stat"><div class="num gradient-text">8</div><div class="lbl">Projects built</div></div>
           <div class="card stat"><div class="num gradient-text">8</div><div class="lbl">Hackathons</div></div>
           <div class="card stat"><div class="num gradient-text">5</div><div class="lbl">Hackathon wins</div></div>
           <div class="card stat"><div class="num gradient-text">2</div><div class="lbl">Games shipped</div></div>
@@ -244,6 +244,35 @@
             <div id="wcGallery" data-gallery="whisper"></div>
             <div class="chips" style="margin-top:1rem"><span class="chip">Godot 4</span><span class="chip">GDScript</span><span class="chip">Graph search</span><span class="chip">Property testing</span><span class="chip">GitHub Actions</span></div>
             <div class="build-links"><button class="btn btn-primary btn-sm" data-request="Whisper Chain">🔒 Request source code</button></div>
+          </article>
+
+          <article class="card build reveal" id="paypilot">
+            <div class="build-top"><span class="kind">AI · Hackathon · In progress</span><span class="chip">PayPal AI Hackathon</span></div>
+            <h3>PayPilot</h3>
+            <p class="lead">An AI back-office for getting paid with PayPal: tell it in plain English who to bill or what to collect, and it does the PayPal work, asking first before anything reaches a customer or moves money.</p>
+            <div class="cols">
+              <div>
+                <h4>What it does</h4>
+                <ul>
+                  <li>Turns a sentence like "Invoice Jane $1,200 for the redesign and $300 for hosting, due in 15 days" into a PayPal invoice with line items and terms</li>
+                  <li>Makes payment links with a hosted checkout page using PayPal Smart Buttons; paid orders show up on the dashboard</li>
+                  <li>Finds unpaid invoices and sends reminders or cancels them, and issues full or partial refunds</li>
+                  <li>Answers "how is business this month?" with collected, outstanding, refunded and net totals</li>
+                </ul>
+              </div>
+              <div>
+                <h4>How it's built</h4>
+                <ul>
+                  <li>Node.js + Express server running a Claude tool-use loop over 11 PayPal tools (Invoicing v2, Orders v2, Payments v2 refunds, Transaction Search)</li>
+                  <li>Human-in-the-loop: send, remind, cancel and refund are gated tools; the loop pauses, saves its state, shows an Approve/Decline card and resumes with the result</li>
+                  <li>Every PayPal call the agent makes is shown inline with its inputs and results</li>
+                  <li>Local activity ledger for live totals and refund lookups, since sandbox reporting lags; a mock PayPal backend lets anyone try it without credentials</li>
+                </ul>
+              </div>
+            </div>
+            <div data-gallery="paypilot"></div>
+            <div class="chips"><span class="chip">JavaScript</span><span class="chip">Node.js</span><span class="chip">Express</span><span class="chip">Claude API</span><span class="chip">PayPal REST APIs</span></div>
+            <div class="build-links"><button class="btn btn-primary btn-sm" data-request="PayPilot">🔒 Request source code</button></div>
           </article>
 
           <article class="card build reveal" id="occupancy-counter">
@@ -563,6 +592,19 @@
      "f": "wc-results.jpg",
      "c": "Results card"
     }
+   ]
+  }
+ ],
+ "paypilot": [
+  {
+   "title": "Screenshots (mock mode, demo data)",
+   "cls": "two",
+   "dir": "images/paypilot/",
+   "items": [
+    { "f": "pp-dashboard.jpg", "c": "Chat and dashboard: totals and the activity ledger of invoices, payments and a refund" },
+    { "f": "pp-invoice.jpg", "c": "An invoice with line items, as the customer sees it (mock mode)" },
+    { "f": "pp-checkout.jpg", "c": "Hosted checkout page for a payment link (Smart Buttons with real PayPal keys)" },
+    { "f": "pp-mobile.jpg", "c": "Mobile layout" }
    ]
   }
  ],

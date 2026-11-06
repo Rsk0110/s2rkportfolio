@@ -100,8 +100,8 @@ CONTACT = h2('Contact') + rows([
     ('Location', 'Waterloo, Ontario')])
 SKILL_ROWS = [
     ('Languages', 'Python, JavaScript, TypeScript, GDScript, C, SQL, HTML, CSS'),
-    ('Frameworks', 'React, Vite, Tailwind CSS, FastAPI, Godot 4, Zustand'),
-    ('Tools', 'Git, GitHub Actions, SQLite, IndexedDB, Render')]
+    ('Frameworks', 'React, Vite, Tailwind CSS, FastAPI, Node.js, Express, Godot 4, Zustand'),
+    ('Tools', 'Git, GitHub Actions, SQLite, IndexedDB, Render, Claude API, PayPal REST APIs')]
 SKILLS = h2('Skills') + rows(SKILL_ROWS)
 CERT_LIST = [
     'Python Essentials 2 · HTML Essentials · Computer Hardware Basics',
@@ -159,6 +159,11 @@ PROJECTS = [
             'Automated quorum, simple-majority and two-thirds calculations, so chairs no longer count votes by hand.',
             'Kept rules in framework-free functions (src/lib/rules.ts) with automated tests; deployed to GitHub Pages.',
             'Stores everything in the browser with IndexedDB, so it works offline with no account or backend.']),
+    dict(key='paypilot', date='Nov 2026 – Present', title='PayPilot (in progress)', stack='JavaScript · Node.js · Express · Claude API · PayPal REST APIs',
+         sub='PayPal AI Hackathon: AI back-office agent for freelancers', bullets=[
+            'Chat agent that turns plain-English requests into PayPal invoices, payment links, reminders and refunds through a Claude tool-use loop over 11 PayPal API tools.',
+            'Human-in-the-loop safety: actions that email customers or move money pause the agent loop, save its state and resume after an Approve/Decline click.',
+            'Hosted checkout page with PayPal Smart Buttons, a local activity ledger for live totals and refund lookups, and a mock PayPal backend for credential-free demos.']),
     dict(key='occupancy', date='Oct 2026 – Present', title='Door Occupancy Counter (in progress)', stack='Python · SQLite · JavaScript · TensorFlow.js',
          sub='Prototype: live building occupancy from door sensors', bullets=[
             'Counts people entering and leaving each door from two-beam sensor events (direction from beam order), keeping a live headcount with no manual logging.',
@@ -185,7 +190,7 @@ RESUME_PROJECTS = {   # project key -> number of bullets shown
     'general':   {'circuitguard': 3, 'whisper': 3, 'mun': 3, 'occupancy': 2},
     'coop':      {'circuitguard': 3, 'whisper': 3, 'mun': 3, 'occupancy': 2},
     'hackathon': {'circuitguard': 3, 'whisper': 3, 'smash': 2, 'mun': 2, 'occupancy': 2},
-    'full':      {'circuitguard': 3, 'whisper': 3, 'mun': 3, 'occupancy': 3, 'smash': 2, 'tracknector': 2, 'corso': 2},
+    'full':      {'circuitguard': 3, 'whisper': 3, 'mun': 3, 'paypilot': 2, 'occupancy': 3, 'smash': 2, 'tracknector': 2, 'corso': 2},
 }
 
 def projects(which):
