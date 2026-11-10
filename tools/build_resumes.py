@@ -153,6 +153,12 @@ PROJECTS = [
             'Graph solver (DFS over simple paths) finds every correct route, sets par and powers live hints; used to design and validate all 10 levels.',
             '~3,000 lines of GDScript with UI-free game logic, ~1,500 test assertions including randomized property tests, and GitHub Actions CI building web and Windows exports.',
             'All art and audio generated in code: vector portraits and per-character synthesized voices.']),
+    dict(key='daydream', date='Oct 2026', title='Daydream', stack='Godot 4 · GDScript · Python · NumPy',
+         sub='Puzzle game where progress happens only when you let go of the controls', bullets=[
+            'Puzzle game built on an inverted input mechanic: the dream world advances only while the player touches nothing; awake, they rearrange a desk whose side-on 3× projection is the dream level, so both worlds share one data model.',
+            'Deterministic fixed-step (120 Hz) physics enables headless tests that replay a stored solution for all 8 levels and check each wins within par, run by a GitHub Actions workflow.',
+            'Synthesised all 17 sound effects and 2 seamless music loops with NumPy; drift state drives a music crossfade, a low-pass filter and a screen-space shader.',
+            '~2,100 lines of GDScript with save data, settings, accessibility options (fall-asleep time, mouse sensitivity, reduce motion) and a tutorial.']),
     dict(key='mun', date='Sep 2026', title='MUN Chair Toolkit', stack='TypeScript · React · Vite · Tailwind · Zustand · Dexie',
          sub='Local-first web app for Model UN chairs · live on GitHub Pages', bullets=[
             'Committee-management app for Model UN chairs: committee and agenda setup, bulk delegation entry, and roll call with Present, Present and Voting, and Absent states.',
@@ -190,7 +196,7 @@ RESUME_PROJECTS = {   # project key -> number of bullets shown
     'general':   {'circuitguard': 3, 'whisper': 3, 'mun': 3, 'occupancy': 2},
     'coop':      {'circuitguard': 3, 'whisper': 3, 'mun': 3, 'occupancy': 2},
     'hackathon': {'circuitguard': 3, 'whisper': 3, 'smash': 2, 'mun': 2, 'occupancy': 2},
-    'full':      {'circuitguard': 3, 'whisper': 3, 'mun': 3, 'paypilot': 2, 'occupancy': 3, 'smash': 2, 'tracknector': 2, 'corso': 2},
+    'full':      {'circuitguard': 3, 'whisper': 3, 'daydream': 2, 'mun': 3, 'paypilot': 2, 'occupancy': 3, 'smash': 2, 'tracknector': 2, 'corso': 2},
 }
 
 def projects(which):

@@ -723,6 +723,9 @@
     { title: "Whisper Chain", kind: "Game · Godot", cat: "Games",
       desc: "Puzzle game about passing a message through a village of gossips: each villager garbles it (reverse, swap, double, drop a word) and you pick a route so the distortions cancel. It is function composition in disguise. A graph solver checks all 10 levels and powers live hints; ~3,000 lines of GDScript with ~1,500 test assertions and CI.",
       tags: ["Godot 4", "GDScript", "Graph search", "Unit testing", "GitHub Actions"], img: "images/whisper-chain/wc-gameplay.jpg", link: "built.html#whisper-chain" },
+    { title: "Daydream", kind: "Game · Godot", cat: "Games",
+      desc: "Puzzle game that only moves forward when you let go of the controls. Arrange books, rulers and erasers on a classroom desk, then stop touching everything: you drift off and the same desk becomes a dream sky your sleepy self floats through. The dream world is the desk projected side-on, so both share one data model. Deterministic 120 Hz physics lets headless tests prove all 8 levels are solvable at par; all sound and music is synthesised with NumPy.",
+      tags: ["Godot 4", "GDScript", "Python", "NumPy", "Shaders", "GitHub Actions"], img: "images/daydream/dd-classroom.jpg", link: "built.html#daydream" },
     { title: "MUN Chair Toolkit", kind: "Web App", cat: "Web",
       desc: "Local-first app for Model UN chairs: committee and agenda setup, bulk delegation entry, roll call, and automated quorum, simple-majority and two-thirds calculations. Rules live in framework-free, tested functions; runs offline via IndexedDB with no account or backend.",
       tags: ["TypeScript", "React", "Vite", "Tailwind CSS", "Zustand", "Dexie"], img: "images/mun-toolkit/mun-roll-call.jpg", link: "built.html#mun-toolkit", live: "https://rsk0110.github.io/MUN-Community-toolkit/" },
@@ -955,7 +958,7 @@
   }));
 
   // Bumped by tools/update_resumes.py on every rebuild so browsers fetch the new files instead of a cached copy.
-  const RESUME_VERSION = "20261106-151414";
+  const RESUME_VERSION = "20261110-085326";
   // "Download PDF": clone the resume into the print-only container and open the print dialog;
   // choose "Save as PDF". To serve a pre-made file instead, set RESUME_FILE to e.g. "resume.pdf".
   const RESUME_FILE = "resume/Rushil_Barve_Resume.pdf?v=" + RESUME_VERSION;
