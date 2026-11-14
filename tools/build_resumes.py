@@ -100,8 +100,8 @@ CONTACT = h2('Contact') + rows([
     ('Location', 'Waterloo, Ontario')])
 SKILL_ROWS = [
     ('Languages', 'Python, JavaScript, TypeScript, GDScript, C, SQL, HTML, CSS'),
-    ('Frameworks', 'React, Vite, Tailwind CSS, FastAPI, Node.js, Express, Godot 4, Zustand'),
-    ('Tools', 'Git, GitHub Actions, SQLite, IndexedDB, Render, Claude API, PayPal REST APIs')]
+    ('Frameworks', 'React, Vite, Tailwind CSS, FastAPI, Node.js, Express, Hono, Godot 4, Zustand'),
+    ('Tools', 'Git, GitHub Actions, SQLite, IndexedDB, Render, Redis, Reddit Devvit, Claude API, PayPal REST APIs')]
 SKILLS = h2('Skills') + rows(SKILL_ROWS)
 CERT_LIST = [
     'Python Essentials 2 · HTML Essentials · Computer Hardware Basics',
@@ -173,9 +173,15 @@ PROJECTS = [
     dict(key='occupancy', date='Oct 2026 – Present', title='Door Occupancy Counter (in progress)', stack='Python · SQLite · JavaScript · TensorFlow.js',
          sub='Prototype: live building occupancy from door sensors', bullets=[
             'Counts people entering and leaving each door from two-beam sensor events (direction from beam order), keeping a live headcount with no manual logging.',
-            'Live web dashboard, SQLite event log and automatic daily Excel reports (summary, hourly and event sheets) written with no external libraries.',
-            'Sensor simulator covering edge cases (turning back, tailgating, held doors) and unit tests, so the system is testable before any hardware.',
-            'Phone camera sensor joined by QR code: in-browser person detection (TensorFlow.js) counts line crossings and sends only in/out, never video; links secured by an access key.']),
+            'Dashboard compares today with the same weekday over the last 4 weeks and forecasts the rest of the day; adds a busiest-hours heatmap, capacity alerts and an emergency roll-call view.',
+            "Tracks its own accuracy from hand counts and empty-building nights; restores the day's count from the SQLite event log after a restart; daily Excel reports written with no external libraries.",
+            'Phone camera sensor joined by QR code: in-browser person detection (TensorFlow.js) counts line crossings and sends only in/out, never video; role-based access links (sensor, read-only, admin).',
+            'Sensor simulator covering edge cases (turning back, tailgating, held doors) plus 39 unit tests, so the system is testable before any hardware.']),
+    dict(key='lanternlight', date='Nov 2026 – Present', title='Lanternlight (in progress)', stack='TypeScript · React · Tailwind · Hono · Redis · Devvit',
+         sub='Reddit Game of the Day hackathon: daily puzzle game on Devvit Web', bullets=[
+            "Daily mirror-and-lantern puzzle for Reddit: a seeded generator builds each day's board, and an exhaustive solver over every reachable mirror arrangement sets the true minimum taps (par).",
+            "Server (Hono + Redis) replays each player's tap sequence against the canonical puzzle to verify solves, then updates a sorted-set leaderboard, score distribution, streaks and stats; a scheduler posts a new puzzle daily.",
+            'Difficulty tuned per weekday (5×5 to 8×8) and checked by generating a full year of puzzles; unit tests cover the generator, solver and game rules.']),
     dict(key='smash', date='Oct 2026', title='Continental Smash', stack='Godot 4 · GDScript · GLSL shaders',
          sub='UW Game Jam Fall 2026 entry (theme: Drift)', bullets=[
             'Local two-player game where drifting continents ram each other to raise mountains and shove the rival into an ocean trench.',
@@ -196,7 +202,7 @@ RESUME_PROJECTS = {   # project key -> number of bullets shown
     'general':   {'circuitguard': 3, 'whisper': 3, 'mun': 3, 'occupancy': 2},
     'coop':      {'circuitguard': 3, 'whisper': 3, 'mun': 3, 'occupancy': 2},
     'hackathon': {'circuitguard': 3, 'whisper': 3, 'smash': 2, 'mun': 2, 'occupancy': 2},
-    'full':      {'circuitguard': 3, 'whisper': 3, 'daydream': 2, 'mun': 3, 'paypilot': 2, 'occupancy': 3, 'smash': 2, 'tracknector': 2, 'corso': 2},
+    'full':      {'circuitguard': 3, 'whisper': 3, 'daydream': 2, 'lanternlight': 2, 'mun': 3, 'paypilot': 2, 'occupancy': 3, 'smash': 2, 'tracknector': 2, 'corso': 2},
 }
 
 def projects(which):

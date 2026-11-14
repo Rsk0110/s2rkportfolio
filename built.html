@@ -175,7 +175,7 @@
         <h1>What I've <span class="gradient-text">built</span></h1>
         <p>Web apps, tools and hackathon projects — what each one does, why I made it, and how it's put together.</p>
         <div class="stats">
-          <div class="card stat"><div class="num gradient-text">9</div><div class="lbl">Projects built</div></div>
+          <div class="card stat"><div class="num gradient-text">10</div><div class="lbl">Projects built</div></div>
           <div class="card stat"><div class="num gradient-text">8</div><div class="lbl">Hackathons</div></div>
           <div class="card stat"><div class="num gradient-text">5</div><div class="lbl">Hackathon wins</div></div>
           <div class="card stat"><div class="num gradient-text">3</div><div class="lbl">Games shipped</div></div>
@@ -275,6 +275,35 @@
             <div class="build-links"><button class="btn btn-primary btn-sm" data-request="Daydream">🔒 Request source code</button></div>
           </article>
 
+          <article class="card build reveal" id="lanternlight">
+            <div class="build-top"><span class="kind">Game · Hackathon · In progress</span><span class="chip">Reddit Game of the Day</span></div>
+            <h3>Lanternlight</h3>
+            <p class="lead">A daily puzzle game that lives in a Reddit post. One beam of moonlight enters the board: tap mirrors to turn them and guide the light through every paper lantern, using as few taps as possible. Built for the Reddit Game of the Day hackathon on Devvit Web.</p>
+            <div class="cols">
+              <div>
+                <h4>What it does</h4>
+                <ul>
+                  <li>A new puzzle is posted to the subreddit every day; older posts stay playable as an archive</li>
+                  <li>The beam redraws after every tap and there is no undo, so every tap counts; matching par earns three stars</li>
+                  <li>Difficulty climbs through the week, from Gentle Monday (5×5) to Midnight Sunday (8×8) with bolted mirrors and rocks</li>
+                  <li>After solving: how everyone did against par, the day's top players, your rank, streak and at-par rate, and a one-tap spoiler-free result to share in the comments</li>
+                </ul>
+              </div>
+              <div>
+                <h4>How it's built</h4>
+                <ul>
+                  <li>~1,800 lines of TypeScript: React 19 + Tailwind client (a light feed preview and a full game view) and a Hono server on Reddit's Devvit Web platform</li>
+                  <li>Seeded generator walks a beam path, places mirrors and lanterns, then scrambles the board; an exhaustive solver over every reachable mirror arrangement sets the true par and rejects puzzles outside that weekday's band</li>
+                  <li>The client sends only its tap sequence; the server replays it against the real puzzle before saving to Redis (sorted-set leaderboard, score histogram, streaks), and a scheduled job posts each day's puzzle</li>
+                  <li>Unit tests for the generator, solver and game rules; a full year of puzzles is generated to check every par lands in its band</li>
+                </ul>
+              </div>
+            </div>
+            <div data-gallery="lanternlight"></div>
+            <div class="chips"><span class="chip">TypeScript</span><span class="chip">React</span><span class="chip">Tailwind CSS</span><span class="chip">Hono</span><span class="chip">Redis</span><span class="chip">Devvit</span></div>
+            <div class="build-links"><button class="btn btn-primary btn-sm" data-request="Lanternlight">🔒 Request source code</button></div>
+          </article>
+
           <article class="card build reveal" id="paypilot">
             <div class="build-top"><span class="kind">AI · Hackathon · In progress</span><span class="chip">PayPal AI Hackathon</span></div>
             <h3>PayPilot</h3>
@@ -312,8 +341,10 @@
               <div>
                 <h4>What it does</h4>
                 <ul>
-                  <li>Live headcount plus ins and outs per door</li>
-                  <li>Live dashboard with an event log and controls for tricky cases</li>
+                  <li>Live headcount with a capacity bar, ins and outs per door, and pop-up and sound alerts when the building goes over capacity or a sensor goes offline</li>
+                  <li>Compares today with a usual day (same weekday, last 4 weeks), forecasts the peak and when the building will be empty, and shows a busiest-times heatmap</li>
+                  <li>Shows how accurate it is: enter a hand count to check and correct it, and see how many nights the count returned to 0</li>
+                  <li>Emergency roll-call: one button opens a full-screen, printable view of how many people are still inside, per door</li>
                   <li>Daily Excel reports (summary, hourly, events) saved automatically, optionally to a shared folder</li>
                   <li>Any phone can become a door sensor: scan a QR code, point the camera at the doorway, and crossings show up on the dashboard</li>
                 </ul>
@@ -325,7 +356,8 @@
                   <li>Python with no external libraries: SQLite event log, a small web server and a hand-written Excel writer</li>
                   <li>A sensor simulator stands in for hardware, so the whole system is tested before any sensors are installed</li>
                   <li>Camera sensor runs person detection in the browser (TensorFlow.js COCO-SSD) and tracks people across an adjustable line; video never leaves the phone, only "in"/"out" is sent</li>
-                  <li>Links are protected by a secret access key; devices connect over the same Wi-Fi or through a Cloudflare tunnel</li>
+                  <li>Three kinds of links from one secret key (camera sensor, read-only display, admin); devices connect over the same Wi-Fi or through a Cloudflare tunnel</li>
+                  <li>Picks up the day's count from the saved events after a restart instead of resetting to 0</li>
                 </ul>
               </div>
             </div>
@@ -666,24 +698,32 @@
    ]
   }
  ],
+ "lanternlight": [
+  {
+   "title": "Screenshots",
+   "cls": "three",
+   "dir": "images/lanternlight/",
+   "items": [
+    { "f": "ll-splash.jpg", "c": "The daily post as it appears in the Reddit feed" },
+    { "f": "ll-puzzle.jpg", "c": "A Saturday 7×7 puzzle: one beam, par 6" },
+    { "f": "ll-solved.jpg", "c": "Solved at par: every lantern lit, and they rise" },
+    { "f": "ll-results.jpg", "c": "After solving: how everyone did against par, plus streak stats" },
+    { "f": "ll-leaderboard.jpg", "c": "The day's top players: fewest taps, then fastest (demo data)" },
+    { "f": "ll-desktop.jpg", "c": "Full game view on a wide screen, with bolted mirrors" }
+   ]
+  }
+ ],
  "occupancy-counter": [
   {
    "title": "Screenshots",
    "cls": "three",
    "dir": "images/occupancy-counter/",
    "items": [
-    {
-     "f": "occ-dashboard.jpg",
-     "c": "Live dashboard: people inside, ins and outs per door, and the event log (simulated sensors)"
-    },
-    {
-     "f": "occ-edge-cases.jpg",
-     "c": "Edge cases from the controls: a person who turns back is logged and rejected, not counted"
-    },
-    {
-     "f": "occ-mobile.jpg",
-     "c": "The dashboard on a phone"
-    }
+    { "f": "occ-dashboard.jpg", "c": "Dashboard: people inside vs capacity, per-door counts, and today vs a usual day with a forecast (demo data)" },
+    { "f": "occ-insights.jpg", "c": "Accuracy from hand counts and empty nights, and a busiest-times heatmap" },
+    { "f": "occ-emergency.jpg", "c": "Emergency roll-call: how many people are still inside, per door, ready to print" },
+    { "f": "occ-edge-cases.jpg", "c": "Edge cases from the controls: a person who turns back is logged and rejected, not counted" },
+    { "f": "occ-mobile.jpg", "c": "The dashboard on a phone" }
    ]
   },
   {
@@ -691,14 +731,8 @@
    "cls": "two",
    "dir": "images/occupancy-counter/",
    "items": [
-    {
-     "f": "occ-connect-device.jpg",
-     "c": "Connect a device: a link and QR code turn any phone into a door sensor or a live display"
-    },
-    {
-     "f": "occ-camera-sensor.jpg",
-     "c": "Camera sensor page with the adjustable in/out line (shown here on a browser test feed)"
-    }
+    { "f": "occ-connect-device.jpg", "c": "Connect a device: a link and QR code turn any phone into a door sensor or a live display" },
+    { "f": "occ-camera-sensor.jpg", "c": "Camera sensor page with the adjustable in/out line (shown here on a browser test feed)" }
    ]
   }
  ],

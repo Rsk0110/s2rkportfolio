@@ -726,6 +726,9 @@
     { title: "Daydream", kind: "Game · Godot", cat: "Games",
       desc: "Puzzle game that only moves forward when you let go of the controls. Arrange books, rulers and erasers on a classroom desk, then stop touching everything: you drift off and the same desk becomes a dream sky your sleepy self floats through. The dream world is the desk projected side-on, so both share one data model. Deterministic 120 Hz physics lets headless tests prove all 8 levels are solvable at par; all sound and music is synthesised with NumPy.",
       tags: ["Godot 4", "GDScript", "Python", "NumPy", "Shaders", "GitHub Actions"], img: "images/daydream/dd-classroom.jpg", link: "built.html#daydream" },
+    { title: "Lanternlight", kind: "Game · Hackathon · In progress", cat: "Games",
+      desc: "Daily light-and-mirror puzzle for Reddit, built for the Reddit Game of the Day hackathon on Devvit Web. Tap mirrors to steer one beam of moonlight through every paper lantern in as few taps as possible. A seeded generator makes a new puzzle every day, an exhaustive solver sets the true minimum (par), and the server replays each tap sequence to verify results for the daily leaderboard, streaks and score distribution.",
+      tags: ["TypeScript", "React", "Tailwind CSS", "Hono", "Redis", "Devvit"], img: "images/lanternlight/ll-solved.jpg", link: "built.html#lanternlight" },
     { title: "MUN Chair Toolkit", kind: "Web App", cat: "Web",
       desc: "Local-first app for Model UN chairs: committee and agenda setup, bulk delegation entry, roll call, and automated quorum, simple-majority and two-thirds calculations. Rules live in framework-free, tested functions; runs offline via IndexedDB with no account or backend.",
       tags: ["TypeScript", "React", "Vite", "Tailwind CSS", "Zustand", "Dexie"], img: "images/mun-toolkit/mun-roll-call.jpg", link: "built.html#mun-toolkit", live: "https://rsk0110.github.io/MUN-Community-toolkit/" },
@@ -733,7 +736,7 @@
       desc: "Chat-based back-office agent for freelancers, built for the PayPal AI Hackathon. Describe a job in plain English and a Claude tool-use agent drafts and sends PayPal invoices, makes payment links with a hosted checkout page, chases unpaid invoices, issues refunds and summarises the business. Anything that emails a customer or moves money pauses the agent for an Approve/Decline click, and every PayPal API call is shown inline.",
       tags: ["JavaScript", "Node.js", "Express", "Claude API", "PayPal REST APIs"], img: "images/paypilot/pp-dashboard.jpg", link: "built.html#paypilot" },
     { title: "Door Occupancy Counter", kind: "Prototype · In progress", cat: "Python",
-      desc: "Counts people going in and out of a building's doors from two-beam sensor events, so the building always knows how many people are inside. Live dashboard, SQLite event log, automatic daily Excel reports, and a sensor simulator with edge cases (turning back, tailgating, held doors). Any phone can act as a door sensor via a QR link: in-browser person detection counts line crossings and sends only in/out, never video.",
+      desc: "Counts people going in and out of a building's doors from two-beam sensor events, so the building always knows how many people are inside. Live dashboard with a capacity bar and alerts, today-vs-usual chart with a forecast for the rest of the day, a busiest-times heatmap, accuracy tracking from hand counts, an emergency roll-call view and automatic daily Excel reports. Any phone can act as a door sensor via a QR link: in-browser person detection counts line crossings and sends only in/out, never video.",
       tags: ["Python", "SQLite", "JavaScript", "TensorFlow.js", "Unit testing"], img: "images/occupancy-counter/occ-dashboard.jpg", link: "built.html#occupancy-counter" },
     { title: "Continental Smash", kind: "Game Jam", cat: "Games", award: "UW Game Jam Fall 2026",
       desc: "Local two-player game for the UW Game Jam (theme: Drift): drifting continents ram each other to raise mountains and shove the rival into an ocean trench. Custom shaders for the planet, ocean, terrain and clouds, a narrated cinematic intro and particle impact effects.",
@@ -778,8 +781,8 @@
 
   const SKILLS = [
     { cat: "Languages", ico: "</>", items: ["Python", "JavaScript", "TypeScript", "GDScript", "C", "SQL", "Racket", "HTML/CSS"] },
-    { cat: "Frameworks & Engines", ico: "{ }", items: ["React", "Vite", "Tailwind CSS", "FastAPI", "Godot 4", "Bootstrap", "Zustand", "TensorFlow.js", "Node.js", "Express"] },
-    { cat: "Tools & Platforms", ico: ">_", items: ["Git & GitHub", "GitHub Actions", "IndexedDB (Dexie)", "Sass", "npm", "Render", "Claude API", "PayPal REST APIs"] },
+    { cat: "Frameworks & Engines", ico: "{ }", items: ["React", "Vite", "Tailwind CSS", "FastAPI", "Godot 4", "Bootstrap", "Zustand", "TensorFlow.js", "Node.js", "Express", "Hono"] },
+    { cat: "Tools & Platforms", ico: ">_", items: ["Git & GitHub", "GitHub Actions", "IndexedDB (Dexie)", "Sass", "npm", "Render", "Claude API", "PayPal REST APIs", "Redis", "Reddit Devvit"] },
     { cat: "Core Concepts", ico: "∑", items: ["Algorithms", "Data Structures", "Computational Math", "Offline-first apps", "Testing", "Public Speaking", "Team Leadership"] }
   ];
 
@@ -958,7 +961,7 @@
   }));
 
   // Bumped by tools/update_resumes.py on every rebuild so browsers fetch the new files instead of a cached copy.
-  const RESUME_VERSION = "20261110-085326";
+  const RESUME_VERSION = "20261113-211220";
   // "Download PDF": clone the resume into the print-only container and open the print dialog;
   // choose "Save as PDF". To serve a pre-made file instead, set RESUME_FILE to e.g. "resume.pdf".
   const RESUME_FILE = "resume/Rushil_Barve_Resume.pdf?v=" + RESUME_VERSION;
