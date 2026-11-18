@@ -67,8 +67,8 @@ LEADERSHIP_EXTRA = [
     ('CMU-Qatar MindCraft Workshop · Embassy of India', 'Jun – Nov 2024', 'Student Volunteer', 'Doha, Qatar', ['Assisted students with robotics activities; volunteered at the International Day of Yoga.']),
 ]
 
-HACK_LINE = ('8 hackathons, 5 won, 1 organised: FormulaTech Hacks 2026 (Waterloo; Winner, Ampere: AI for Motor Safety), '
-             'RevenueCat Shipaton, OpenCV AI Competition (AWS), Nebius x NVIDIA Global AI Hackathon, IBM BOB 2.0 (all 2026), '
+HACK_LINE = ('10 hackathons, 5 won, 1 organised: FormulaTech Hacks 2026 (Waterloo; Winner, Ampere: AI for Motor Safety), '
+             'Reddit Game of the Day and SafeSpace Hacks (submitted), RevenueCat Shipaton, OpenCV AI Competition (AWS), Nebius x NVIDIA Global AI Hackathon, IBM BOB 2.0 (all 2026), '
              'DPS MIS Doha (2025), Birla School (2024), CMU Qatar (2023).')
 
 # Which sections each version gets. Projects use data.RESUME_PROJECTS (key -> bullet count).
@@ -81,7 +81,7 @@ VERSIONS = {
     'Rushil_Barve_Hackathon_Resume': dict(title='Hackathon Resume', exp=2, exp_bullets=1, awards='hack', certs=False, extra=False,
         projects={'circuitguard': 3, 'whisper': 2, 'smash': 2, 'mun': 1, 'occupancy': 1}),
     'Rushil_Barve_Full_CV': dict(title='Full CV', exp=None, exp_bullets=None, awards='full', certs=True, extra=True, pages=2,
-        projects={'circuitguard': 3, 'whisper': 3, 'daydream': 2, 'lanternlight': 2, 'mun': 3, 'paypilot': 2, 'occupancy': 3, 'smash': 2, 'tracknector': 2, 'corso': 2}),
+        projects={'circuitguard': 3, 'whisper': 3, 'daydream': 2, 'lanternlight': 2, 'steady': 2, 'mun': 3, 'paypilot': 2, 'secondlook': 1, 'occupancy': 3, 'smash': 2, 'tracknector': 1, 'corso': 2}),
 }
 
 

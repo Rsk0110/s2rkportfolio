@@ -101,7 +101,7 @@ CONTACT = h2('Contact') + rows([
 SKILL_ROWS = [
     ('Languages', 'Python, JavaScript, TypeScript, GDScript, C, SQL, HTML, CSS'),
     ('Frameworks', 'React, Vite, Tailwind CSS, FastAPI, Node.js, Express, Hono, Godot 4, Zustand'),
-    ('Tools', 'Git, GitHub Actions, SQLite, IndexedDB, Render, Redis, Reddit Devvit, Claude API, PayPal REST APIs')]
+    ('Tools', 'Git, GitHub Actions, SQLite, IndexedDB, Render, Redis, Reddit Devvit, Claude API, PayPal REST APIs, PWAs')]
 SKILLS = h2('Skills') + rows(SKILL_ROWS)
 CERT_LIST = [
     'Python Essentials 2 · HTML Essentials · Computer Hardware Basics',
@@ -177,11 +177,21 @@ PROJECTS = [
             "Tracks its own accuracy from hand counts and empty-building nights; restores the day's count from the SQLite event log after a restart; daily Excel reports written with no external libraries.",
             'Phone camera sensor joined by QR code: in-browser person detection (TensorFlow.js) counts line crossings and sends only in/out, never video; role-based access links (sensor, read-only, admin).',
             'Sensor simulator covering edge cases (turning back, tailgating, held doors) plus 39 unit tests, so the system is testable before any hardware.']),
-    dict(key='lanternlight', date='Nov 2026 – Present', title='Lanternlight (in progress)', stack='TypeScript · React · Tailwind · Hono · Redis · Devvit',
-         sub='Reddit Game of the Day hackathon: daily puzzle game on Devvit Web', bullets=[
+    dict(key='lanternlight', date='Nov 2026', title='Lanternlight', stack='TypeScript · React · Tailwind · Hono · Redis · Devvit',
+         sub='Reddit Game of the Day hackathon entry (submitted): daily puzzle game on Devvit Web', bullets=[
             "Daily mirror-and-lantern puzzle for Reddit: a seeded generator builds each day's board, and an exhaustive solver over every reachable mirror arrangement sets the true minimum taps (par).",
             "Server (Hono + Redis) replays each player's tap sequence against the canonical puzzle to verify solves, then updates a sorted-set leaderboard, score distribution, streaks and stats; a scheduler posts a new puzzle daily.",
             'Difficulty tuned per weekday (5×5 to 8×8) and checked by generating a full year of puzzles; unit tests cover the generator, solver and game rules.']),
+    dict(key='steady', date='Nov 2026', title='Steady', stack='JavaScript · HTML/CSS · DeviceMotion · Web Audio · PWA',
+         sub='SafeSpace Hacks 2026 entry (submitted): phone-sensor ladder safety · live on GitHub Pages', bullets=[
+            "Phone web app that reads a ladder's angle from the accelerometer's gravity vector, independent of how the phone is twisted on the rail, and gives exact advice on how far to move the feet to reach the safe ~76°.",
+            'Fall detector as a state machine (sustained free-fall, then an impact within 1.2 s) that triggers a siren and one-tap emergency call; unit tests confirm climbing steps, bounces and drops without impact do not trigger it.',
+            'Wobble test from acceleration variance, audio guidance with Web Audio, offline PWA with no server and a Content Security Policy that blocks all outgoing requests; demo mode for devices without sensors.']),
+    dict(key='secondlook', date='Nov 2026', title='Second Look', stack='JavaScript · HTML/CSS · PWA',
+         sub='On-device scam message checker · live on GitHub Pages', bullets=[
+            'Explains why a pasted text or email looks like a scam: a rule engine with 11 weighted categories highlights the exact words, and a compound rule boosts the score when pressure and a request appear together.',
+            'Link analyser extracts the registrable domain and detects look-alikes (digit swaps, rn→m, edit distance), brands hidden in subdomains, punycode and shorteners.',
+            'Tests require every scam example to rate high and every genuine one low; runs offline with nothing sent off the device, plus a 12-message practice mode.']),
     dict(key='smash', date='Oct 2026', title='Continental Smash', stack='Godot 4 · GDScript · GLSL shaders',
          sub='UW Game Jam Fall 2026 entry (theme: Drift)', bullets=[
             'Local two-player game where drifting continents ram each other to raise mountains and shove the rival into an ocean trench.',
@@ -202,7 +212,7 @@ RESUME_PROJECTS = {   # project key -> number of bullets shown
     'general':   {'circuitguard': 3, 'whisper': 3, 'mun': 3, 'occupancy': 2},
     'coop':      {'circuitguard': 3, 'whisper': 3, 'mun': 3, 'occupancy': 2},
     'hackathon': {'circuitguard': 3, 'whisper': 3, 'smash': 2, 'mun': 2, 'occupancy': 2},
-    'full':      {'circuitguard': 3, 'whisper': 3, 'daydream': 2, 'lanternlight': 2, 'mun': 3, 'paypilot': 2, 'occupancy': 3, 'smash': 2, 'tracknector': 2, 'corso': 2},
+    'full':      {'circuitguard': 3, 'whisper': 3, 'daydream': 2, 'lanternlight': 2, 'steady': 2, 'mun': 3, 'paypilot': 2, 'secondlook': 2, 'occupancy': 3, 'smash': 2, 'tracknector': 2, 'corso': 2},
 }
 
 def projects(which):
@@ -211,11 +221,11 @@ def projects(which):
     return sec('Projects', body +
         '<div class="note">Source code available <a href="mailto:' + EMAIL + '?subject=Source%20code%20request" style="color:#263654;font-weight:700">on request</a> · more projects at rsk0110.github.io/s2rkportfolio</div>')
 
-HACKS = [('FormulaTech Hacks — Winner (Ampere)', '2026'), ('RevenueCat Shipaton', '2026'), ('OpenCV AI Competition (AWS)', '2026'),
+HACKS = [('FormulaTech Hacks — Winner (Ampere)', '2026'), ('Reddit Game of the Day (submitted)', '2026'), ('SafeSpace Hacks (submitted)', '2026'), ('RevenueCat Shipaton', '2026'), ('OpenCV AI Competition (AWS)', '2026'),
          ('Nebius x NVIDIA Global AI Hackathon', '2026'), ('IBM BOB 2.0 Hackathon', '2026'), ('DPS MIS Doha Hackathon', '2025'),
          ('Birla School Hackathon — Qatar', '2024'), ('CMU Qatar Hackathon', '2023')]
 def hackathons(title='Hackathons'):
-    return sec(title, '<div class="hack">' + ''.join(f'<div>{e(a)}<span>{b}</span></div>' for a, b in HACKS) + '</div><div class="note"><b>8 hackathons · 5 won · 1 organised</b></div>')
+    return sec(title, '<div class="hack">' + ''.join(f'<div>{e(a)}<span>{b}</span></div>' for a, b in HACKS) + '</div><div class="note"><b>10 hackathons · 5 won · 1 organised</b></div>')
 
 WATERLOO = sec('Waterloo Teams', item('WARG — Waterloo Aerial Robotics Group', '2026', 'Autonomy team · Embedded Flight Software team') +
     item('UW Orbital · UW Game Dev', '2026', 'Student satellite design team · built beginner-level games') +

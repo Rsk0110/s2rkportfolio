@@ -175,8 +175,8 @@
         <h1>What I've <span class="gradient-text">built</span></h1>
         <p>Web apps, tools and hackathon projects — what each one does, why I made it, and how it's put together.</p>
         <div class="stats">
-          <div class="card stat"><div class="num gradient-text">10</div><div class="lbl">Projects built</div></div>
-          <div class="card stat"><div class="num gradient-text">8</div><div class="lbl">Hackathons</div></div>
+          <div class="card stat"><div class="num gradient-text">12</div><div class="lbl">Projects built</div></div>
+          <div class="card stat"><div class="num gradient-text">10</div><div class="lbl">Hackathons</div></div>
           <div class="card stat"><div class="num gradient-text">5</div><div class="lbl">Hackathon wins</div></div>
           <div class="card stat"><div class="num gradient-text">3</div><div class="lbl">Games shipped</div></div>
         </div>
@@ -276,9 +276,9 @@
           </article>
 
           <article class="card build reveal" id="lanternlight">
-            <div class="build-top"><span class="kind">Game · Hackathon · In progress</span><span class="chip">Reddit Game of the Day</span></div>
+            <div class="build-top"><span class="kind">Game · Hackathon · Submitted</span><span class="chip">Reddit Game of the Day</span></div>
             <h3>Lanternlight</h3>
-            <p class="lead">A daily puzzle game that lives in a Reddit post. One beam of moonlight enters the board: tap mirrors to turn them and guide the light through every paper lantern, using as few taps as possible. Built for the Reddit Game of the Day hackathon on Devvit Web.</p>
+            <p class="lead">A daily puzzle game that lives in a Reddit post. One beam of moonlight enters the board: tap mirrors to turn them and guide the light through every paper lantern, using as few taps as possible. Built for the Reddit Game of the Day hackathon on Devvit Web and submitted in November 2026; results come after judging.</p>
             <div class="cols">
               <div>
                 <h4>What it does</h4>
@@ -301,7 +301,36 @@
             </div>
             <div data-gallery="lanternlight"></div>
             <div class="chips"><span class="chip">TypeScript</span><span class="chip">React</span><span class="chip">Tailwind CSS</span><span class="chip">Hono</span><span class="chip">Redis</span><span class="chip">Devvit</span></div>
-            <div class="build-links"><button class="btn btn-primary btn-sm" data-request="Lanternlight">🔒 Request source code</button></div>
+            <div class="build-links"><a class="btn btn-primary btn-sm" href="https://devpost.com/software/lanternlight" target="_blank" rel="noopener">View on Devpost ↗</a><a class="btn btn-ghost btn-sm" href="https://youtu.be/d3refNTwP5s" target="_blank" rel="noopener">Watch the demo ↗</a><button class="btn btn-ghost btn-sm" data-request="Lanternlight">🔒 Request source code</button></div>
+          </article>
+
+          <article class="card build reveal" id="steady">
+            <div class="build-top"><span class="kind">Web App · Hackathon · Submitted</span><span class="chip">SafeSpace Hacks</span></div>
+            <h3>Steady</h3>
+            <p class="lead">Turns a phone into a ladder-safety partner using the motion sensors it already has: it helps set the ladder up safely before you climb, then watches for a fall while you work. Built for SafeSpace Hacks 2026 and submitted; results come after judging.</p>
+            <div class="cols">
+              <div>
+                <h4>What it does</h4>
+                <ul>
+                  <li>Angle: lay the phone along a side rail and it shows the ladder live against a wall, turning green at the safe ~76° ("1 out for every 4 up"); enter the ladder length and it says exactly how far to move the feet</li>
+                  <li>Sound guidance so you don't have to look: low ticks for too shallow, high ticks for too steep, a chime when safe</li>
+                  <li>Wobble test scores the footing from a 3-second push; a 20-second pre-climb checklist gives the reason behind each check</li>
+                  <li>Spotter: in your pocket, a fall (free-fall then a hard impact) sets off a siren and a 30-second "Did you fall?" countdown with one-tap calling of an emergency contact</li>
+                </ul>
+              </div>
+              <div>
+                <h4>How it's built</h4>
+                <ul>
+                  <li>Plain HTML, CSS and JavaScript with no build step or dependencies; installable PWA that works offline, hosted on GitHub Pages</li>
+                  <li>Unit-tested maths: rail angle from the gravity vector (<code>asin(|g_y| / |g|)</code>), correct however the phone is twisted on the rail; base-distance advice; wobble as the spread of acceleration magnitude</li>
+                  <li>Fall detector as a state machine (sustained near free-fall, then an impact within 1.2 s); tests check that climbing steps, bounces, a drop without impact and an impact without a drop don't trigger it</li>
+                  <li>DeviceMotion (with the iOS permission prompt), Web Audio, Vibration and Wake Lock APIs; a Content Security Policy blocks all outgoing requests; automatic demo mode with sliders on laptops</li>
+                </ul>
+              </div>
+            </div>
+            <div data-gallery="steady"></div>
+            <div class="chips"><span class="chip">JavaScript</span><span class="chip">HTML/CSS</span><span class="chip">DeviceMotion API</span><span class="chip">Web Audio</span><span class="chip">PWA</span><span class="chip">Unit testing</span></div>
+            <div class="build-links"><a class="btn btn-primary btn-sm" href="https://rsk0110.github.io/steady/" target="_blank" rel="noopener">Try it live ↗</a><a class="btn btn-ghost btn-sm" href="https://devpost.com/software/second-look-omvktc" target="_blank" rel="noopener">View on Devpost ↗</a><button class="btn btn-ghost btn-sm" data-request="Steady">🔒 Request source code</button></div>
           </article>
 
           <article class="card build reveal" id="paypilot">
@@ -331,6 +360,35 @@
             <div data-gallery="paypilot"></div>
             <div class="chips"><span class="chip">JavaScript</span><span class="chip">Node.js</span><span class="chip">Express</span><span class="chip">Claude API</span><span class="chip">PayPal REST APIs</span></div>
             <div class="build-links"><button class="btn btn-primary btn-sm" data-request="PayPilot">🔒 Request source code</button></div>
+          </article>
+
+          <article class="card build reveal" id="second-look">
+            <div class="build-top"><span class="kind">Web App</span><span class="chip">JavaScript</span></div>
+            <h3>Second Look</h3>
+            <p class="lead">A calm second opinion on a suspicious text or email. Paste the message and it explains the warning signs in plain language, checked entirely on your device. First built for SafeSpace Hacks 2026 and kept online as its own app.</p>
+            <div class="cols">
+              <div>
+                <h4>What it does</h4>
+                <ul>
+                  <li>Gives a clear verdict ("looks like a scam", "be careful" or "no common warning signs") and never claims a message is safe</li>
+                  <li>Highlights the exact words behind each warning: pressure, threats, requests for money, codes or remote access, "new number" family scams, secrecy, fake deliveries</li>
+                  <li>Shows where every link really goes, e.g. the real site in <code>paypal.com.account-help.net</code> is <code>account-help.net</code></li>
+                  <li>Suggests specific next steps, and a practice mode with 12 invented messages (8 scams, 4 genuine) trains your eye</li>
+                </ul>
+              </div>
+              <div>
+                <h4>How it's built</h4>
+                <ul>
+                  <li>Plain HTML, CSS and JavaScript (ES modules), no dependencies; offline PWA on GitHub Pages</li>
+                  <li>Rule engine with 11 weighted categories, plus a compound rule that raises the score when pressure and a request appear together</li>
+                  <li>Link analyser finds the registrable domain and catches look-alikes (<code>paypa1</code>, <code>rn</code>→<code>m</code>, edit distance), brands hidden in subdomains, punycode, shorteners and raw IPs</li>
+                  <li>Tests require every scam example to rate high and every genuine one low, with no false flags on ordinary text; a Content Security Policy blocks any outgoing request</li>
+                </ul>
+              </div>
+            </div>
+            <div data-gallery="second-look"></div>
+            <div class="chips"><span class="chip">JavaScript</span><span class="chip">HTML/CSS</span><span class="chip">PWA</span><span class="chip">Unit testing</span><span class="chip">Accessibility</span></div>
+            <div class="build-links"><a class="btn btn-primary btn-sm" href="https://rsk0110.github.io/second-look/" target="_blank" rel="noopener">Try it live ↗</a><button class="btn btn-ghost btn-sm" data-request="Second Look">🔒 Request source code</button></div>
           </article>
 
           <article class="card build reveal" id="occupancy-counter">
@@ -710,6 +768,36 @@
     { "f": "ll-results.jpg", "c": "After solving: how everyone did against par, plus streak stats" },
     { "f": "ll-leaderboard.jpg", "c": "The day's top players: fewest taps, then fastest (demo data)" },
     { "f": "ll-desktop.jpg", "c": "Full game view on a wide screen, with bolted mirrors" }
+   ]
+  }
+ ],
+ "steady": [
+  {
+   "title": "Screenshots (laptop demo mode, phone-sized)",
+   "cls": "three",
+   "dir": "images/steady/",
+   "items": [
+    { "f": "st-angle-safe.jpg", "c": "Angle: safe at 76°, with base-distance advice for a 4 m ladder" },
+    { "f": "st-angle-shallow.jpg", "c": "Too shallow: \"Move the feet 85 cm closer to the wall\"" },
+    { "f": "st-wobble.jpg", "c": "Wobble test: unstable footing, don't climb yet" },
+    { "f": "st-check.jpg", "c": "20-second pre-climb check, with the reason for each item" },
+    { "f": "st-spotter.jpg", "c": "Spotter on: the phone watches for a fall while you climb" },
+    { "f": "st-alarm.jpg", "c": "Fall detected: siren, countdown and one-tap call" }
+   ]
+  }
+ ],
+ "second-look": [
+  {
+   "title": "Screenshots",
+   "cls": "two",
+   "dir": "images/second-look/",
+   "items": [
+    { "f": "sl-landing.jpg", "c": "Paste a message; it is checked on your device and never sent anywhere" },
+    { "f": "sl-phishing.jpg", "c": "A fake PayPal alert: risky words highlighted and the look-alike link exposed" },
+    { "f": "sl-hi-mum.jpg", "c": "\"Hi mum, new number\" scam, with what to do now" },
+    { "f": "sl-parcel.jpg", "c": "Fake delivery text: \"USPS\" is only a disguise in the link" },
+    { "f": "sl-genuine.jpg", "c": "A genuine order email: no warning signs, but no promise it's safe" },
+    { "f": "sl-practice.jpg", "c": "Practice mode: scam or genuine?" }
    ]
   }
  ],
