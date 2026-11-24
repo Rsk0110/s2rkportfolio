@@ -100,7 +100,7 @@ CONTACT = h2('Contact') + rows([
     ('Location', 'Waterloo, Ontario')])
 SKILL_ROWS = [
     ('Languages', 'Python, JavaScript, TypeScript, GDScript, C, SQL, HTML, CSS'),
-    ('Frameworks', 'React, Vite, Tailwind CSS, FastAPI, Node.js, Express, Hono, Godot 4, Zustand'),
+    ('Frameworks', 'React, Vite, Tailwind CSS, FastAPI, Node.js, Express, Hono, Godot 4, Zustand, MediaPipe, Tesseract.js'),
     ('Tools', 'Git, GitHub Actions, SQLite, IndexedDB, Render, Redis, Reddit Devvit, Claude API, PayPal REST APIs, PWAs')]
 SKILLS = h2('Skills') + rows(SKILL_ROWS)
 CERT_LIST = [
@@ -182,11 +182,21 @@ PROJECTS = [
             "Daily mirror-and-lantern puzzle for Reddit: a seeded generator builds each day's board, and an exhaustive solver over every reachable mirror arrangement sets the true minimum taps (par).",
             "Server (Hono + Redis) replays each player's tap sequence against the canonical puzzle to verify solves, then updates a sorted-set leaderboard, score distribution, streaks and stats; a scheduler posts a new puzzle daily.",
             'Difficulty tuned per weekday (5×5 to 8×8) and checked by generating a full year of puzzles; unit tests cover the generator, solver and game rules.']),
+    dict(key='pip', date='Nov 2026', title='Pip', stack='JavaScript · MediaPipe · Tesseract.js · Web Speech · PWA',
+         sub='SLAY Hacks 2026 entry (submitted): on-device reading helper for paper books · live on GitHub Pages', bullets=[
+            'Browser app that reads a word aloud when a reader points just under it in a real book: MediaPipe hand tracking finds the fingertip and Tesseract OCR reads only an upscaled band above it, keeping each read to about 0.2–1.5 s.',
+            'Unit-tested logic picks the word by baseline distance and horizontal cover, a dwell detector fires only when the finger rests, and rule-based syllable splitting (28 test cases) drives a "sound it out" mode.',
+            "Fully on-device for children's privacy: both models ship with the site, no accounts or analytics, and a Content Security Policy limits connections to the site's own origin."]),
     dict(key='steady', date='Nov 2026', title='Steady', stack='JavaScript · HTML/CSS · DeviceMotion · Web Audio · PWA',
          sub='SafeSpace Hacks 2026 entry (submitted): phone-sensor ladder safety · live on GitHub Pages', bullets=[
             "Phone web app that reads a ladder's angle from the accelerometer's gravity vector, independent of how the phone is twisted on the rail, and gives exact advice on how far to move the feet to reach the safe ~76°.",
             'Fall detector as a state machine (sustained free-fall, then an impact within 1.2 s) that triggers a siren and one-tap emergency call; unit tests confirm climbing steps, bounces and drops without impact do not trigger it.',
             'Wobble test from acceleration variance, audio guidance with Web Audio, offline PWA with no server and a Content Security Policy that blocks all outgoing requests; demo mode for devices without sensors.']),
+    dict(key='pairly', date='Nov 2026', title='Pairly', stack='JavaScript · Canvas · Computer vision · PWA',
+         sub='Silicon Valley Buildathon 2026 entry (in progress): pairs socks from one photo · live on GitHub Pages', bullets=[
+            'Finds and pairs socks in one photo with classic computer vision on raw pixels: a least-squares lighting model of the floor in Lab colour, mask clean-up and connected components, then colour, texture and shape descriptors per sock.',
+            'Pairs chosen to minimise total distance, exactly for up to 16 socks (dynamic programming over subsets) and greedily with 2-swap improvement above that; weak matches are left unpaired instead of forced.',
+            'Tests generate random sock piles and check every sock is found and every pair correct; odd socks are saved locally and matched against later photos.']),
     dict(key='secondlook', date='Nov 2026', title='Second Look', stack='JavaScript · HTML/CSS · PWA',
          sub='On-device scam message checker · live on GitHub Pages', bullets=[
             'Explains why a pasted text or email looks like a scam: a rule engine with 11 weighted categories highlights the exact words, and a compound rule boosts the score when pressure and a request appear together.',
@@ -212,7 +222,7 @@ RESUME_PROJECTS = {   # project key -> number of bullets shown
     'general':   {'circuitguard': 3, 'whisper': 3, 'mun': 3, 'occupancy': 2},
     'coop':      {'circuitguard': 3, 'whisper': 3, 'mun': 3, 'occupancy': 2},
     'hackathon': {'circuitguard': 3, 'whisper': 3, 'smash': 2, 'mun': 2, 'occupancy': 2},
-    'full':      {'circuitguard': 3, 'whisper': 3, 'daydream': 2, 'lanternlight': 2, 'steady': 2, 'mun': 3, 'paypilot': 2, 'secondlook': 2, 'occupancy': 3, 'smash': 2, 'tracknector': 2, 'corso': 2},
+    'full':      {'circuitguard': 3, 'whisper': 3, 'daydream': 2, 'lanternlight': 2, 'pip': 2, 'steady': 2, 'mun': 3, 'paypilot': 2, 'pairly': 2, 'secondlook': 2, 'occupancy': 3, 'smash': 2, 'tracknector': 2, 'corso': 2},
 }
 
 def projects(which):
@@ -221,11 +231,11 @@ def projects(which):
     return sec('Projects', body +
         '<div class="note">Source code available <a href="mailto:' + EMAIL + '?subject=Source%20code%20request" style="color:#263654;font-weight:700">on request</a> · more projects at rsk0110.github.io/s2rkportfolio</div>')
 
-HACKS = [('FormulaTech Hacks — Winner (Ampere)', '2026'), ('Reddit Game of the Day (submitted)', '2026'), ('SafeSpace Hacks (submitted)', '2026'), ('RevenueCat Shipaton', '2026'), ('OpenCV AI Competition (AWS)', '2026'),
+HACKS = [('FormulaTech Hacks — Winner (Ampere)', '2026'), ('Reddit Game of the Day (submitted)', '2026'), ('SafeSpace Hacks (submitted)', '2026'), ('SLAY Hacks (submitted)', '2026'), ('RevenueCat Shipaton', '2026'), ('OpenCV AI Competition (AWS)', '2026'),
          ('Nebius x NVIDIA Global AI Hackathon', '2026'), ('IBM BOB 2.0 Hackathon', '2026'), ('DPS MIS Doha Hackathon', '2025'),
          ('Birla School Hackathon — Qatar', '2024'), ('CMU Qatar Hackathon', '2023')]
 def hackathons(title='Hackathons'):
-    return sec(title, '<div class="hack">' + ''.join(f'<div>{e(a)}<span>{b}</span></div>' for a, b in HACKS) + '</div><div class="note"><b>10 hackathons · 5 won · 1 organised</b></div>')
+    return sec(title, '<div class="hack">' + ''.join(f'<div>{e(a)}<span>{b}</span></div>' for a, b in HACKS) + '</div><div class="note"><b>11 hackathons · 5 won · 1 organised</b></div>')
 
 WATERLOO = sec('Waterloo Teams', item('WARG — Waterloo Aerial Robotics Group', '2026', 'Autonomy team · Embedded Flight Software team') +
     item('UW Orbital · UW Game Dev', '2026', 'Student satellite design team · built beginner-level games') +

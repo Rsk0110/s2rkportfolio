@@ -175,8 +175,8 @@
         <h1>What I've <span class="gradient-text">built</span></h1>
         <p>Web apps, tools and hackathon projects — what each one does, why I made it, and how it's put together.</p>
         <div class="stats">
-          <div class="card stat"><div class="num gradient-text">12</div><div class="lbl">Projects built</div></div>
-          <div class="card stat"><div class="num gradient-text">10</div><div class="lbl">Hackathons</div></div>
+          <div class="card stat"><div class="num gradient-text">14</div><div class="lbl">Projects built</div></div>
+          <div class="card stat"><div class="num gradient-text">11</div><div class="lbl">Hackathons</div></div>
           <div class="card stat"><div class="num gradient-text">5</div><div class="lbl">Hackathon wins</div></div>
           <div class="card stat"><div class="num gradient-text">3</div><div class="lbl">Games shipped</div></div>
         </div>
@@ -304,6 +304,35 @@
             <div class="build-links"><a class="btn btn-primary btn-sm" href="https://devpost.com/software/lanternlight" target="_blank" rel="noopener">View on Devpost ↗</a><a class="btn btn-ghost btn-sm" href="https://youtu.be/d3refNTwP5s" target="_blank" rel="noopener">Watch the demo ↗</a><button class="btn btn-ghost btn-sm" data-request="Lanternlight">🔒 Request source code</button></div>
           </article>
 
+          <article class="card build reveal" id="pip">
+            <div class="build-top"><span class="kind">AI · Web App · Hackathon · Submitted</span><span class="chip">SLAY Hacks</span></div>
+            <h3>Pip</h3>
+            <p class="lead">A reading buddy for real paper books. Hold a book under a phone or laptop camera, rest your fingertip just under a word you're stuck on, and Pip reads it to you, all on your own device. Built for SLAY Hacks 2026 and submitted; results come after judging.</p>
+            <div class="cols">
+              <div>
+                <h4>What it does</h4>
+                <ul>
+                  <li>Finds your pointing finger, reads the word just above it, highlights it on the live view and says it aloud</li>
+                  <li>Helps like a person would: <b>Slowly</b> (half speed), <b>Sound it out</b> (each syllable lights up as it is spoken) and <b>Spell it</b></li>
+                  <li>Every word you ask about goes to <i>My words</i>, with flash-card practice that marks words as "got it"</li>
+                  <li>No camera handy? Try the sample page (an original short story) or a photo of a page, with the mouse or a finger as the pointer</li>
+                </ul>
+              </div>
+              <div>
+                <h4>How it's built</h4>
+                <ul>
+                  <li>Plain HTML, CSS and JavaScript ES modules with no build step; offline-capable PWA on GitHub Pages</li>
+                  <li>Two on-device models run in the browser (WebAssembly/WebGL): MediaPipe Hand Landmarker for the fingertip and Tesseract.js for text, reading only an upscaled, contrast-boosted band above the finger so each read takes about 0.2–1.5 s</li>
+                  <li>Unit-tested logic: <code>pickWord</code> scores OCR boxes by baseline-to-fingertip distance and horizontal cover, a dwell detector fires only when the finger rests, and rule-based syllable splitting is checked on 28 cases</li>
+                  <li>Built for children's privacy: no accounts, analytics or cloud AI; a Content Security Policy limits connections to the site itself, and speech uses the device's own voice</li>
+                </ul>
+              </div>
+            </div>
+            <div data-gallery="pip"></div>
+            <div class="chips"><span class="chip">JavaScript</span><span class="chip">MediaPipe</span><span class="chip">Tesseract.js</span><span class="chip">Web Speech API</span><span class="chip">PWA</span><span class="chip">Unit testing</span></div>
+            <div class="build-links"><a class="btn btn-primary btn-sm" href="https://rsk0110.github.io/pip-reader/" target="_blank" rel="noopener">Try it live ↗</a><a class="btn btn-ghost btn-sm" href="https://devpost.com/software/pip-uo73rf" target="_blank" rel="noopener">View on Devpost ↗</a><a class="btn btn-ghost btn-sm" href="https://youtu.be/A_3pmIrAELw" target="_blank" rel="noopener">Watch the demo ↗</a><button class="btn btn-ghost btn-sm" data-request="Pip">🔒 Request source code</button></div>
+          </article>
+
           <article class="card build reveal" id="steady">
             <div class="build-top"><span class="kind">Web App · Hackathon · Submitted</span><span class="chip">SafeSpace Hacks</span></div>
             <h3>Steady</h3>
@@ -360,6 +389,35 @@
             <div data-gallery="paypilot"></div>
             <div class="chips"><span class="chip">JavaScript</span><span class="chip">Node.js</span><span class="chip">Express</span><span class="chip">Claude API</span><span class="chip">PayPal REST APIs</span></div>
             <div class="build-links"><button class="btn btn-primary btn-sm" data-request="PayPilot">🔒 Request source code</button></div>
+          </article>
+
+          <article class="card build reveal" id="pairly">
+            <div class="build-top"><span class="kind">Web App · Hackathon · In progress</span><span class="chip">Silicon Valley Buildathon</span></div>
+            <h3>Pairly</h3>
+            <p class="lead">Pairing socks is the most tedious part of laundry. Spread the clean socks out, take one photo from above, and Pairly outlines every sock and numbers the pairs. Built for the Silicon Valley Buildathon 2026; live and still being tested and improved before submission.</p>
+            <div class="cols">
+              <div>
+                <h4>What it does</h4>
+                <ul>
+                  <li>Finds every sock in one photo and gives each pair the same numbered badge; odd socks get a red "?"</li>
+                  <li>Mistakes are easy to fix: tap two socks to pair them, or tap a pair to split it</li>
+                  <li>Odd socks can be saved to the <i>Lonely socks</i> drawer; on the next laundry day every new photo is checked against it and matching socks get a star</li>
+                  <li>Warns about socks that touch and marks unsure pairs "check this one"</li>
+                </ul>
+              </div>
+              <div>
+                <h4>How it's built</h4>
+                <ul>
+                  <li>Classic computer vision on raw canvas pixels, no AI service or upload: a lighting-aware floor model (least-squares plane per Lab channel, fitted on the image border) separates socks from the background</li>
+                  <li>Mask clean-up (open, close) and connected components; each sock is described by a lighting-robust colour histogram, a texture score and its size and elongation</li>
+                  <li>Pairs minimise total distance: exact for up to 16 socks (dynamic programming over subsets), greedy with 2-swap improvement above that, and a sock is left unpaired rather than forced into a bad pair</li>
+                  <li>Tests generate random sock piles and check every sock is found and every pair correct, that navy and charcoal aren't confused, and that the drawer finds a partner later; a 900×680 photo takes about 0.3 s</li>
+                </ul>
+              </div>
+            </div>
+            <div data-gallery="pairly"></div>
+            <div class="chips"><span class="chip">JavaScript</span><span class="chip">Computer vision</span><span class="chip">Canvas</span><span class="chip">PWA</span><span class="chip">Unit testing</span></div>
+            <div class="build-links"><a class="btn btn-primary btn-sm" href="https://rsk0110.github.io/pairly/" target="_blank" rel="noopener">Try it live ↗</a><button class="btn btn-ghost btn-sm" data-request="Pairly">🔒 Request source code</button></div>
           </article>
 
           <article class="card build reveal" id="second-look">
@@ -768,6 +826,35 @@
     { "f": "ll-results.jpg", "c": "After solving: how everyone did against par, plus streak stats" },
     { "f": "ll-leaderboard.jpg", "c": "The day's top players: fewest taps, then fastest (demo data)" },
     { "f": "ll-desktop.jpg", "c": "Full game view on a wide screen, with bolted mirrors" }
+   ]
+  }
+ ],
+ "pip": [
+  {
+   "title": "Screenshots (sample page, mouse as the finger)",
+   "cls": "two",
+   "dir": "images/pip/",
+   "items": [
+    { "f": "pip-word.jpg", "c": "Pointed at \"frightened\": said aloud and split into syllables to sound out" },
+    { "f": "pip-page.jpg", "c": "Sample page: rest the pointer just under a word, or tap it" },
+    { "f": "pip-home.jpg", "c": "Start with the camera, a sample page or a photo of a page" },
+    { "f": "pip-words.jpg", "c": "My words: every word you asked about, with its syllables" },
+    { "f": "pip-practice.jpg", "c": "Flash-card practice: read it, then check" },
+    { "f": "pip-mobile.jpg", "c": "On a phone" }
+   ]
+  }
+ ],
+ "pairly": [
+  {
+   "title": "Screenshots (built-in sample piles)",
+   "cls": "two",
+   "dir": "images/pairly/",
+   "items": [
+    { "f": "pa-pairs.jpg", "c": "One photo: 5 pairs numbered and 1 odd sock flagged with \"?\"" },
+    { "f": "pa-match.jpg", "c": "Next laundry day: the starred sock matches one waiting in the drawer" },
+    { "f": "pa-drawer.jpg", "c": "The Lonely socks drawer" },
+    { "f": "pa-home.jpg", "c": "Take a photo, choose one, or try a sample pile" },
+    { "f": "pa-mobile.jpg", "c": "On a phone" }
    ]
   }
  ],

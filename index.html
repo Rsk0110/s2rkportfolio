@@ -491,7 +491,7 @@
           <div class="about-text reveal">
             <p>I'm a <strong>Computer Science (Co-op) &amp; Computational Mathematics</strong> student at the University of Waterloo (expected 2031), focused on building products where tech meets impact.</p>
             <p>I graduated from <strong>Delhi Public School – Modern Indian School, Doha</strong> (CBSE, Computer Science, 2026), where I earned a <strong>Gold Medal of Distinction at the International Informatics Olympiad</strong> and a Bronze the following year, plus a Gold at the National Science Olympiad.</p>
-            <p>I've built projects in <strong>TypeScript, React and Python</strong> and competed in <strong>10 hackathons</strong>, including winning at <strong>FormulaTech Hacks 2026</strong>. Beyond code, I led my school's <strong>Model UN</strong> program as Director, earned <strong>six Best Delegate awards</strong>, and served on the executive team for <strong>TEDxYouth</strong>.</p>
+            <p>I've built projects in <strong>TypeScript, React and Python</strong> and competed in <strong>11 hackathons</strong>, including winning at <strong>FormulaTech Hacks 2026</strong>. Beyond code, I led my school's <strong>Model UN</strong> program as Director, earned <strong>six Best Delegate awards</strong>, and served on the executive team for <strong>TEDxYouth</strong>.</p>
             <p>At Waterloo I'm part of <strong>WARG</strong> (autonomy and embedded flight software), <strong>UW Orbital</strong> and <strong>UW Game Dev</strong>. Off screen I play <strong>basketball</strong> (national-level CBSE Clusters) and train <strong>kickboxing</strong>.</p>
             <p>I'm looking for <strong>Winter/Spring co-op</strong> roles where I can build real products and learn from experienced engineers.</p>
           </div>
@@ -612,7 +612,7 @@
               <div class="row"><span>Corso Website — HTML · Bootstrap · Sass · JavaScript</span><span><a href="https://github.com/Rsk0110/webproject" target="_blank" rel="noopener">Source on GitHub</a></span></div>
               <ul><li>Responsive training-courses site with sticky navbar, carousel and registration forms; Sass build via npm scripts.</li><li>Later cleaned up: working forms with validation, accessibility fixes, ~70% smaller images; live on GitHub Pages.</li></ul>
               <h4>Hackathons</h4>
-              <ul><li>FormulaTech Hacks 2026 (Waterloo, Winner) · Reddit Game of the Day 2026 (submitted) · SafeSpace Hacks 2026 (submitted) · RevenueCat Shipaton 2026 · OpenCV AI Competition (AWS) 2026 · Nebius x NVIDIA Global AI Hackathon 2026 · IBM BOB 2.0 2026 · DPS MIS Doha 2025 · Birla School 2024 · CMU Qatar 2023</li></ul>
+              <ul><li>FormulaTech Hacks 2026 (Waterloo, Winner) · Reddit Game of the Day 2026 (submitted) · SafeSpace Hacks 2026 (submitted) · SLAY Hacks 2026 (submitted) · RevenueCat Shipaton 2026 · OpenCV AI Competition (AWS) 2026 · Nebius x NVIDIA Global AI Hackathon 2026 · IBM BOB 2.0 2026 · DPS MIS Doha 2025 · Birla School 2024 · CMU Qatar 2023</li></ul>
             </section>
 
             <section class="resume-pane" data-pane="skills" style="padding:0">
@@ -729,6 +729,9 @@
     { title: "Lanternlight", kind: "Game · Hackathon · Submitted", cat: "Games",
       desc: "Daily light-and-mirror puzzle for Reddit, built for the Reddit Game of the Day hackathon on Devvit Web. Tap mirrors to steer one beam of moonlight through every paper lantern in as few taps as possible. A seeded generator makes a new puzzle every day, an exhaustive solver sets the true minimum (par), and the server replays each tap sequence to verify results for the daily leaderboard, streaks and score distribution.",
       tags: ["TypeScript", "React", "Tailwind CSS", "Hono", "Redis", "Devvit"], img: "images/lanternlight/ll-solved.jpg", link: "built.html#lanternlight", devpost: "https://devpost.com/software/lanternlight" },
+    { title: "Pip", kind: "AI · Web App · Hackathon · Submitted", cat: "AI",
+      desc: "Reading buddy for paper books, built for SLAY Hacks. Rest a fingertip just under a word you're stuck on: on-device hand tracking (MediaPipe) finds the finger, on-device OCR (Tesseract.js) reads the word above it, and Pip says it aloud, sounds it out syllable by syllable and saves it to a practice list. Both models run in the browser and nothing is uploaded; a sample page lets anyone try it without a camera.",
+      tags: ["JavaScript", "MediaPipe", "Tesseract.js", "Web Speech API", "PWA", "Unit testing"], img: "images/pip/pip-word.jpg", link: "built.html#pip", live: "https://rsk0110.github.io/pip-reader/", devpost: "https://devpost.com/software/pip-uo73rf" },
     { title: "Steady", kind: "Web App · Hackathon · Submitted", cat: "Web",
       desc: "Phone-sensor ladder-safety app built for SafeSpace Hacks. Lay the phone on a rail and it reads the ladder's angle from gravity, turns green at the safe ~76° and says exactly how far to move the feet; a wobble test scores the footing, a 20-second checklist explains each check, and Spotter mode watches for a fall (free-fall then impact) and offers one-tap calling of an emergency contact. Runs fully offline with no server; laptops get a demo mode.",
       tags: ["JavaScript", "HTML/CSS", "DeviceMotion API", "Web Audio", "PWA", "Unit testing"], img: "images/steady/st-cover.jpg", link: "built.html#steady", live: "https://rsk0110.github.io/steady/", devpost: "https://devpost.com/software/second-look-omvktc" },
@@ -741,6 +744,9 @@
     { title: "Second Look", kind: "Web App", cat: "Web",
       desc: "Paste a suspicious text or email and get a plain-language second opinion, checked entirely on your device. A rule engine flags pressure, threats, requests for money or codes and \"new number\" scams, highlights the exact words, and shows where every link really goes, catching look-alike domains like paypa1-support.com. Includes a 12-message practice mode, works offline, and a Content Security Policy blocks it from sending data anywhere.",
       tags: ["JavaScript", "HTML/CSS", "PWA", "Unit testing", "Accessibility"], img: "images/second-look/sl-phishing.jpg", link: "built.html#second-look", live: "https://rsk0110.github.io/second-look/" },
+    { title: "Pairly", kind: "Web App · Hackathon · In progress", cat: "Web",
+      desc: "Photograph a pile of clean socks and get the pairs, built for the Silicon Valley Buildathon. Classic computer vision on raw pixels in the browser: a lighting-aware model of the floor separates the socks, each sock gets a colour, texture and shape description, and an exact matcher (dynamic programming over subsets, up to 16 socks) picks the pairs. Odd socks go to a Lonely socks drawer, and later photos are checked against it.",
+      tags: ["JavaScript", "Computer vision", "Canvas", "PWA", "Unit testing"], img: "images/pairly/pa-match.jpg", link: "built.html#pairly", live: "https://rsk0110.github.io/pairly/" },
     { title: "Door Occupancy Counter", kind: "Prototype · In progress", cat: "Python",
       desc: "Counts people going in and out of a building's doors from two-beam sensor events, so the building always knows how many people are inside. Live dashboard with a capacity bar and alerts, today-vs-usual chart with a forecast for the rest of the day, a busiest-times heatmap, accuracy tracking from hand counts, an emergency roll-call view and automatic daily Excel reports. Any phone can act as a door sensor via a QR link: in-browser person detection counts line crossings and sends only in/out, never video.",
       tags: ["Python", "SQLite", "JavaScript", "TensorFlow.js", "Unit testing"], img: "images/occupancy-counter/occ-dashboard.jpg", link: "built.html#occupancy-counter" },
@@ -760,8 +766,8 @@
       points: ["Member of the Autonomy team and the Embedded Flight Software team at Waterloo's aerial robotics design team."] },
     { role: "Team Member", org: "UW Orbital · UW Game Dev", date: "2026 – Present",
       points: ["UW Orbital: student satellite design team.", "UW Game Dev: built beginner-level games. Also a member of the CS Club and UW Data Science Club."] },
-    { role: "Hackathons", org: "10 events", date: "2023 – 2026",
-      points: ["Winner, FormulaTech Hacks 2026 (University of Waterloo).", "Also: Reddit Game of the Day and SafeSpace Hacks (both submitted, results pending), RevenueCat Shipaton, OpenCV AI Competition (AWS), Nebius x NVIDIA Global AI Hackathon, IBM BOB 2.0, DPS MIS Doha (2025), Birla School (2024), CMU Qatar (2023)."] },
+    { role: "Hackathons", org: "11 events", date: "2023 – 2026",
+      points: ["Winner, FormulaTech Hacks 2026 (University of Waterloo).", "Also: Reddit Game of the Day, SafeSpace Hacks and SLAY Hacks (all submitted, results pending), RevenueCat Shipaton, OpenCV AI Competition (AWS), Nebius x NVIDIA Global AI Hackathon, IBM BOB 2.0, DPS MIS Doha (2025), Birla School (2024), CMU Qatar (2023)."] },
     { role: "Director of MUN & Electoral and Democratic Club", org: "DPS-Modern Indian School, Doha", date: "May 2025 – Jun 2026",
       points: ["Led and managed the school's MUN program: organized conferences, trained delegates, promoted diplomacy and public speaking.", "MUN Trainer since May 2024; Head Chair and Delegate Mentor at Catalyst MUN and Global MUN Network."] },
     { role: "Head of Marketing (Executive Team)", org: "TEDxYouth@DPSMIS", date: "Sep – Dec 2025",
@@ -779,7 +785,7 @@
   ];
 
   const ACHIEVEMENTS = [
-    { num: "10", lbl: "Hackathons (5 wins)" },
+    { num: "11", lbl: "Hackathons (5 wins)" },
     { num: "6", lbl: "MUN Best Delegate awards" },
     { num: "Gold", lbl: "Intl. Informatics Olympiad" },
     { num: "Gold", lbl: "CBSE Qatar basketball (2025-26)" }
@@ -787,9 +793,9 @@
 
   const SKILLS = [
     { cat: "Languages", ico: "</>", items: ["Python", "JavaScript", "TypeScript", "GDScript", "C", "SQL", "Racket", "HTML/CSS"] },
-    { cat: "Frameworks & Engines", ico: "{ }", items: ["React", "Vite", "Tailwind CSS", "FastAPI", "Godot 4", "Bootstrap", "Zustand", "TensorFlow.js", "Node.js", "Express", "Hono"] },
+    { cat: "Frameworks & Engines", ico: "{ }", items: ["React", "Vite", "Tailwind CSS", "FastAPI", "Godot 4", "Bootstrap", "Zustand", "TensorFlow.js", "MediaPipe", "Tesseract.js", "Node.js", "Express", "Hono"] },
     { cat: "Tools & Platforms", ico: ">_", items: ["Git & GitHub", "GitHub Actions", "IndexedDB (Dexie)", "Sass", "npm", "Render", "Claude API", "PayPal REST APIs", "Redis", "Reddit Devvit", "PWAs & Web Sensor APIs"] },
-    { cat: "Core Concepts", ico: "∑", items: ["Algorithms", "Data Structures", "Computational Math", "Offline-first apps", "Testing", "Public Speaking", "Team Leadership"] }
+    { cat: "Core Concepts", ico: "∑", items: ["Algorithms", "Data Structures", "Computational Math", "Computer Vision", "Offline-first apps", "Testing", "Public Speaking", "Team Leadership"] }
   ];
 
   /* =========================================================
@@ -967,7 +973,7 @@
   }));
 
   // Bumped by tools/update_resumes.py on every rebuild so browsers fetch the new files instead of a cached copy.
-  const RESUME_VERSION = "20261117-211107";
+  const RESUME_VERSION = "20261124-085317";
   // "Download PDF": clone the resume into the print-only container and open the print dialog;
   // choose "Save as PDF". To serve a pre-made file instead, set RESUME_FILE to e.g. "resume.pdf".
   const RESUME_FILE = "resume/Rushil_Barve_Resume.pdf?v=" + RESUME_VERSION;
